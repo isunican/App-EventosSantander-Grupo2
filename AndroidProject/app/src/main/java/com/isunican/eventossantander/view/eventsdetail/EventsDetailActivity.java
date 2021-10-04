@@ -16,6 +16,10 @@ import com.squareup.picasso.Picasso;
 public class EventsDetailActivity extends AppCompatActivity {
 
     public static final String INTENT_EVENT = "INTENT_EVENT";
+    TextView eventTitleText;
+    ImageView eventImageImage;
+    TextView eventDateText;
+    TextView eventDescriptionText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +27,19 @@ public class EventsDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_events_detail);
 
         // Link to view elements
-        TextView eventTitleText = findViewById(R.id.event_detail_title);
-        ImageView eventImageImage = findViewById(R.id.event_detail_image);
-        TextView eventDateText = findViewById(R.id.event_detail_date);
-        TextView eventDescriptionText = findViewById(R.id.event_detail_description);
+        eventTitleText = findViewById(R.id.event_detail_title);
+        eventImageImage = findViewById(R.id.event_detail_image);
+        eventDateText = findViewById(R.id.event_detail_date);
+        eventDescriptionText = findViewById(R.id.event_detail_description);
 
         // Get Event from the intent that triggered this activity
         Event event = getIntent().getExtras().getParcelable(INTENT_EVENT);
 
+        rellenarInformacionEvento(event);
+
+    }
+
+    private void rellenarInformacionEvento(Event event){
         // Set information
         eventTitleText.setText(event.getNombre());                      // title
         Picasso.get().load(event.getImagen()).into(eventImageImage);    // image
