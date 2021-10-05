@@ -28,7 +28,7 @@ public class EventsDetailActivity extends AppCompatActivity {
 
         // Link to view elements
         eventTitleText = findViewById(R.id.event_detail_title);
-        eventImageImage = findViewById(R.id.event_detail_image);
+        eventImageImage = findViewById(R.id.event_detail_imagen);
         eventDateText = findViewById(R.id.event_detail_date);
         eventDescriptionText = findViewById(R.id.event_detail_description);
 
