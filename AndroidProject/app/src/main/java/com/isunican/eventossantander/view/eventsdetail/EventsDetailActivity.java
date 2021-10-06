@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -40,17 +41,17 @@ public class EventsDetailActivity extends AppCompatActivity {
         Event event = getIntent().getExtras().getParcelable(INTENT_EVENT);
 
         rellenarInformacionEvento(event);
-
     }
 
     private void rellenarInformacionEvento(Event event){
         // Set information
-        eventTitleText.setText(event.getNombre());                      // title
-        Picasso.get().load(event.getImagen()).into(eventImageImage);    // image
-        eventDateText.setText(event.getFecha());                        // date
-        eventDescriptionText.setText(event.getDescripcion());           // description
-        eventCategoriaText.setText(event.getCategoria());               // categoria
+        eventTitleText.setText(Html.fromHtml(event.getNombre()));           // title
+        Picasso.get().load(event.getImagen()).into(eventImageImage);        // image
+        eventDateText.setText(event.getFecha());                            // date
+        eventDescriptionText.setText(Html.fromHtml(event.getDescripcion()));// description
+        eventCategoriaText.setText(event.getCategoria());                   // categoria
             // TODO switch con cada posibilidad y su color correspondiente
-        eventLinkText.setText(event.getEnlace());                       // enlace
+        eventLinkText.setText(event.getEnlace());                           // enlace
+        eventLinkText.setMovementMethod(LinkMovementMethod.getInstance());  // TODO hace el enlace seleccionable (no funciona)
     }
 }
