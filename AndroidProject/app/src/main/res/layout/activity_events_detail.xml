@@ -30,6 +30,8 @@
                 android:id="@+id/event_detail_imagen"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 android:layout_marginTop="10dp"
                 tools:srcCompat="@tools:sample/avatars" />
 
