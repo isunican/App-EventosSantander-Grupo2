@@ -1,14 +1,13 @@
 package com.isunican.eventossantander.view.eventsdetail;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
@@ -45,13 +44,43 @@ public class EventsDetailActivity extends AppCompatActivity {
 
     private void rellenarInformacionEvento(Event event){
         // Set information
-        eventTitleText.setText(Html.fromHtml(event.getNombre()));           // title
-        Picasso.get().load(event.getImagen()).into(eventImageImage);        // image
-        eventDateText.setText(event.getFecha());                            // date
-        eventDescriptionText.setText(Html.fromHtml(event.getDescripcion()));// description
-        eventCategoriaText.setText(event.getCategoria());                   // categoria
+        if (Html.fromHtml(event.getNombre()).toString().isEmpty()){
+            eventTitleText.setVisibility(View.GONE);
+        } else {
+            eventTitleText.setText(Html.fromHtml(event.getNombre()));           // title
+        }
+
+        if (Html.fromHtml(event.getImagen()).toString().isEmpty()){
+            eventImageImage.setVisibility(View.GONE);
+        } else {
+            Picasso.get().load(event.getImagen()).into(eventImageImage);        // image
+        }
+
+        if (Html.fromHtml(event.getFecha()).toString().isEmpty()){
+            eventDateText.setVisibility(View.GONE);
+        } else {
+            eventDateText.setText(event.getFecha());                            // date
+        }
+
+        if (Html.fromHtml(event.getDescripcion()).toString().isEmpty()){
+            eventDescriptionText.setVisibility(View.GONE);
+        } else {
+            eventDescriptionText.setText(Html.fromHtml(event.getDescripcion()));// description
+        }
+
+        if (Html.fromHtml(event.getCategoria()).toString().isEmpty()){
+            eventCategoriaText.setVisibility(View.GONE);
+        } else {
+            eventCategoriaText.setText(event.getCategoria());                   // categoria
+        }
+
+        if (Html.fromHtml(event.getEnlace()).toString().isEmpty()){
+            eventLinkText.setVisibility(View.GONE);
+        } else {
             // TODO switch con cada posibilidad y su color correspondiente
-        eventLinkText.setText(event.getEnlace());                           // enlace
-        eventLinkText.setMovementMethod(LinkMovementMethod.getInstance());  // TODO hace el enlace seleccionable (no funciona)
+            eventLinkText.setText(event.getEnlace());                           // enlace
+            eventLinkText.setMovementMethod(LinkMovementMethod.getInstance());  // TODO hace el enlace seleccionable (no funciona)
+        }
+
     }
 }
