@@ -42,15 +42,18 @@ public class EventArrayAdapter extends ArrayAdapter<Event> {
 
         // Link subviews
         TextView titleTxt = view.findViewById(R.id.item_event_title);
+        TextView categoriaTxt = view.findViewById(R.id.item_event_categoria);
         TextView dateTxt = view.findViewById(R.id.item_event_date);
-        ImageView imageTxt = view.findViewById(R.id.item_event_image);
+        ImageView iconTxt = view.findViewById(R.id.item_event_icon);
+        ImageView imageTxt = view.findViewById(R.id.item_event_imagen);
 
         // Assign values to TextViews
         titleTxt.setText(event.getNombre());
+        categoriaTxt.setText(event.getCategoria());
         dateTxt.setText(event.getFecha());
 
         // Assign image
-        imageTxt.setImageResource(getImageIdForEvent(event));
+        iconTxt.setImageResource(getImageIdForEvent(event));
 
         return view;
     }
