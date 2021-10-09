@@ -1,7 +1,6 @@
 package com.isunican.eventossantander.view.events;
 
-import android.app.Activity;
-import android.text.Html;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.text.HtmlCompat;
 
 
 import com.isunican.eventossantander.R;
@@ -24,11 +24,9 @@ import java.util.List;
 public class EventArrayAdapter extends ArrayAdapter<Event> {
 
     private final List<Event> events;
-    private final EventsActivity activity;
 
     public EventArrayAdapter(@NonNull EventsActivity activity, int resource, @NonNull List<Event> objects) {
         super(activity, resource, objects);
-        this.activity = activity;
         this.events = objects;
     }
 
@@ -38,7 +36,7 @@ public class EventArrayAdapter extends ArrayAdapter<Event> {
         Event event = events.get(position);
 
         // Create item view
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.events_listview_item, null);
 
         // Link subviews
@@ -60,7 +58,7 @@ public class EventArrayAdapter extends ArrayAdapter<Event> {
         dateTxt.setText(event.getFecha());
 
         // Assign image
-        if (Html.fromHtml(event.getNombre()).toString().isEmpty()) {
+        if (HtmlCompat.fromHtml(event.getNombre(), HtmlCompat.FROM_HTML_MODE_LEGACY).toString().isEmpty()) {
             imageTxt.setVisibility(View.GONE);
             iconTxt.setImageResource(getImageIdForEvent(event));
         }
@@ -73,7 +71,7 @@ public class EventArrayAdapter extends ArrayAdapter<Event> {
 
     /**
      * Determines the image resource id that must be used as the icon for a given event.
-     * @param event
+     * @param event The event the image must be used for
      * @return the image resource id for the event
      */
     private int getImageIdForEvent(Event event) {

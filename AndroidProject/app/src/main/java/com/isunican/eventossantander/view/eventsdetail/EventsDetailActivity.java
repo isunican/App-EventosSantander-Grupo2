@@ -1,8 +1,9 @@
 package com.isunican.eventossantander.view.eventsdetail;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.text.HtmlCompat;
+
 import android.os.Bundle;
-import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
@@ -48,7 +49,7 @@ public class EventsDetailActivity extends AppCompatActivity {
         if (event.getNombre().isEmpty()){
             eventTitleText.setVisibility(View.GONE);
         } else {
-            eventTitleText.setText(Html.fromHtml(event.getNombre()));           // title
+            eventTitleText.setText(HtmlCompat.fromHtml(event.getNombre(), HtmlCompat.FROM_HTML_MODE_LEGACY));   // title
         }
 
         if (event.getImagen().isEmpty()){
@@ -66,21 +67,21 @@ public class EventsDetailActivity extends AppCompatActivity {
         if (event.getDescripcion().isEmpty()){
             eventDescriptionText.setVisibility(View.GONE);
         } else {
-            eventDescriptionText.setText(Html.fromHtml(event.getDescripcion()));// description
+            eventDescriptionText.setText(HtmlCompat.fromHtml(event.getDescripcion(), HtmlCompat.FROM_HTML_MODE_LEGACY));// description
         }
 
         if (event.getCategoria().isEmpty()){
             eventCategoriaText.setVisibility(View.GONE);
         } else {
-            eventCategoriaText.setText(event.getCategoria());                   // categoria
+            eventCategoriaText.setText(event.getCategoria());                   // Categoria
         }
 
-        if (event.getEnlace().toString().isEmpty()){
+        if (event.getEnlace().isEmpty()){
             eventLinkText.setVisibility(View.GONE);
         } else {
             // TODO switch con cada posibilidad y su color correspondiente
-            eventLinkText.setText(event.getEnlace());                           // enlace
-            eventLinkText.setMovementMethod(LinkMovementMethod.getInstance());  // TODO hace el enlace seleccionable (no funciona)
+            eventLinkText.setText(event.getEnlace());                           // Enlace
+            eventLinkText.setMovementMethod(LinkMovementMethod.getInstance());  // Hace el enlace seleccionable
         }
 
     }
