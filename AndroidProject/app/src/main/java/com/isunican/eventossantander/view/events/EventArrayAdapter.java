@@ -1,7 +1,6 @@
 package com.isunican.eventossantander.view.events;
 
 import android.app.Activity;
-import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +46,7 @@ public class EventArrayAdapter extends ArrayAdapter<Event> {
         TextView categoriaTxt = view.findViewById(R.id.item_event_categoria);
         TextView dateTxt = view.findViewById(R.id.item_event_date);
         ImageView iconTxt = view.findViewById(R.id.item_event_icon);
-        ImageView imageTxt = view.findViewById(R.id.item_event_imagen);
+        ImageView imageTxt = view.findViewById(R.id.item_event_image);
 
         // Assign values to TextViews
         titleTxt.setText(event.getNombre());

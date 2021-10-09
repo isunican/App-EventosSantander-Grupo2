@@ -45,37 +45,37 @@ public class EventsDetailActivity extends AppCompatActivity {
 
     private void rellenarInformacionEvento(Event event){
         // Set information
-        if (Html.fromHtml(event.getNombre()).toString().isEmpty()){
+        if (event.getNombre().isEmpty()){
             eventTitleText.setVisibility(View.GONE);
         } else {
             eventTitleText.setText(Html.fromHtml(event.getNombre()));           // title
         }
 
-        if (Html.fromHtml(event.getImagen()).toString().isEmpty()){
+        if (event.getImagen().isEmpty()){
             eventImageImage.setVisibility(View.GONE);
         } else {
             Picasso.get().load(event.getImagen()).into(eventImageImage);        // image
         }
 
-        if (Html.fromHtml(event.getFecha()).toString().isEmpty()){
+        if (event.getFecha().isEmpty()){
             eventDateText.setVisibility(View.GONE);
         } else {
             eventDateText.setText(event.getFecha());                            // date
         }
 
-        if (Html.fromHtml(event.getDescripcion()).toString().isEmpty()){
+        if (event.getDescripcion().isEmpty()){
             eventDescriptionText.setVisibility(View.GONE);
         } else {
             eventDescriptionText.setText(Html.fromHtml(event.getDescripcion()));// description
         }
 
-        if (Html.fromHtml(event.getCategoria()).toString().isEmpty()){
+        if (event.getCategoria().isEmpty()){
             eventCategoriaText.setVisibility(View.GONE);
         } else {
             eventCategoriaText.setText(event.getCategoria());                   // categoria
         }
 
-        if (Html.fromHtml(event.getEnlace()).toString().isEmpty()){
+        if (event.getEnlace().toString().isEmpty()){
             eventLinkText.setVisibility(View.GONE);
         } else {
             // TODO switch con cada posibilidad y su color correspondiente
