@@ -40,6 +40,7 @@ public class EventsDetailActivity extends AppCompatActivity {
         Event event = getIntent().getExtras().getParcelable(INTENT_EVENT);
 
         rellenarInformacionEvento(event);
+
     }
 
     private void rellenarInformacionEvento(Event event){

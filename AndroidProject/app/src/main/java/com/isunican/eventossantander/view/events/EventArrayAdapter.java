@@ -2,6 +2,7 @@ package com.isunican.eventossantander.view.events;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.annotation.Nullable;
 
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
+import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -52,9 +54,21 @@ public class EventArrayAdapter extends ArrayAdapter<Event> {
         categoriaTxt.setText(event.getCategoria());
         dateTxt.setText(event.getFecha());
 
-        // Assign image
-        iconTxt.setImageResource(getImageIdForEvent(event));
 
+
+        // Assign values to TextViews
+        titleTxt.setText(event.getNombre());
+        dateTxt.setText(event.getFecha());
+
+        // Assign image
+        if (Html.fromHtml(event.getNombre()).toString().isEmpty()) {
+            imageTxt.setVisibility(View.GONE);
+            iconTxt.setImageResource(getImageIdForEvent(event));
+        }
+        else{
+            iconTxt.setVisibility(View.GONE);
+            Picasso.get().load(event.getImagen()).into(imageTxt);
+        }
         return view;
     }
 

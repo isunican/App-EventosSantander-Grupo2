@@ -6,25 +6,24 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
-        android:id="@+id/item_event_imagen"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:layout_marginTop="10dp"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <ImageView
         android:id="@+id/item_event_icon"
-        android:layout_width="100dp"
+        android:layout_width="@dimen/logo"
         android:layout_height="@dimen/logo"
-        android:layout_gravity="center_horizontal|center_vertical"
         android:layout_marginLeft="@dimen/marginLogo"
         android:layout_marginTop="@dimen/marginLogo"
         android:layout_marginRight="@dimen/marginLogo"
         android:layout_marginBottom="@dimen/marginLogo"
         android:layout_weight="1"
-        android:foregroundGravity="center_vertical"
+        app:srcCompat="@drawable/ic_launcher_background" />
+    <ImageView
+        android:id="@+id/item_event_image"
+        android:layout_width="@dimen/logo"
+        android:layout_height="@dimen/logo"
+        android:layout_marginLeft="@dimen/marginLogo"
+        android:layout_marginTop="@dimen/marginLogo"
+        android:layout_marginRight="@dimen/marginLogo"
+        android:layout_marginBottom="@dimen/marginLogo"
+        android:layout_weight="1"
         app:srcCompat="@drawable/ic_launcher_background" />
 
     <LinearLayout
