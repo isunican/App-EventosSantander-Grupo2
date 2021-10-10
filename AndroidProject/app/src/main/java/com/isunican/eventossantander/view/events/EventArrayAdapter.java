@@ -1,6 +1,5 @@
 package com.isunican.eventossantander.view.events;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +10,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.text.HtmlCompat;
 
 
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
+import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,11 +24,9 @@ import java.util.List;
 public class EventArrayAdapter extends ArrayAdapter<Event> {
 
     private final List<Event> events;
-    private final EventsActivity activity;
 
     public EventArrayAdapter(@NonNull EventsActivity activity, int resource, @NonNull List<Event> objects) {
         super(activity, resource, objects);
-        this.activity = activity;
         this.events = objects;
     }
 
@@ -37,27 +36,42 @@ public class EventArrayAdapter extends ArrayAdapter<Event> {
         Event event = events.get(position);
 
         // Create item view
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.events_listview_item, null);
 
         // Link subviews
         TextView titleTxt = view.findViewById(R.id.item_event_title);
+        TextView categoriaTxt = view.findViewById(R.id.item_event_categoria);
         TextView dateTxt = view.findViewById(R.id.item_event_date);
+        ImageView iconTxt = view.findViewById(R.id.item_event_icon);
         ImageView imageTxt = view.findViewById(R.id.item_event_image);
+
+        // Assign values to TextViews
+        titleTxt.setText(event.getNombre());
+        categoriaTxt.setText(event.getCategoria());
+        dateTxt.setText(event.getFecha());
+
+
 
         // Assign values to TextViews
         titleTxt.setText(event.getNombre());
         dateTxt.setText(event.getFecha());
 
         // Assign image
-        imageTxt.setImageResource(getImageIdForEvent(event));
-
+        if (HtmlCompat.fromHtml(event.getNombre(), HtmlCompat.FROM_HTML_MODE_LEGACY).toString().isEmpty()) {
+            imageTxt.setVisibility(View.GONE);
+            iconTxt.setImageResource(getImageIdForEvent(event));
+        }
+        else{
+            iconTxt.setVisibility(View.GONE);
+            Picasso.get().load(event.getImagen()).into(imageTxt);
+        }
         return view;
     }
 
     /**
      * Determines the image resource id that must be used as the icon for a given event.
-     * @param event
+     * @param event The event the image must be used for
      * @return the image resource id for the event
      */
     private int getImageIdForEvent(Event event) {
