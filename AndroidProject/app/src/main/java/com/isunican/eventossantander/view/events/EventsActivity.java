@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
@@ -29,6 +32,23 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         setContentView(R.layout.activity_main);
 
         presenter = new EventsPresenter(this);
+        NavigationView menuFiltros = findViewById(R.id.menu_filtros);
+        ListView listaEventos = findViewById(R.id.eventsListView);
+        listaEventos.setOnTouchListener(new OnSwipeTouchListener(EventsActivity.this) {
+            public void onSwipeTop() {
+                Toast.makeText(EventsActivity.this, "top", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeRight() {
+                menuFiltros.setVisibility(View.VISIBLE);
+            }
+            public void onSwipeLeft() {
+                menuFiltros.setVisibility(View.GONE);
+            }
+            public void onSwipeBottom() {
+                Toast.makeText(EventsActivity.this, "bottom", Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
 
 

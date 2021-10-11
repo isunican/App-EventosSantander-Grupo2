@@ -4,10 +4,145 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.events.EventsActivity">
+    tools:context=".view.events.EventsActivity"
+    android:id="@+id/event_layout">
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/menu_filtros"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Filtro categoria"
+                    android:textColor="#000000"
+                    android:textSize="26dp"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxMusica"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Música" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxEncuestas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Encuestas" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxArtesPlasticas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Artes Plásticas" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxFormacionTalleres"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Formación/Talleres" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxArquitectura"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Arquitectura" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxInfantil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Infantil" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxCineAudiovisual"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cine/Audiovisual" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxArtesEscenicas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Artes Escénicas" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxCulturaCientifica"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cultura Científica" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxEdicionLiteratura"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Edición/Literatura" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxFotografia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fotografía" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxOtros"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Otros" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Ordenar Fecha"
+                    android:textColor="#000000"
+                    android:textSize="26dp"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxOrdenarProxima"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Más cercano a más lejano" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxOrdenarLejana"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Más lejano a más cercano" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:paddingLeft="20dp"
+                    android:text="Aplicar" />
+            </LinearLayout>
+        </ScrollView>
+    </com.google.android.material.navigation.NavigationView>
 
     <ListView
         android:id="@+id/eventsListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 </LinearLayout>
