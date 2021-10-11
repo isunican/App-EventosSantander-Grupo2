@@ -22,7 +22,6 @@ import java.util.List;
 public class EventsActivity extends AppCompatActivity implements IEventsContract.View {
 
     private IEventsContract.Presenter presenter;
-    private EventArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +34,17 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
 
     @Override
     public void onEventsLoaded(List<Event> events) {
-        adapter = new EventArrayAdapter(EventsActivity.this, 0, events);
+        EventArrayAdapter adapter = new EventArrayAdapter(EventsActivity.this, 0, events);
         ListView listView = findViewById(R.id.eventsListView);
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener((parent, view, position, id) -> {
-            presenter.onEventClicked(position);
-        });
+        listView.setOnItemClickListener((parent, view, position, id) -> presenter.onEventClicked(position));
     }
 
     @Override
     public void onLoadError() {
-
+        //Todavia no existe una gestion de errores planificada
+        throw new UnsupportedOperationException();
     }
 
     @Override
