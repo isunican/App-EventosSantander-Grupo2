@@ -17,8 +17,10 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ApplyFilterTest {
@@ -27,7 +29,7 @@ public class ApplyFilterTest {
     private List<Event> eventsExpectedCulturaCientifica, eventsExpectedNoCategory,eventsExpectedEmpty;
     private Event e1, e2, e3, e4;
     private Options options, options2, options3;
-    private Set<String> categories1, categories2,categories3;
+    private Map<String,Boolean> categories1, categories2,categories3;
 
     @Mock
     private IEventsContract.View view;
@@ -48,9 +50,9 @@ public class ApplyFilterTest {
         eventsExpectedEmpty = new ArrayList<Event>();
         eventsExpectedNoCategory = new ArrayList<Event>();
 
-        categories1 = new HashSet<>();
-        categories2 = new HashSet<>();
-        categories3 = new HashSet<>();
+        categories1 = new HashMap<>();
+        categories2 = new HashMap<>();
+        categories3 = new HashMap<>();
 
 
         e1 = new Event();
@@ -79,8 +81,8 @@ public class ApplyFilterTest {
         eventsExpectedNoCategory.add(e2);
         eventsExpectedNoCategory.add(e4);
 
-        categories1.add("Cultura científica");
-        categories2.add("Encuentas");
+        categories1.put("Cultura científica",true);
+        categories2.put("Encuentas",true);
 
 
 
