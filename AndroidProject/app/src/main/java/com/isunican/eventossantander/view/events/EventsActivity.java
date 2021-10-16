@@ -1,8 +1,5 @@
 package com.isunican.eventossantander.view.events;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,28 +8,30 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.navigation.NavigationView;
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
+import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.view.eventsdetail.EventsDetailActivity;
 import com.isunican.eventossantander.view.info.InfoActivity;
 
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public class EventsActivity extends AppCompatActivity implements IEventsContract.View {
 
     private IEventsContract.Presenter presenter;
-    private List<Event> events;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -45,25 +44,26 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         ListView listaEventos = findViewById(R.id.eventsListView);
         Button btnAplicar = findViewById(R.id.btnAplicarFiltroOrden);
 
-        // Listener for 'Apply filters/order by' button
-        btnAplicar.setOnClickListener(view -> {     // Applies filters & order by when pressed
-            RadioButton rbOrdenarProxima = findViewById(R.id.rbOrdenarProxima);
+        // Listener for 'Apply filters/order' button
+        btnAplicar.setOnClickListener(view -> {
             RadioButton rbOrdenarLejana = findViewById(R.id.rbOrdenarLejana);
-            RadioButton rbSinFecha = findViewById(R.id.rbSinFecha);
-            List<Event> lista = null;
+            CheckBox checkBoxSinFecha = findViewById(R.id.checkBoxSinFecha);
 
-            // TODO: lista tiene que ser lo que devuelva el filtrado
+            // TODO: Check filters selected
+            Set<String> categoriesSelected = new HashSet<>();
 
-            // Check 'order by' type selected
-            if (rbOrdenarProxima.isChecked()) {
-                presenter.onApplyOrder(EventsPresenter.OrderType.DATE_ASC, lista);      // Closer to current date
-            } else if (rbOrdenarLejana.isChecked()) {
-                presenter.onApplyOrder(EventsPresenter.OrderType.DATE_DESC, lista);     // Further away from current date
-            } else if (rbSinFecha.isChecked()) {
-                presenter.onApplyOrder(EventsPresenter.OrderType.NO_DATE_FIRST, lista); // Events without date first
+            // Check order type selected
+            EventsPresenter.OrderType orderType = EventsPresenter.OrderType.DATE_ASC;   // 'Show events closer to current date' selected by default
+            if (rbOrdenarLejana.isChecked()) {
+                orderType = EventsPresenter.OrderType.DATE_DESC;    // Further away from current date
+            }
+            boolean isDateFirst = false;    // Events without a date are shown last by default
+            if (!checkBoxSinFecha.isChecked()) {
+                isDateFirst = true;                                 // Events without date first
             }
 
-            onEventsLoaded(events);                 // Reloads the events
+            // Apply the filters & order selected
+            presenter.onApplyOptions(new Options(categoriesSelected, orderType, isDateFirst));
             menuFiltros.setVisibility(View.GONE);   // Closes the menu
         });
 
@@ -82,7 +82,6 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
 
     @Override
     public void onEventsLoaded(List<Event> events) {
-        this.events = events;
         EventArrayAdapter adapter = new EventArrayAdapter(EventsActivity.this, 0, events);
         ListView listView = findViewById(R.id.eventsListView);
         listView.setAdapter(adapter);
@@ -98,7 +97,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
 
     @Override
     public void onLoadSuccess(int elementsLoaded) {
-        String text = String.format("Loaded %d events", elementsLoaded);
+        String text = String.format(Locale.US,"Loaded %d events", elementsLoaded);
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
@@ -132,15 +131,14 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_refresh:
-                presenter.onReloadClicked();
-                return true;
-            case R.id.menu_info:
-                presenter.onInfoClicked();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.menu_refresh) {
+            presenter.onReloadClicked();
+            return true;
+        } else if (item.getItemId() == R.id.menu_info) {
+            presenter.onInfoClicked();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 }
