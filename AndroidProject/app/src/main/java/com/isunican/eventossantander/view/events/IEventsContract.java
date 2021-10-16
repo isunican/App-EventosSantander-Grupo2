@@ -1,8 +1,11 @@
 package com.isunican.eventossantander.view.events;
 
+import android.widget.ListView;
+
 import com.isunican.eventossantander.model.Event;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IEventsContract {
 
@@ -14,6 +17,7 @@ public interface IEventsContract {
 
         void onInfoClicked();
 
+        List<Event> onApplyFilter(Map<String, Boolean> categorias);
     }
 
     public interface View {
