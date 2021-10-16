@@ -179,4 +179,20 @@ public class EventsPresenter implements IEventsContract.Presenter {
     private boolean nullOrEmpty(String text) {
         return (text == null || text.equals("") || text.trim().equals(""));
     }
+
+    /**
+     * FOR TESTING PURPOSES ONLY: Sets this presenter's list to the one passed as argument
+     * @param events List of events given to the presenter.
+     */
+    public void setList(List<Event> events) {
+        this.cachedEvents = events;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY: Gets this presenter's list
+     * @result this presenter's list of events.
+     */
+    public List<Event> getList() {
+        return this.cachedEvents;
+    }
 }

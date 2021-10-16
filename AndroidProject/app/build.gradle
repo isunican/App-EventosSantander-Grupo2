@@ -54,6 +54,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true //Needed to avoid the following error: https://stackoverflow.com/questions/50911878/java-lang-runtimeexception-method-isempty-in-android-text-textutils-not-mocked
+    }
 }
 
 dependencies {

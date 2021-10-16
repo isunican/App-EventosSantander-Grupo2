@@ -17,6 +17,10 @@ public interface IEventsContract {
 
         void onApplyOptions(Options options);
 
+        void setList(List<Event> events);
+
+        List<Event> getList();
+
     }
 
     interface View {
