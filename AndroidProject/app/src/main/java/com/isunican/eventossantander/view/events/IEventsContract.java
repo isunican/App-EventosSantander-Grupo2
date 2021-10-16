@@ -1,13 +1,13 @@
 package com.isunican.eventossantander.view.events;
 
 import com.isunican.eventossantander.model.Event;
-import com.isunican.eventossantander.presenter.events.EventsPresenter;
+import com.isunican.eventossantander.presenter.events.Options;
 
 import java.util.List;
 
 public interface IEventsContract {
 
-    public interface Presenter {
+    interface Presenter {
 
         void onEventClicked(int eventIndex);
 
@@ -15,11 +15,11 @@ public interface IEventsContract {
 
         void onInfoClicked();
 
-        void onApplyOrder(EventsPresenter.OrderType type, List<Event> eventList);
+        void onApplyOptions(Options options);
 
     }
 
-    public interface View {
+    interface View {
 
         void onEventsLoaded(List<Event> events);
 

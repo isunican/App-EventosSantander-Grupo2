@@ -124,6 +124,7 @@
                         android:id="@+id/rbOrdenarProxima"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="true"
                         android:text="Más cercana a más lejana" />
 
                     <RadioButton
@@ -132,12 +133,14 @@
                         android:layout_height="wrap_content"
                         android:text="Más lejana a más cercana" />
 
-                    <RadioButton
-                        android:id="@+id/rbSinFecha"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Eventos sin fecha primero" />
                 </RadioGroup>
+
+                <CheckBox
+                    android:id="@+id/checkBoxSinFecha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Mostrar eventos sin fecha al final" />
 
                 <Button
                     android:id="@+id/btnAplicarFiltroOrden"
