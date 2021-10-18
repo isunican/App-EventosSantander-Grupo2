@@ -3,41 +3,36 @@ package com.isunican.eventossantander;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
 import com.isunican.eventossantander.presenter.events.Options;
+import com.isunican.eventossantander.view.events.EventsActivity;
 import com.isunican.eventossantander.view.events.IEventsContract;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
+
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class ApplyOrderTest {
+    private static List<Event> events, emptyEvents, oneEvent, eventsNoDate;
+    private static List<Event> eventsExpectedAsc, eventsExpectedDesc, eventsExpectedEmpty, eventsExpectedOne, eventsExpectedNoDateF, eventsExpectedNoDateT;
+    private static Options options, options2, options3;
 
-    private List<Event> events, emptyEvents, oneEvent, eventsNoDate;
-    private List<Event> eventsExpectedAsc, eventsExpectedDesc, eventsExpectedEmpty, eventsExpectedOne, eventsExpectedNoDateF, eventsExpectedNoDateT;
-    private Event e1, e2, e3, e4;
-    private Options options, options2, options3;
-    private Set<String> categories;
+    private static final IEventsContract.View view = mock(EventsActivity.class);
 
-    @Mock
-    private IEventsContract.View view;
+    private static IEventsContract.Presenter presenter;
 
-    @Rule
-    public MockitoRule rule = MockitoJUnit.rule();
-    private IEventsContract.Presenter presenter;
+    @BeforeClass
+    public static void setup() {
+        Event e1, e2, e3, e4;
+        Set<String> categories;
 
-    @Before
-    public void setup() {
         presenter = new EventsPresenter(view);
         events = new ArrayList<Event>();
         emptyEvents = new ArrayList<Event>();
@@ -93,11 +88,6 @@ public class ApplyOrderTest {
         options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
         options2 = new Options(categories, EventsPresenter.OrderType.DATE_DESC, false);
         options3 = new Options(categories, EventsPresenter.OrderType.DATE_ASC, true);
-    }
-
-    @After
-    public void clear() {
-
     }
 
     @Test
