@@ -2,6 +2,8 @@ package com.isunican.eventossantander;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
@@ -11,6 +13,8 @@ import com.isunican.eventossantander.view.events.IEventsContract;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -79,8 +83,10 @@ public class ApplyOrderFilterTest {
 
     @Test
     public void orderFilterTest() {
+        ArgumentCaptor<List<Event>> listCaptor = ArgumentCaptor.forClass(List.class);
         presenter.setList(events);
         presenter.onApplyOptions(options2);
-        assertEquals(eventsFilteredOrdered, presenter.getList());
+        verify(view, times(2)).onEventsLoaded(listCaptor.capture());
+        assertEquals(eventsFilteredOrdered, listCaptor.getValue());
     }
 }
