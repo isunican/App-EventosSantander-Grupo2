@@ -9,6 +9,7 @@ import com.isunican.eventossantander.view.events.EventsActivity;
 import com.isunican.eventossantander.view.events.IEventsContract;
 import com.squareup.picasso.Picasso;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,6 +37,12 @@ public class EventsDetailUITest {
     public static void setUp() {
         EventsRepository.setLocalSource();
         IdlingRegistry.getInstance().register(EventsRepository.getIdlingResource());
+    }
+
+    @AfterClass
+    public static void clean() {
+        EventsRepository.setOnlineSource();
+        IdlingRegistry.getInstance().unregister(EventsRepository.getIdlingResource());
     }
 
     @Rule
