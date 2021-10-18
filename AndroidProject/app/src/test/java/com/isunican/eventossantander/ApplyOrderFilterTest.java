@@ -12,8 +12,10 @@ import com.isunican.eventossantander.view.events.IEventsContract;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ApplyOrderFilterTest {
@@ -28,15 +30,16 @@ public class ApplyOrderFilterTest {
     @BeforeClass
     public static void setup() {
         Event e1, e2, e3;
-        Set<String> categories, categoriesOnline;
+        Map<String,Boolean> categories, categoriesOnline;
+
 
         presenter = new EventsPresenter(view);
         events = new ArrayList<Event>();
         eventsExpectedAsc = new ArrayList<Event>();
         eventsFilteredOrdered = new ArrayList<Event>();
 
-        categories = new HashSet<>();
-        categoriesOnline = new HashSet<>();
+        categories = new HashMap<>();
+        categoriesOnline = new HashMap<>();
 
         e1 = new Event();
         e1.setFecha("Domingo 31/07/2021, todo el día");
@@ -61,7 +64,7 @@ public class ApplyOrderFilterTest {
         eventsFilteredOrdered.add(e1);
         eventsFilteredOrdered.add(e3);
 
-        categoriesOnline.add("Online");
+        categoriesOnline.put("Online", true);
 
         options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
         options2 = new Options(categoriesOnline, EventsPresenter.OrderType.DATE_DESC, false);

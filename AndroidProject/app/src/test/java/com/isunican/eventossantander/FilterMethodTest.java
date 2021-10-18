@@ -5,7 +5,9 @@ import com.isunican.eventossantander.presenter.events.Options;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -15,10 +17,10 @@ public class FilterMethodTest {
 
     @BeforeClass
     public static void setup() {
-        Set<String> categories = new HashSet<>();
-        Set<String> categoriesEmpty = new HashSet<>();
+        Map<String,Boolean> categories = new HashMap<>();
+        Map<String,Boolean> categoriesEmpty = new HashMap<>();
 
-        categories.add("Infantil");
+        categories.put("Infantil", true);
 
         options = new Options(categories, null, false);
         options2 = new Options(categoriesEmpty, null, false);
@@ -26,7 +28,7 @@ public class FilterMethodTest {
 
     @Test
     public void getFilterCategoriesTest() {
-        assert(options.getFilterOptions().contains("Infantil"));
+        assert(options.getFilterOptions().get("Infantil"));
     }
 
     @Test

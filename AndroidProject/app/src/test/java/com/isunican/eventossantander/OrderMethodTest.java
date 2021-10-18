@@ -9,7 +9,9 @@ import com.isunican.eventossantander.presenter.events.Options;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class OrderMethodTest {
@@ -18,7 +20,7 @@ public class OrderMethodTest {
 
     @BeforeClass
     public static void setup() {
-        Set<String> categories = new HashSet<>();
+        Map<String,Boolean> categories = new HashMap<>();
 
         options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
         options2 = new Options(categories, null, false);
