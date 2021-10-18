@@ -15,8 +15,10 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ApplyOrderTest {
@@ -31,7 +33,7 @@ public class ApplyOrderTest {
     @BeforeClass
     public static void setup() {
         Event e1, e2, e3, e4;
-        Set<String> categories;
+        Map<String,Boolean> categories;
 
         presenter = new EventsPresenter(view);
         events = new ArrayList<Event>();
@@ -46,7 +48,7 @@ public class ApplyOrderTest {
         eventsExpectedNoDateF = new ArrayList<Event>();
         eventsExpectedNoDateT = new ArrayList<Event>();
 
-        categories = new HashSet<>();
+        categories = new HashMap<>();
 
         e1 = new Event();
         e1.setFecha("Domingo 31/07/2021, todo el día");
