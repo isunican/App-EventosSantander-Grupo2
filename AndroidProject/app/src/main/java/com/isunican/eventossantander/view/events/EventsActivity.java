@@ -24,10 +24,10 @@ import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.view.eventsdetail.EventsDetailActivity;
 import com.isunican.eventossantander.view.info.InfoActivity;
 
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
+import java.util.Map;
 
 public class EventsActivity extends AppCompatActivity implements IEventsContract.View {
 
@@ -50,7 +50,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             CheckBox checkBoxSinFecha = findViewById(R.id.checkBoxSinFecha);
 
             // TODO: Check filters selected
-            Set<String> categoriesSelected = new HashSet<>();
+            Map<String, Boolean> categoriesSelected = new HashMap<>();
 
             // Check order type selected
             EventsPresenter.OrderType orderType = EventsPresenter.OrderType.DATE_ASC;   // 'Show events closer to current date' selected by default

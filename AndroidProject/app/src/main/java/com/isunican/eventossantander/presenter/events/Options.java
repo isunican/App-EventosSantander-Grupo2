@@ -1,15 +1,15 @@
 package com.isunican.eventossantander.presenter.events;
 
-import java.util.Set;
+import java.util.Map;
 
 public class Options {
     private boolean orderChecked = false;
     private boolean filtersChecked = false;
-    private final Set<String> categoriesSelected;
+    private final Map<String, Boolean> categoriesSelected;
     private final EventsPresenter.OrderType orderTypeSelected;
     private final boolean dateFirst;
 
-    public Options(Set<String> categoriesSelected, EventsPresenter.OrderType orderTypeSelected, boolean isDateFirst) {
+    public Options(Map<String, Boolean> categoriesSelected, EventsPresenter.OrderType orderTypeSelected, boolean isDateFirst) {
         this.categoriesSelected = categoriesSelected;
         this.orderTypeSelected = orderTypeSelected;
         this.dateFirst = isDateFirst;
@@ -21,7 +21,7 @@ public class Options {
         }
     }
 
-    public Set<String> getFilterOptions() {
+    public Map<String, Boolean> getFilterOptions() {
         return categoriesSelected;
     }
 

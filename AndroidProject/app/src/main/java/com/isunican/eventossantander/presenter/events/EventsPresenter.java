@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
+import java.util.Map;
 
 public class EventsPresenter implements IEventsContract.Presenter {
 
@@ -93,7 +93,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
      * @param filterOptions
      * @return
      */
-    private List<Event> onApplyFilter(Set<String> filterOptions) {
+    private List<Event> onApplyFilter(Map<String, Boolean> filterOptions) {
         // TODO:
         return Collections.emptyList();
     }
