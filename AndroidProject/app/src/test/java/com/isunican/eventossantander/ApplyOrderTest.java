@@ -16,10 +16,8 @@ import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class ApplyOrderTest {
     private static List<Event> events, emptyEvents, oneEvent, eventsNoDate;
@@ -36,17 +34,17 @@ public class ApplyOrderTest {
         Map<String,Boolean> categories;
 
         presenter = new EventsPresenter(view);
-        events = new ArrayList<Event>();
-        emptyEvents = new ArrayList<Event>();
-        oneEvent = new ArrayList<Event>();
-        eventsNoDate = new ArrayList<Event>();
+        events = new ArrayList<>();
+        emptyEvents = new ArrayList<>();
+        oneEvent = new ArrayList<>();
+        eventsNoDate = new ArrayList<>();
 
-        eventsExpectedAsc = new ArrayList<Event>();
-        eventsExpectedDesc = new ArrayList<Event>();
-        eventsExpectedEmpty = new ArrayList<Event>();
-        eventsExpectedOne = new ArrayList<Event>();
-        eventsExpectedNoDateF = new ArrayList<Event>();
-        eventsExpectedNoDateT = new ArrayList<Event>();
+        eventsExpectedAsc = new ArrayList<>();
+        eventsExpectedDesc = new ArrayList<>();
+        eventsExpectedEmpty = new ArrayList<>();
+        eventsExpectedOne = new ArrayList<>();
+        eventsExpectedNoDateF = new ArrayList<>();
+        eventsExpectedNoDateT = new ArrayList<>();
 
         categories = new HashMap<>();
 

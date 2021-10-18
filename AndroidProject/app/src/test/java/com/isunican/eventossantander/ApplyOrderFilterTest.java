@@ -17,10 +17,8 @@ import org.mockito.ArgumentCaptor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class ApplyOrderFilterTest {
 
@@ -38,9 +36,9 @@ public class ApplyOrderFilterTest {
 
 
         presenter = new EventsPresenter(view);
-        events = new ArrayList<Event>();
-        eventsExpectedAsc = new ArrayList<Event>();
-        eventsFilteredOrdered = new ArrayList<Event>();
+        events = new ArrayList<>();
+        eventsExpectedAsc = new ArrayList<>();
+        eventsFilteredOrdered = new ArrayList<>();
 
         categories = new HashMap<>();
         categoriesOnline = new HashMap<>();

@@ -10,9 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class OrderMethodTest {
 
@@ -28,7 +26,7 @@ public class OrderMethodTest {
 
     @Test
     public void getOrderCategoriesTest() {
-        assertEquals(options.getOrderTypeOptions(), EventsPresenter.OrderType.DATE_ASC);
+        assertEquals(EventsPresenter.OrderType.DATE_ASC, options.getOrderTypeOptions());
     }
 
     @Test
