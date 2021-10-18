@@ -1,12 +1,14 @@
 package com.isunican.eventossantander;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
 
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
 import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.view.events.IEventsContract;
 
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
@@ -17,8 +19,10 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ApplyFilterTest {
@@ -27,7 +31,7 @@ public class ApplyFilterTest {
     private List<Event> eventsExpectedCulturaCientifica, eventsExpectedNoCategory,eventsExpectedEmpty;
     private Event e1, e2, e3, e4;
     private Options options, options2, options3;
-    private Set<String> categories1, categories2,categories3;
+    private Map<String, Boolean> categories1, categories2,categories3;
 
     @Mock
     private IEventsContract.View view;
@@ -48,9 +52,9 @@ public class ApplyFilterTest {
         eventsExpectedEmpty = new ArrayList<Event>();
         eventsExpectedNoCategory = new ArrayList<Event>();
 
-        categories1 = new HashSet<>();
-        categories2 = new HashSet<>();
-        categories3 = new HashSet<>();
+        categories1 = new HashMap<String, Boolean>();
+        categories2 = new HashMap<String, Boolean>();
+        categories3 = new HashMap<String, Boolean>();
 
 
         e1 = new Event();
@@ -76,11 +80,17 @@ public class ApplyFilterTest {
 
         eventsExpectedCulturaCientifica.add(e1);
         eventsExpectedCulturaCientifica.add(e3);
+        eventsExpectedNoCategory.add(e1);
         eventsExpectedNoCategory.add(e2);
+        eventsExpectedNoCategory.add(e3);
         eventsExpectedNoCategory.add(e4);
 
-        categories1.add("Cultura científica");
-        categories2.add("Encuentas");
+        categories1.put("Cultura científica",true);
+        categories1.put("Música",false);
+        categories2.put("Cultura científica",false);
+        categories2.put("Música",true);
+        categories3.put("Cultura científica",false);
+        categories3.put("Música",false);
 
 
 
@@ -96,16 +106,20 @@ public class ApplyFilterTest {
 
     @Test
     public void applyOptionsFound() {
+        ArgumentCaptor<List<Event>> eventos = ArgumentCaptor.forClass(List.class) ;
         presenter.setList(events);
         presenter.onApplyOptions(options);
-        assertEquals(eventsExpectedCulturaCientifica, presenter.getList());
+        verify(view).onEventsLoaded(eventos.capture());
+        assertEquals(eventsExpectedCulturaCientifica, eventos.getValue());
     }
 
     @Test
     public void applyOptionsNotFound() {
+        ArgumentCaptor<List<Event>> eventos = ArgumentCaptor.forClass(List.class) ;
         presenter.setList(events);
         presenter.onApplyOptions(options2);
-        assertEquals(eventsExpectedEmpty, presenter.getList());
+        verify(view).onEventsLoaded(eventos.capture());
+        assertEquals(eventsExpectedEmpty, eventos.getValue());
     }
 
     @Test
@@ -125,7 +139,6 @@ public class ApplyFilterTest {
     @Test
     public void applyFilterNotFound() {
         presenter.setList(events);
-
         assertEquals(eventsExpectedEmpty, presenter.onApplyFilter(categories2));
     }
 
