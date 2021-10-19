@@ -183,29 +183,41 @@
                     android:textSize="26dp"
                     android:textStyle="bold" />
 
-                <CheckBox
-                    android:id="@+id/checkBoxOrdenarProxima"
+                <RadioGroup
+                    android:id="@+id/rgOrdenarFecha"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Más cercano a más lejano"
-                    android:textSize="18dp" />
+                    android:layout_height="match_parent">
+
+                    <RadioButton
+                        android:id="@+id/rbOrdenarProxima"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="Más cercana a más lejana" />
+
+                    <RadioButton
+                        android:id="@+id/rbOrdenarLejana"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Más lejana a más cercana" />
+
+                </RadioGroup>
 
                 <CheckBox
-                    android:id="@+id/checkBoxOrdenarLejana"
+                    android:id="@+id/checkBoxSinFecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Más lejano a más cercano"
-                    android:textSize="18dp" />
+                    android:checked="true"
+                    android:text="Mostrar eventos sin fecha al final" />
 
                 <Button
-                    android:id="@+id/btnAplicar"
+                    android:id="@+id/btnAplicarFiltroOrden"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="50dp"
                     android:layout_marginBottom="20dp"
-                    android:paddingLeft="20dp"
                     android:text="Aplicar" />
             </LinearLayout>
         </ScrollView>

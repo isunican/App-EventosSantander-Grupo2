@@ -1,5 +1,7 @@
 package com.isunican.eventossantander.presenter.events;
 
+import android.widget.ListView;
+
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.view.Listener;
@@ -12,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class EventsPresenter implements IEventsContract.Presenter {
@@ -48,14 +51,16 @@ public class EventsPresenter implements IEventsContract.Presenter {
 
     public List<Event> onApplyFilter(Map<String, Boolean> categorias){
 
-                List<Event> filteredEvents = new ArrayList<>();
+                List<Event> filteredEvents = new ArrayList<Event>();
                 List<Event> listaEntera = cachedEvents;
                 if (categorias.containsValue(true)) {
                     for (Event e: listaEntera) {
                         //Si la categoria de ese evento esta registrada y es true en el mapa,
                         // se añade el evento a la lista
-                        if (categorias.containsKey(e.getCategoria()) && categorias.get(e.getCategoria())) {
+                        if (categorias.containsKey(e.getCategoria())) {
+                            if (categorias.get(e.getCategoria())) {
                                 filteredEvents.add(e);
+                            }
                         }
                     }
                 } else {
@@ -200,7 +205,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
 
     /**
      * FOR TESTING PURPOSES ONLY: Gets this presenter's list
-     * @return this presenter's list of events.
+     * @result this presenter's list of events.
      */
     public List<Event> getList() {
         return this.cachedEvents;
