@@ -6,6 +6,8 @@ import static org.mockito.Mockito.verify;
 
 import static java.lang.Thread.sleep;
 
+import androidx.test.espresso.IdlingRegistry;
+
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
