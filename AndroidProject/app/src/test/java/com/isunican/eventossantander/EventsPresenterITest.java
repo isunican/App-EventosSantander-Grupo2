@@ -24,7 +24,7 @@ import org.mockito.junit.MockitoRule;
 
 import java.util.List;
 
-public class LoadDataTest {
+public class EventsPresenterITest {
     @Mock
     private IEventsContract.View view;
 
@@ -37,14 +37,17 @@ public class LoadDataTest {
         ArgumentCaptor<List<Event>> eventos = ArgumentCaptor.forClass(List.class) ;
         EventsRepository.setLocalSource();
         presenter = new EventsPresenter(view);
+        sleep(5000);
         verify(view).onEventsLoaded(eventos.capture());
         assertTrue(345==eventos.getValue().size());
     }
 
     @Test
     public void loadEventsNoCorret() throws InterruptedException {
+        ArgumentCaptor<List<Event>> eventos = ArgumentCaptor.forClass(List.class) ;
         EventsRepository.setFakeSource();
         presenter = new EventsPresenter(view);
+        sleep(5000);
         verify(view).onLoadError();
     }
 }

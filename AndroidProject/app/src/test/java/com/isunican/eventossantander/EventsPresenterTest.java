@@ -3,11 +3,14 @@ package com.isunican.eventossantander;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 
+import android.os.Build;
+
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
 import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.view.events.IEventsContract;
 
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
@@ -17,6 +20,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +30,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ApplyFilterTest {
+@RunWith(RobolectricTestRunner.class)
+@Config(sdk = {Build.VERSION_CODES.O_MR1})
+public class EventsPresenterTest {
 
     private List<Event> events, emptyEvents, eventsCulturaCientifica, eventsNoCategory;
     private List<Event> eventsExpectedCulturaCientifica, eventsExpectedNoCategory,eventsExpectedEmpty;
@@ -39,6 +46,7 @@ public class ApplyFilterTest {
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
     private IEventsContract.Presenter presenter;
+
 
     @Before
     public void setup() {
