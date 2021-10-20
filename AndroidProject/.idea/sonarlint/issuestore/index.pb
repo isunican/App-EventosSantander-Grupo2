@@ -9,8 +9,6 @@ p
 Rapp/src/main/java/com/isunican/eventossantander/view/events/EventArrayAdapter.java,7\5\755b7722086b1f54ec7b8ad4c164591c1e6087e8
 €
 Papp/src/main/java/com/isunican/eventossantander/view/events/IEventsContract.java,4\f\4f9c99a06d595f3f6da2794b3edc92f33c29248e
-}
-Mapp/src/main/java/com/isunican/eventossantander/presenter/events/Options.java,7\c\7c289858c3ae826f978159fe282864abb151c155
 t
 Dapp/src/test/java/com/isunican/eventossantander/OrderMethodTest.java,7\3\736ad386b8d64db6583b8d4d30911e1806280751
 s
@@ -19,7 +17,3 @@ y
 Iapp/src/test/java/com/isunican/eventossantander/ApplyOrderFilterTest.java,2\5\25f430cdd87e4cfba137f71d14dd772b5b094c3a
 …
 Uapp/src/main/java/com/isunican/eventossantander/view/events/OnSwipeTouchListener.java,2\0\207283766d2a70f866674d35850ba725b63a717a
-…
-Uapp/src/main/java/com/isunican/eventossantander/presenter/events/EventsPresenter.java,2\5\25fc41d46f44b04d771221afc5ec7722f096844a
-
-Oapp/src/main/java/com/isunican/eventossantander/view/events/EventsActivity.java,e\8\e8450eb23768c947a7ac38a236360f2d4e90ebe5

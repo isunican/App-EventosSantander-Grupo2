@@ -1,7 +1,5 @@
 package com.isunican.eventossantander.presenter.events;
 
-import android.widget.ListView;
-
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.view.Listener;
@@ -14,7 +12,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class EventsPresenter implements IEventsContract.Presenter {
@@ -49,18 +46,23 @@ public class EventsPresenter implements IEventsContract.Presenter {
         });
     }
 
+    /**
+     * Filter the events by the selected categories
+     * @param categorias map with the categories that want to be filtered and not
+     * @return list with the events which category is selected in the filters
+     */
     public List<Event> onApplyFilter(Map<String, Boolean> categorias){
 
                 List<Event> filteredEvents = new ArrayList<Event>();
                 List<Event> listaEntera = cachedEvents;
+                //If no filter is selected it finishes
                 if (categorias.containsValue(true)) {
+                    //For every events registered
                     for (Event e: listaEntera) {
-                        //Si la categoria de ese evento esta registrada y es true en el mapa,
-                        // se añade el evento a la lista
-                        if (categorias.containsKey(e.getCategoria())) {
-                            if (categorias.get(e.getCategoria())) {
-                                filteredEvents.add(e);
-                            }
+                        //If the category of the current event exists and is selected by the user,
+                        // the vents is added to the list of filtered events
+                        if (categorias.containsKey(e.getCategoria()) && categorias.get(e.getCategoria())) {
+                            filteredEvents.add(e);
                         }
                     }
                 } else {
