@@ -87,151 +87,90 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         btnFiltroCategoriaUp.setVisibility(View.GONE);
         layoutFiltroCategoria.setVisibility(View.GONE);
 
+        Map<String, Boolean> categorias = new HashMap<>();
+        categorias.put("Música", true);
+        categorias.put("Online", false); // Añade un elemento al Map
+        categorias.put("Artes plásticas", false); // Añade un elemento al Map
+        categorias.put("Formación/Talleres", false); // Añade un elemento al Map
+        categorias.put("Arquitectura", false); // Añade un elemento al Map
+        categorias.put("Infantil", false); // Añade un elemento al Map
+        categorias.put("Cine/Audiovisual", false); // Añade un elemento al Map
+        categorias.put("Artes escénicas", false); // Añade un elemento al Map
+        categorias.put("Cultura científica", false); // Añade un elemento al Map
+        categorias.put("Edición/Literatura", false); // Añade un elemento al Map
+        categorias.put("Fotografía", false); // Añade un elemento al Map
+        categorias.put("Otros", false); // Añade un elemento al Map
+
         menuFiltros.setVisibility(View.VISIBLE); //Para las pruebas de Interfaz de Usuario
 
-        /**
-         * Manejador para mostrar los filtros por categoria
-         */
-        btnFiltroCategoriaDown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnFiltroCategoriaDown.setVisibility(View.GONE);
-                btnFiltroCategoriaUp.setVisibility(View.VISIBLE);
-                layoutFiltroCategoria.setVisibility(View.VISIBLE);
-            }
+        // Manejador para mostrar los filtros por categoria
+        btnFiltroCategoriaDown.setOnClickListener(view -> {
+            btnFiltroCategoriaDown.setVisibility(View.GONE);
+            btnFiltroCategoriaUp.setVisibility(View.VISIBLE);
+            layoutFiltroCategoria.setVisibility(View.VISIBLE);
         });
 
-        /**
-         * Manejador para ocultar los filtros por categoria
-         */
-        btnFiltroCategoriaUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnFiltroCategoriaDown.setVisibility(View.VISIBLE);
-                btnFiltroCategoriaUp.setVisibility(View.GONE);
-                layoutFiltroCategoria.setVisibility(View.GONE);
-            }
+        // Manejador para ocultar los filtros por categoria
+        btnFiltroCategoriaUp.setOnClickListener(view -> {
+            btnFiltroCategoriaDown.setVisibility(View.VISIBLE);
+            btnFiltroCategoriaUp.setVisibility(View.GONE);
+            layoutFiltroCategoria.setVisibility(View.GONE);
         });
 
 
-        /**
-         * Manejador para controlar los eventos de deslizar el dedo por la pantalla (arriba, abajo, izq, der)
-         */
+        // Manejador para controlar los eventos de deslizar el dedo por la pantalla (arriba, abajo, izq, der)
         listaEventos.setOnTouchListener(new OnSwipeTouchListener(EventsActivity.this) {
+            @Override
             public void onSwipeTop() {
                 Toast.makeText(EventsActivity.this, "top", Toast.LENGTH_SHORT).show();
             }
+            @Override
             public void onSwipeRight() {
                 menuFiltros.setVisibility(View.VISIBLE);
             }
+            @Override
             public void onSwipeLeft() {
                 menuFiltros.setVisibility(View.GONE);
             }
+            @Override
             public void onSwipeBottom() {
                 Toast.makeText(EventsActivity.this, "bottom", Toast.LENGTH_SHORT).show();
             }
 
         });
 
-        /**
-         * Manejador para aplicar los filtros y ordenacion
-         */
-        btnAplicarFiltroOrden.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RadioButton rbOrdenarLejana = findViewById(R.id.rbOrdenarLejana);
-                CheckBox checkBoxSinFecha = findViewById(R.id.checkBoxSinFecha);
+        // Manejador para aplicar los filtros y ordenacion
+        btnAplicarFiltroOrden.setOnClickListener(view -> {
+            RadioButton rbOrdenarLejana = findViewById(R.id.rbOrdenarLejana);
+            CheckBox checkBoxSinFecha = findViewById(R.id.checkBoxSinFecha);
 
-                Map<String, Boolean> categorias = new HashMap<String, Boolean>();
-                List<Event>filteredEvents = new ArrayList<Event>();
+            Map<String, Boolean> categorias1 = new HashMap<>();
 
-                if (checkBoxMusica.isChecked()) {
-                    categorias.put("Música", true); //Añade un elemento al Map
+            int pos = layoutFiltroCategoria.getChildCount();
+            for (int i = 0; i < pos; i++) {
+                View viewAux = layoutFiltroCategoria.getChildAt(i);
+                if (viewAux instanceof CheckBox) {
+                    if (((CheckBox) viewAux).isChecked()) {
+                        categorias.put(((CheckBox) viewAux).getText().toString(), true);
+                    } else {
+                        categorias.put(((CheckBox) viewAux).getText().toString(), false);
+                    }
                 }
-                else{
-                    categorias.put("Música", false); // Añade un elemento al Map
-                }
-                if (checkBoxOnline.isChecked()) {
-                    categorias.put("Online", true); //Añade un elemento al Map
-                }
-                else{
-                    categorias.put("Online", false); // Añade un elemento al Map
-                }
-                if (checkBoxArtesPlasticas.isChecked()) {
-                    categorias.put("Artes plásticas", true); //Añade un elemento al Map
-                }
-                else{
-                    categorias.put("Artes plásticas", false); // Añade un elemento al Map
-                }
-                if (checkBoxFormacionTalleres.isChecked()) {
-                    categorias.put("Formación/Talleres", true); //Añade un elemento al Map
-                }
-                else{
-                    categorias.put("Formación/Talleres", false); // Añade un elemento al Map
-                }
-                if (checkBoxArquitectura.isChecked()) {
-                    categorias.put("Arquitectura", true); //Añade un elemento al Map
-                }
-                else{
-                    categorias.put("Arquitectura", false); // Añade un elemento al Map
-                }
-                if (checkBoxInfantil.isChecked()) {
-                    categorias.put("Infantil", true); //Añade un elemento al Map
-                }
-                else{
-                    categorias.put("Infantil", false); // Añade un elemento al Map
-                }
-                if (checkBoxCineAudiovisual.isChecked()) {
-                    categorias.put("Cine/Audiovisual", true); //Añade un elemento al Map
-                }
-                else{
-                    categorias.put("Cine/Audiovisual", false); // Añade un elemento al Map
-                }
-                if (checkBoxArtesEscenicas.isChecked()) {
-                    categorias.put("Artes escénicas", true); //Añade un elemento al Map
-                }
-                else{
-                    categorias.put("Artes escénicas", false); // Añade un elemento al Map
-                }
-                if (checkBoxCulturaCientifica.isChecked()) {
-                    categorias.put("Cultura científica", true); //Añade un elemento al Map
-                }
-                else{
-                    categorias.put("Cultura científica", false); // Añade un elemento al Map
-                }
-                if (checkBoxEdicionLiteratura.isChecked()) {
-                    categorias.put("Edición/Literatura", true); //Añade un elemento al Map
-                }
-                else{
-                    categorias.put("Edición/Literatura", false); // Añade un elemento al Map
-                }
-                if (checkBoxFotografia.isChecked()) {
-                    categorias.put("Fotografía", true); //Añade un elemento al Map
-                }
-                else{
-                    categorias.put("Fotografía", false); // Añade un elemento al Map
-                }
-                if (checkBoxOtros.isChecked()) {
-                    categorias.put("Otros", true); //Añade un elemento al Map
-                }
-                else{
-                    categorias.put("Otros", false); // Añade un elemento al Map
-                }
-
-                // Check order type selected
-                EventsPresenter.OrderType orderType = EventsPresenter.OrderType.DATE_ASC;   // 'Show events closer to current date' selected by default
-                if (rbOrdenarLejana.isChecked()) {
-                    orderType = EventsPresenter.OrderType.DATE_DESC;    // Further away from current date
-                }
-                boolean isDateFirst = false;    // Events without a date are shown last by default
-                if (!checkBoxSinFecha.isChecked()) {
-                    isDateFirst = true;                                 // Events without date first
-                }
-
-                // Apply the filters & order selected
-                presenter.onApplyOptions(new Options(categorias, orderType, isDateFirst));
-                menuFiltros.setVisibility(View.GONE);   // Closes the menu
             }
+
+            // Check order type selected
+            EventsPresenter.OrderType orderType = EventsPresenter.OrderType.DATE_ASC;   // 'Show events closer to current date' selected by default
+            if (rbOrdenarLejana.isChecked()) {
+                orderType = EventsPresenter.OrderType.DATE_DESC;    // Further away from current date
+            }
+            boolean isDateFirst = false;    // Events without a date are shown last by default
+            if (!checkBoxSinFecha.isChecked()) {
+                isDateFirst = true;                                 // Events without date first
+            }
+
+            // Apply the filters & order selected
+            presenter.onApplyOptions(new Options(categorias1, orderType, isDateFirst));
+            menuFiltros.setVisibility(View.GONE);   // Closes the menu
         });
     }
 

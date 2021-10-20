@@ -1,3 +1,11 @@
 
+Q
+java:S1128"4Remove this unused import 'android.widget.ListView'.(Œ‰Ö×8Š”ÜğÉ/
+@
+java:S1128"Remove this duplicated import.(Õë±Äøÿÿÿÿ8”ÜğÉ/
+v
+java:S22936"YReplace the type specification in this constructor call with the diamond operator ("<>").(åñ§8”ÜğÉ/
+Q
+java:S1066="/Merge this if statement with the enclosing one.(ºæ°Âûÿÿÿÿ8˜”ÜğÉ/
 L
-java:S54119"*Use the primitive boolean expression here.(ìºì‰üÿÿÿÿ8·¾„¡É/
+java:S5411="*Use the primitive boolean expression here.(ºæ°Âûÿÿÿÿ8Ÿ”ÜğÉ/

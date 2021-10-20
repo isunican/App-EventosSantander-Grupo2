@@ -1,33 +1,35 @@
 
+
+java:S1450,"dRemove the "btnAplicarFiltroOrden" field and declare it as a local variable in the relevant methods.( ïÆ‰úÿÿÿÿ
 {
-java:S1450-"eRemove the "btnFiltroCategoriaDown" field and declare it as a local variable in the relevant methods.(ÈŸ¦
+java:S14509"eRemove the "btnFiltroCategoriaDown" field and declare it as a local variable in the relevant methods.(ÈŸ¦
 y
-java:S1450."cRemove the "btnFiltroCategoriaUp" field and declare it as a local variable in the relevant methods.(¸Âº
+java:S1450:"cRemove the "btnFiltroCategoriaUp" field and declare it as a local variable in the relevant methods.(¸Âº
 y
-java:S1450%"cRemove the "checkBoxArquitectura" field and declare it as a local variable in the relevant methods.(ïŒ¹Ã
+java:S14501"cRemove the "checkBoxArquitectura" field and declare it as a local variable in the relevant methods.(ïŒ¹Ã
 {
-java:S1450("eRemove the "checkBoxArtesEscenicas" field and declare it as a local variable in the relevant methods.(ŠÊ™
+java:S14504"eRemove the "checkBoxArtesEscenicas" field and declare it as a local variable in the relevant methods.(ŠÊ™
 €
-java:S1450#"eRemove the "checkBoxArtesPlasticas" field and declare it as a local variable in the relevant methods.(§âÜ˜ùÿÿÿÿ
+java:S1450/"eRemove the "checkBoxArtesPlasticas" field and declare it as a local variable in the relevant methods.(§âÜ˜ùÿÿÿÿ
 |
-java:S1450'"fRemove the "checkBoxCineAudiovisual" field and declare it as a local variable in the relevant methods.(ë³ı
+java:S14503"fRemove the "checkBoxCineAudiovisual" field and declare it as a local variable in the relevant methods.(ë³ı
 ~
-java:S1450)"hRemove the "checkBoxCulturaCientifica" field and declare it as a local variable in the relevant methods.(Üƒ™Â
+java:S14505"hRemove the "checkBoxCulturaCientifica" field and declare it as a local variable in the relevant methods.(Üƒ™Â
 ~
-java:S1450*"hRemove the "checkBoxEdicionLiteratura" field and declare it as a local variable in the relevant methods.(œõ¼à
+java:S14506"hRemove the "checkBoxEdicionLiteratura" field and declare it as a local variable in the relevant methods.(œõ¼à
 ƒ
-java:S1450$"hRemove the "checkBoxFormacionTalleres" field and declare it as a local variable in the relevant methods.(îùğşÿÿÿÿ
+java:S14500"hRemove the "checkBoxFormacionTalleres" field and declare it as a local variable in the relevant methods.(îùğşÿÿÿÿ
 |
-java:S1450+"aRemove the "checkBoxFotografia" field and declare it as a local variable in the relevant methods.(Œø®üÿÿÿÿ
+java:S14507"aRemove the "checkBoxFotografia" field and declare it as a local variable in the relevant methods.(Œø®üÿÿÿÿ
 u
-java:S1450&"_Remove the "checkBoxInfantil" field and declare it as a local variable in the relevant methods.(ÉÀ™ã
+java:S14502"_Remove the "checkBoxInfantil" field and declare it as a local variable in the relevant methods.(ÉÀ™ã
 x
-java:S1450!"]Remove the "checkBoxMusica" field and declare it as a local variable in the relevant methods.(Ä¾£Øùÿÿÿÿ
+java:S1450-"]Remove the "checkBoxMusica" field and declare it as a local variable in the relevant methods.(Ä¾£Øùÿÿÿÿ
 s
-java:S1450""]Remove the "checkBoxOnline" field and declare it as a local variable in the relevant methods.(Æ·Â
+java:S1450."]Remove the "checkBoxOnline" field and declare it as a local variable in the relevant methods.(Æ·Â
 r
-java:S1450,"\Remove the "checkBoxOtros" field and declare it as a local variable in the relevant methods.(ëö°†
+java:S14508"\Remove the "checkBoxOtros" field and declare it as a local variable in the relevant methods.(ëö°†
 z
-java:S1450/"dRemove the "layoutFiltroCategoria" field and declare it as a local variable in the relevant methods.(“ºÒ•
-e
-java:S1126‡"BReplace this if-then-else statement by a single method invocation.(¼ÜàÕûÿÿÿÿ8ï›ú¡É/
+java:S1450;"dRemove the "layoutFiltroCategoria" field and declare it as a local variable in the relevant methods.(“ºÒ•
+^
+java:S1126™"BReplace this if-then-else statement by a single method invocation.(¼ÜàÕûÿÿÿÿ
