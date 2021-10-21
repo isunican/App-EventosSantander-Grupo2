@@ -7,18 +7,26 @@ import com.isunican.eventossantander.view.events.EventsActivity;
 import com.isunican.eventossantander.view.events.IEventsContract;
 
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+
+import android.os.Build;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@RunWith(RobolectricTestRunner.class)
+@Config(sdk = {Build.VERSION_CODES.O_MR1})
 public class ApplyOrderTest {
     private static List<Event> events, emptyEvents, oneEvent, eventsNoDate;
     private static List<Event> eventsExpectedAsc, eventsExpectedDesc, eventsExpectedEmpty, eventsExpectedOne, eventsExpectedNoDateF, eventsExpectedNoDateT;
@@ -28,8 +36,8 @@ public class ApplyOrderTest {
 
     private static IEventsContract.Presenter presenter;
 
-    @BeforeClass
-    public static void setup() {
+    @Before
+    public void setup() {
         Event e1, e2, e3, e4;
         Map<String,Boolean> categories;
 

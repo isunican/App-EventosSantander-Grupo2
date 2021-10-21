@@ -95,7 +95,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="#FFC2C2"
-                        android:text="Artes Plásticas"
+                        android:text="Artes plásticas"
                         android:textSize="18dp" />
 
                     <CheckBox
@@ -135,7 +135,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="#D90404"
-                        android:text="Artes Escénicas"
+                        android:text="Artes escénicas"
                         android:textSize="18dp" />
 
                     <CheckBox
@@ -143,7 +143,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="#6AC89F"
-                        android:text="Cultura Científica"
+                        android:text="Cultura científica"
                         android:textSize="18dp" />
 
                     <CheckBox
