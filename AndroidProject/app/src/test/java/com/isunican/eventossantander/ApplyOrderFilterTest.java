@@ -5,32 +5,40 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import android.os.Build;
+
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
 import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.view.events.EventsActivity;
 import com.isunican.eventossantander.view.events.IEventsContract;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@RunWith(RobolectricTestRunner.class)
+@Config(sdk = {Build.VERSION_CODES.O_MR1})
 public class ApplyOrderFilterTest {
 
-    private static List<Event> events, eventsExpectedAsc, eventsFilteredOrdered;
-    private static Options options, options2;
+    private List<Event> events, eventsExpectedAsc, eventsFilteredOrdered;
+    private Options options, options2;
 
-    private static final IEventsContract.View view = mock(EventsActivity.class);
+    private IEventsContract.View view = mock(EventsActivity.class);
 
-    private static IEventsContract.Presenter presenter;
+    private IEventsContract.Presenter presenter;
 
-    @BeforeClass
-    public static void setup() {
+    @Before
+    public void setup() {
         Event e1, e2, e3;
         Map<String,Boolean> categories, categoriesOnline;
 
@@ -84,7 +92,7 @@ public class ApplyOrderFilterTest {
         ArgumentCaptor<List<Event>> listCaptor = ArgumentCaptor.forClass(List.class);
         presenter.setList(events);
         presenter.onApplyOptions(options2);
-        verify(view, times(2)).onEventsLoaded(listCaptor.capture());
+        verify(view, times(1)).onEventsLoaded(listCaptor.capture());
         assertEquals(eventsFilteredOrdered, listCaptor.getValue());
     }
 }
