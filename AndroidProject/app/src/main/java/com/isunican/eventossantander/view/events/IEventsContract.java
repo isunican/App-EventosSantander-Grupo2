@@ -1,7 +1,5 @@
 package com.isunican.eventossantander.view.events;
 
-import android.widget.ListView;
-
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.Options;
 
@@ -10,7 +8,7 @@ import java.util.Map;
 
 public interface IEventsContract {
 
-    public interface Presenter {
+    interface Presenter {
 
         void onEventClicked(int eventIndex);
 
@@ -18,17 +16,16 @@ public interface IEventsContract {
 
         void onInfoClicked();
 
-        List<Event> onApplyFilter(Map<String, Boolean> categorias);
-
         void onApplyOptions(Options options);
-
 
         void setList(List<Event> events);
 
         List<Event> getList();
+
+        List<Event> onApplyFilter(Map<String, Boolean> categorias);
     }
 
-    public interface View {
+    interface View {
 
         void onEventsLoaded(List<Event> events);
 

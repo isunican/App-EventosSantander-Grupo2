@@ -16,7 +16,6 @@
         tools:visibility="visible">
 
         <ScrollView
-            android:id="@+id/scrollMenu"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -96,7 +95,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="#FFC2C2"
-                        android:text="Artes Plásticas"
+                        android:text="Artes plásticas"
                         android:textSize="18dp" />
 
                     <CheckBox
@@ -136,7 +135,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="#D90404"
-                        android:text="Artes Escénicas"
+                        android:text="Artes escénicas"
                         android:textSize="18dp" />
 
                     <CheckBox
@@ -144,7 +143,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="#6AC89F"
-                        android:text="Cultura Científica"
+                        android:text="Cultura científica"
                         android:textSize="18dp" />
 
                     <CheckBox
@@ -184,29 +183,41 @@
                     android:textSize="26dp"
                     android:textStyle="bold" />
 
-                <CheckBox
-                    android:id="@+id/checkBoxOrdenarProxima"
+                <RadioGroup
+                    android:id="@+id/rgOrdenarFecha"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Más cercano a más lejano"
-                    android:textSize="18dp" />
+                    android:layout_height="match_parent">
+
+                    <RadioButton
+                        android:id="@+id/rbOrdenarProxima"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="Más cercana a más lejana" />
+
+                    <RadioButton
+                        android:id="@+id/rbOrdenarLejana"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Más lejana a más cercana" />
+
+                </RadioGroup>
 
                 <CheckBox
-                    android:id="@+id/checkBoxOrdenarLejana"
+                    android:id="@+id/checkBoxSinFecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Más lejano a más cercano"
-                    android:textSize="18dp" />
+                    android:checked="true"
+                    android:text="Mostrar eventos sin fecha al final" />
 
                 <Button
-                    android:id="@+id/btnAplicar"
+                    android:id="@+id/btnAplicarFiltroOrden"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="50dp"
                     android:layout_marginBottom="20dp"
-                    android:paddingLeft="20dp"
                     android:text="Aplicar" />
             </LinearLayout>
         </ScrollView>

@@ -1,7 +1,5 @@
 package com.isunican.eventossantander.presenter.events;
 
-import android.widget.ListView;
-
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.view.Listener;
@@ -9,11 +7,11 @@ import com.isunican.eventossantander.view.events.IEventsContract;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class EventsPresenter implements IEventsContract.Presenter {
@@ -28,9 +26,13 @@ public class EventsPresenter implements IEventsContract.Presenter {
     }
 
     private void loadData() {
-        EventsRepository.getEvents(new Listener<List<Event>>() {
+        EventsRepository.getEvents(new Listener<>() {
             @Override
             public void onSuccess(List<Event> data) {
+                // Orders events with default options:
+                //   Dates closer to further & events without dates last.
+                onApplyOrder(data, OrderType.DATE_ASC, false);
+
                 view.onEventsLoaded(data);
                 view.onLoadSuccess(data.size());
                 cachedEvents = data;
@@ -44,24 +46,47 @@ public class EventsPresenter implements IEventsContract.Presenter {
         });
     }
 
+    /**
+     * Filter the events by the selected categories
+     * @param categorias map with the categories that want to be filtered and not
+     * @return list with the events which category is selected in the filters
+     */
     public List<Event> onApplyFilter(Map<String, Boolean> categorias){
 
-                List<Event> filteredEvents = new ArrayList<Event>();
+                List<Event> filteredEvents = new ArrayList();
                 List<Event> listaEntera = cachedEvents;
+                //If no filter is selected it finishes
                 if (categorias.containsValue(true)) {
+                    //For every events registered
                     for (Event e: listaEntera) {
-                        //Si la categoria de ese evento esta registrada y es true en el mapa,
-                        // se añade el evento a la lista
-                        if (categorias.containsKey(e.getCategoria())) {
-                            if (categorias.get(e.getCategoria())) {
-                                filteredEvents.add(e);
-                            }
+                        //If the category of the current event exists and is selected by the user,
+                        // the vents is added to the list of filtered events
+                        if (categorias.containsKey(e.getCategoria()) && Boolean.TRUE.equals(categorias.get(e.getCategoria()))) { //Unboxed conversion. See: https://docs.oracle.com/javase/specs/jls/se8/html/jls-5.html#jls-5.1.8
+                            filteredEvents.add(e);
                         }
                     }
                 } else {
                     filteredEvents = listaEntera;
                 }
                 return filteredEvents;
+    }
+
+    @Override
+    public void onEventClicked(int eventIndex) {
+        if (cachedEvents != null && eventIndex < cachedEvents.size()) {
+            Event event = cachedEvents.get(eventIndex);
+            view.openEventDetails(event);
+        }
+    }
+
+    @Override
+    public void onReloadClicked() {
+        loadData();
+    }
+
+    @Override
+    public void onInfoClicked() {
+        view.openInfoView();
     }
 
     /**
@@ -89,6 +114,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
         view.onLoadSuccess(eventList.size());
     }
 
+
     /**
      * Takes the event list and order options and orders the list according to them.
      * @param eventList Event list to be ordered.
@@ -97,11 +123,57 @@ public class EventsPresenter implements IEventsContract.Presenter {
      *                    == false-> Show events without dates last in the list.
      */
     private void onApplyOrder(List<Event> eventList, OrderType type, boolean isDateFirst) {
+        Collections.sort(eventList, (e1, e2) -> {
+            int result;
+            boolean fecha1IsNull = nullOrEmpty(e1.getFecha());
+            boolean fecha2IsNull = nullOrEmpty(e2.getFecha());
+
+            if (fecha1IsNull || fecha2IsNull) {         // One of the events does not have a date
+                result = onApplyOrderWithoutDate(fecha1IsNull, fecha2IsNull, isDateFirst);
+
+            } else {                                    // Both events have dates
+                Date date1 = stringToDate(e1.getFecha());
+                Date date2 = stringToDate(e2.getFecha());
+                if (type == OrderType.DATE_ASC) {   // Show events closer to current date first
+                    result = date1.compareTo(date2);
+                } else {                            // Show further away from current date first
+                    result = date2.compareTo(date1);
+                }
+            }
+            return result;
+        });
     }
 
+    /**
+     * Sets a sorting behaviour for ordering events when one or more of them
+     * do not have dates established.
+     * @param fecha1IsNull == true -> Event1 does not have a date.
+     *                     == false-> Event1 has a date.
+     * @param fecha2IsNull == true -> Event2 does not have a date.
+     *                     == false-> Event2 has a date.
+     * @param isDateFirst == true -> Events without dates have to be shown first on the list.
+     *                    == false-> Events without dates have to be shown last on the list.
+     * @return 1 if Event1 has to be shown last, -1 if Event1 has to be shown first and 0 if
+     * both events are equal.
+     */
     private int onApplyOrderWithoutDate(boolean fecha1IsNull, boolean fecha2IsNull, boolean isDateFirst) {
-        return -1;
+        int result = 0;
+
+        // Shows events without dates last by default
+        if (fecha1IsNull) {                 // Event1 does not have a date
+            result = fecha2IsNull ? 0 : 1;
+        } else if (fecha2IsNull) {          // Event1 has a date but Event2 doesn't
+            result = -1;
+        }
+
+        // If 'Show events without dates first' was selected, the order is inverted
+        if (isDateFirst) {
+            result = result * -1;
+        }
+
+        return result;
     }
+
     /**
      * Takes the string date from an Event and converts it to data type Date.
      * @param strDate An Events date in data type String.
@@ -115,6 +187,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
         // Cleans the date from the string (2nd word) and converts it to Date
         return simpledateformat.parse(aux[1].substring(0, aux[1].length() - 1), new ParsePosition(0));
     }
+
     /**
      * Aux method that checks if a string is null or empty.
      * @param text Text that has to be checked.
@@ -124,29 +197,10 @@ public class EventsPresenter implements IEventsContract.Presenter {
         return (text == null || text.equals("") || text.trim().equals(""));
     }
 
-    @Override
-    public void onEventClicked(int eventIndex) {
-        if (cachedEvents != null && eventIndex < cachedEvents.size()) {
-            Event event = cachedEvents.get(eventIndex);
-            view.openEventDetails(event);
-        }
-    }
-
-    @Override
-    public void onReloadClicked() {
-        loadData();
-    }
-
-    @Override
-    public void onInfoClicked() {
-        view.openInfoView();
-    }
-
     /**
      * FOR TESTING PURPOSES ONLY: Sets this presenter's list to the one passed as argument
      * @param events List of events given to the presenter.
      */
-    @Override
     public void setList(List<Event> events) {
         this.cachedEvents = events;
     }
@@ -155,9 +209,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
      * FOR TESTING PURPOSES ONLY: Gets this presenter's list
      * @result this presenter's list of events.
      */
-    @Override
     public List<Event> getList() {
         return this.cachedEvents;
     }
-
 }

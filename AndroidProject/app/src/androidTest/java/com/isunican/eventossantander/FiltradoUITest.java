@@ -68,9 +68,10 @@ public class FiltradoUITest {
         onView(withId(R.id.btnFiltroCategoriaDown)).perform(click());
 
         onView(withId(R.id.checkBoxCulturaCientifica)).perform(click());
-        onView(withId(R.id.scrollMenu)).perform(swipeUp());
+        onView(withId(R.id.menu_filtros)).perform(swipeUp());
         sleep(2000);
-        onView(withId(R.id.btnAplicar)).perform(click());
+        onView(withId(R.id.rbOrdenarLejana)).perform(click());
+        onView(withId(R.id.btnAplicarFiltroOrden)).perform(click());
 
         onView(withId(R.id.eventsListView)).perform(swipeLeft());
         sleep(2000);
