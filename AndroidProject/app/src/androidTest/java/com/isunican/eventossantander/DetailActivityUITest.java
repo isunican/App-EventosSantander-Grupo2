@@ -21,7 +21,7 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class DetailActivityUITest {
+public class DetailActivityUITest { //UNUSED
 
     /**
      * Load known events json
@@ -43,14 +43,4 @@ public class DetailActivityUITest {
     public ActivityScenarioRule<EventsActivity> activityRule =
             new ActivityScenarioRule(EventsActivity.class);
 
-
-    @Test
-    public void vistaDetalladaGasolinera(){
-        // Open detail view of first event
-//        SystemClock.sleep(20000);
-        onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).perform(click());
-
-        // Check if data matches
-        onView(withId(R.id.event_detail_title)).check(matches(withText("Centro de Arte Faro  Cabo Mayor")));
-    }
 }

@@ -3,7 +3,6 @@ package com.isunican.eventossantander.view.events;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +10,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -19,22 +21,25 @@ import com.google.android.material.navigation.NavigationView;
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
+import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.view.eventsdetail.EventsDetailActivity;
 import com.isunican.eventossantander.view.info.InfoActivity;
 
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
+
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 
 public class EventsActivity extends AppCompatActivity implements IEventsContract.View {
 
     private IEventsContract.Presenter presenter;
-    private List<Event> events;
+    private Button btnAplicarFiltroOrden;
+    private ImageButton btnFiltroCategoriaDown;
+    private ImageButton btnFiltroCategoriaUp;
+    private LinearLayout layoutFiltroCategoria;
 
-    @SuppressLint("ClickableViewAccessibility")
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,32 +48,45 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         presenter = new EventsPresenter(this);
         NavigationView menuFiltros = findViewById(R.id.menu_filtros);
         ListView listaEventos = findViewById(R.id.eventsListView);
-        Button btnAplicar = findViewById(R.id.btnAplicarFiltroOrden);
+        btnAplicarFiltroOrden = findViewById(R.id.btnAplicarFiltroOrden);
+        btnFiltroCategoriaUp =findViewById(R.id.btnFiltroCategoriaUp);
+        btnFiltroCategoriaDown =findViewById(R.id.btnFiltroCategoriaDown);
+        layoutFiltroCategoria = findViewById(R.id.layoutFiltroCategoria);
+        btnFiltroCategoriaUp.setVisibility(View.GONE);
+        layoutFiltroCategoria.setVisibility(View.GONE);
 
-        // Listener for 'Apply filters/order by' button
-        btnAplicar.setOnClickListener(view -> {     // Applies filters & order by when pressed
-            RadioButton rbOrdenarProxima = findViewById(R.id.rbOrdenarProxima);
-            RadioButton rbOrdenarLejana = findViewById(R.id.rbOrdenarLejana);
-            RadioButton rbSinFecha = findViewById(R.id.rbSinFecha);
-            List<Event> lista = null;
-
-            // TODO: lista tiene que ser lo que devuelva el filtrado
-
-            // Check 'order by' type selected
-            if (rbOrdenarProxima.isChecked()) {
-                presenter.onApplyOrder(EventsPresenter.OrderType.DATE_ASC, lista);      // Closer to current date
-            } else if (rbOrdenarLejana.isChecked()) {
-                presenter.onApplyOrder(EventsPresenter.OrderType.DATE_DESC, lista);     // Further away from current date
-            } else if (rbSinFecha.isChecked()) {
-                presenter.onApplyOrder(EventsPresenter.OrderType.NO_DATE_FIRST, lista); // Events without date first
+        //Map to store the categories filtered
+        Map<String, Boolean> categorias = new HashMap<>();
+        int pos = layoutFiltroCategoria.getChildCount();
+        for (int i = 0; i < pos; i++) {
+            View viewAux = layoutFiltroCategoria.getChildAt(i);
+            if (viewAux instanceof CheckBox) {
+                categorias.put(((CheckBox) viewAux).getText().toString(), false);
             }
+        }
 
-            onEventsLoaded(events);                 // Reloads the events
-            menuFiltros.setVisibility(View.GONE);   // Closes the menu
+        menuFiltros.setVisibility(View.VISIBLE); //Para las pruebas de Interfaz de Usuario
+
+        // Handler to show the filters for categories
+        btnFiltroCategoriaDown.setOnClickListener(view -> {
+            btnFiltroCategoriaDown.setVisibility(View.GONE);
+            btnFiltroCategoriaUp.setVisibility(View.VISIBLE);
+            layoutFiltroCategoria.setVisibility(View.VISIBLE);
         });
 
-        // Listener for swipe menu
+        // Handler to hide the filters for categories
+        btnFiltroCategoriaUp.setOnClickListener(view -> {
+            btnFiltroCategoriaDown.setVisibility(View.VISIBLE);
+            btnFiltroCategoriaUp.setVisibility(View.GONE);
+            layoutFiltroCategoria.setVisibility(View.GONE);
+        });
+        
+        // Handler to control the events of sliding the finger (up, down, right, left)
         listaEventos.setOnTouchListener(new OnSwipeTouchListener(EventsActivity.this) {
+            @Override
+            public void onSwipeTop() {
+                Toast.makeText(EventsActivity.this, "top", Toast.LENGTH_SHORT).show();
+            }
             @Override
             public void onSwipeRight() {
                 menuFiltros.setVisibility(View.VISIBLE);
@@ -77,12 +95,49 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             public void onSwipeLeft() {
                 menuFiltros.setVisibility(View.GONE);
             }
+            @Override
+            public void onSwipeBottom() {
+                Toast.makeText(EventsActivity.this, "bottom", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+        // Manejador para aplicar los filtros y ordenacion
+        btnAplicarFiltroOrden.setOnClickListener(view -> {
+            RadioButton rbOrdenarLejana = findViewById(R.id.rbOrdenarLejana);
+            CheckBox checkBoxSinFecha = findViewById(R.id.checkBoxSinFecha);
+
+            int posi = layoutFiltroCategoria.getChildCount();
+            for (int i = 0; i < posi; i++) {
+                View viewAux = layoutFiltroCategoria.getChildAt(i);
+                if (viewAux instanceof CheckBox) {
+                    if (((CheckBox) viewAux).isChecked()) {
+                        categorias.put(((CheckBox) viewAux).getText().toString(), true);
+                    } else {
+                        categorias.put(((CheckBox) viewAux).getText().toString(), false);
+                    }
+                }
+            }
+
+            // Check order type selected
+            EventsPresenter.OrderType orderType = EventsPresenter.OrderType.DATE_ASC;   // 'Show events closer to current date' selected by default
+            if (rbOrdenarLejana.isChecked()) {
+                orderType = EventsPresenter.OrderType.DATE_DESC;    // Further away from current date
+            }
+            boolean isDateFirst = false;    // Events without a date are shown last by default
+            if (!checkBoxSinFecha.isChecked()) {
+                isDateFirst = true;                                 // Events without date first
+            }
+
+            // Apply the filters & order selected
+            presenter.onApplyOptions(new Options(categorias, orderType, isDateFirst));
+            menuFiltros.setVisibility(View.GONE);   // Closes the menu
         });
     }
 
+
     @Override
     public void onEventsLoaded(List<Event> events) {
-        this.events = events;
         EventArrayAdapter adapter = new EventArrayAdapter(EventsActivity.this, 0, events);
         ListView listView = findViewById(R.id.eventsListView);
         listView.setAdapter(adapter);

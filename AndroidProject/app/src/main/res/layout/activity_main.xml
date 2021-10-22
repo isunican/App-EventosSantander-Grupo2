@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/event_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.events.EventsActivity"
-    android:id="@+id/event_layout">
+    android:gravity="center_horizontal"
+    tools:context=".view.events.EventsActivity">
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/menu_filtros"
@@ -21,89 +22,156 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="@dimen/marginTextView"
+                android:layout_marginTop="@dimen/marginTextView"
+                android:layout_marginRight="@dimen/marginTextView"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Filtro categoria"
-                    android:textColor="#000000"
-                    android:textSize="26dp"
-                    android:textStyle="bold" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                <CheckBox
-                    android:id="@+id/checkBoxMusica"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Música" />
+                    <TextView
+                        android:id="@+id/txtFiltroCategoria"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Filtro categoría"
+                        android:textColor="#000000"
+                        android:textSize="26dp"
+                        android:textStyle="bold" />
 
-                <CheckBox
-                    android:id="@+id/checkBoxEncuestas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Encuestas" />
+                    <ImageButton
+                        android:id="@+id/btnFiltroCategoriaDown"
+                        android:layout_width="35dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/arrow_down"
+                        android:foregroundGravity="center"
+                        android:paddingTop="20dp"
+                        android:paddingBottom="20dp"
+                        app:srcCompat="@drawable/arrow_down" />
 
-                <CheckBox
-                    android:id="@+id/checkBoxArtesPlasticas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Artes Plásticas" />
+                    <ImageButton
+                        android:id="@+id/btnFiltroCategoriaUp"
+                        android:layout_width="35dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/arrow_down"
+                        android:foregroundGravity="center"
+                        android:paddingTop="20dp"
+                        android:paddingBottom="20dp"
+                        android:rotation="180"
+                        app:srcCompat="@drawable/arrow_down" />
+                </LinearLayout>
 
-                <CheckBox
-                    android:id="@+id/checkBoxFormacionTalleres"
+                <LinearLayout
+                    android:id="@+id/layoutFiltroCategoria"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Formación/Talleres" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <CheckBox
-                    android:id="@+id/checkBoxArquitectura"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Arquitectura" />
+                    <CheckBox
+                        android:id="@+id/checkBoxMusica"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#D90404"
+                        android:text="Música"
+                        android:textSize="18dp" />
 
-                <CheckBox
-                    android:id="@+id/checkBoxInfantil"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Infantil" />
+                    <CheckBox
+                        android:id="@+id/checkBoxOnline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#7FDED8"
+                        android:text="Online"
+                        android:textSize="18dp" />
 
-                <CheckBox
-                    android:id="@+id/checkBoxCineAudiovisual"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Cine/Audiovisual" />
+                    <CheckBox
+                        android:id="@+id/checkBoxArtesPlasticas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#FFC2C2"
+                        android:text="Artes plásticas"
+                        android:textSize="18dp" />
 
-                <CheckBox
-                    android:id="@+id/checkBoxArtesEscenicas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Artes Escénicas" />
+                    <CheckBox
+                        android:id="@+id/checkBoxFormacionTalleres"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#87F692"
+                        android:text="Formación/Talleres"
+                        android:textSize="18dp" />
 
-                <CheckBox
-                    android:id="@+id/checkBoxCulturaCientifica"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Cultura Científica" />
+                    <CheckBox
+                        android:id="@+id/checkBoxArquitectura"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#BF784E"
+                        android:text="Arquitectura"
+                        android:textSize="18dp" />
 
-                <CheckBox
-                    android:id="@+id/checkBoxEdicionLiteratura"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Edición/Literatura" />
+                    <CheckBox
+                        android:id="@+id/checkBoxInfantil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#F27405"
+                        android:text="Infantil"
+                        android:textSize="18dp" />
 
-                <CheckBox
-                    android:id="@+id/checkBoxFotografia"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Fotografía" />
+                    <CheckBox
+                        android:id="@+id/checkBoxCineAudiovisual"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#313B2F"
+                        android:text="Cine/Audiovisual"
+                        android:textSize="18dp" />
 
-                <CheckBox
-                    android:id="@+id/checkBoxOtros"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Otros" />
+                    <CheckBox
+                        android:id="@+id/checkBoxArtesEscenicas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#D90404"
+                        android:text="Artes escénicas"
+                        android:textSize="18dp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxCulturaCientifica"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#6AC89F"
+                        android:text="Cultura científica"
+                        android:textSize="18dp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxEdicionLiteratura"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#679AC2"
+                        android:text="Edición/Literatura"
+                        android:textSize="18dp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFotografia"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#FDFAAB"
+                        android:text="Fotografía"
+                        android:textSize="18dp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxOtros"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#C6D7CB"
+                        android:text="Otros"
+                        android:textSize="18dp" />
+                </LinearLayout>
+
+
 
                 <TextView
                     android:id="@+id/textView2"
@@ -124,6 +192,7 @@
                         android:id="@+id/rbOrdenarProxima"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="true"
                         android:text="Más cercana a más lejana" />
 
                     <RadioButton
@@ -132,12 +201,14 @@
                         android:layout_height="wrap_content"
                         android:text="Más lejana a más cercana" />
 
-                    <RadioButton
-                        android:id="@+id/rbSinFecha"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Eventos sin fecha primero" />
                 </RadioGroup>
+
+                <CheckBox
+                    android:id="@+id/checkBoxSinFecha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Mostrar eventos sin fecha al final" />
 
                 <Button
                     android:id="@+id/btnAplicarFiltroOrden"

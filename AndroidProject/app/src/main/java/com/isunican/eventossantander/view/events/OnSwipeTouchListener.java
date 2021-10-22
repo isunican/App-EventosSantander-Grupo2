@@ -44,7 +44,6 @@ public class OnSwipeTouchListener implements OnTouchListener {
                             onSwipeLeft();
                         }
                     }
-                    result = true;
                 }
                 else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
                     if (diffY > 0) {
@@ -55,22 +54,24 @@ public class OnSwipeTouchListener implements OnTouchListener {
                 }
                 result = true;
 
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
+            } catch (Exception exception) { }
             return result;
         }
     }
 
     public void onSwipeRight() {
+        throw new UnsupportedOperationException();
     }
 
     public void onSwipeLeft() {
+        throw new UnsupportedOperationException();
     }
 
     public void onSwipeTop() {
+        throw new UnsupportedOperationException();
     }
 
     public void onSwipeBottom() {
+        throw new UnsupportedOperationException();
     }
 }
