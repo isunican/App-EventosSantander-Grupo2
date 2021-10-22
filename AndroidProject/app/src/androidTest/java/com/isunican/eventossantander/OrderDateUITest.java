@@ -40,8 +40,10 @@ public class OrderDateUITest {
     @Test
     public void orderAscTest(){
         onView(withId(R.id.rbOrdenarProxima)).perform(click()); //Checked by default in this version, so not really needed but this might change in the future
-        onView(withId(R.id.btnAplicarFiltroOrden)).perform(click());
+        sleep(2000);
+		onView(withId(R.id.btnAplicarFiltroOrden)).perform(click());
         //Check the order was applied by checking the first three events in the list
+		sleep(2000);
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.item_event_title)).check(matches(withText(TITLE)));
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.item_event_date)).check(matches(withText(DATE)));
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(1).onChildView(withId(R.id.item_event_title)).check(matches(withText(TITLE_2)));
