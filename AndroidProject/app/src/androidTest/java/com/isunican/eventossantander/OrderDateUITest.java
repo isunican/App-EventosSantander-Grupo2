@@ -3,6 +3,7 @@ package com.isunican.eventossantander;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.swipeRight;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -40,6 +41,7 @@ public class OrderDateUITest {
 
     @Test
     public void orderAscTest() throws InterruptedException {
+        onView(withId(R.id.eventsListView)).perform(swipeRight());
         onView(withId(R.id.rbOrdenarProxima)).perform(click()); //Checked by default in this version, so not really needed but this might change in the future
         sleep(2000);
 		onView(withId(R.id.btnAplicarFiltroOrden)).perform(click());
