@@ -46,7 +46,8 @@ public class EventsPresenterITest {
         presenter = new EventsPresenter(view);
         sleep(5000);
         verify(view).onEventsLoaded(eventos.capture());
-        assertTrue(345==eventos.getValue().size());
+        assertEquals(345, eventos.getValue().size());
+
     }
 
     @Test

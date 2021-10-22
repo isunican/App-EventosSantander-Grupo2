@@ -48,10 +48,11 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         presenter = new EventsPresenter(this);
         NavigationView menuFiltros = findViewById(R.id.menu_filtros);
         ListView listaEventos = findViewById(R.id.eventsListView);
-        btnAplicarFiltroOrden = findViewById(R.id.btnAplicarFiltroOrden);
-        btnFiltroCategoriaUp =findViewById(R.id.btnFiltroCategoriaUp);
-        btnFiltroCategoriaDown =findViewById(R.id.btnFiltroCategoriaDown);
-        layoutFiltroCategoria = findViewById(R.id.layoutFiltroCategoria);
+
+        Button btnAplicarFiltroOrden = findViewById(R.id.btnAplicarFiltroOrden);
+        ImageButton btnFiltroCategoriaUp =findViewById(R.id.btnFiltroCategoriaUp);
+        ImageButton btnFiltroCategoriaDown =findViewById(R.id.btnFiltroCategoriaDown);
+        LinearLayout layoutFiltroCategoria = findViewById(R.id.layoutFiltroCategoria);
         btnFiltroCategoriaUp.setVisibility(View.GONE);
         layoutFiltroCategoria.setVisibility(View.GONE);
 
@@ -60,12 +61,10 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         int pos = layoutFiltroCategoria.getChildCount();
         for (int i = 0; i < pos; i++) {
             View viewAux = layoutFiltroCategoria.getChildAt(i);
-            if (viewAux instanceof CheckBox) {
-                categorias.put(((CheckBox) viewAux).getText().toString(), false);
-            }
+
+            categorias.put(((CheckBox) viewAux).getText().toString(), false);
         }
 
-        menuFiltros.setVisibility(View.VISIBLE); //Para las pruebas de Interfaz de Usuario
 
         // Handler to show the filters for categories
         btnFiltroCategoriaDown.setOnClickListener(view -> {
@@ -84,20 +83,13 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         // Handler to control the events of sliding the finger (up, down, right, left)
         listaEventos.setOnTouchListener(new OnSwipeTouchListener(EventsActivity.this) {
             @Override
-            public void onSwipeTop() {
-                Toast.makeText(EventsActivity.this, "top", Toast.LENGTH_SHORT).show();
-            }
-            @Override
+
             public void onSwipeRight() {
                 menuFiltros.setVisibility(View.VISIBLE);
             }
             @Override
             public void onSwipeLeft() {
                 menuFiltros.setVisibility(View.GONE);
-            }
-            @Override
-            public void onSwipeBottom() {
-                Toast.makeText(EventsActivity.this, "bottom", Toast.LENGTH_SHORT).show();
             }
 
         });

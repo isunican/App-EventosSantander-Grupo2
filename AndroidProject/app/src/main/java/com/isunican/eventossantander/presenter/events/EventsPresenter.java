@@ -53,7 +53,8 @@ public class EventsPresenter implements IEventsContract.Presenter {
      */
     public List<Event> onApplyFilter(Map<String, Boolean> categorias){
 
-                List<Event> filteredEvents = new ArrayList<Event>();
+                List<Event> filteredEvents = new ArrayList();
+
                 List<Event> listaEntera = cachedEvents;
                 //If no filter is selected it finishes
                 if (categorias.containsValue(true)) {
@@ -61,7 +62,9 @@ public class EventsPresenter implements IEventsContract.Presenter {
                     for (Event e: listaEntera) {
                         //If the category of the current event exists and is selected by the user,
                         // the vents is added to the list of filtered events
-                        if (categorias.containsKey(e.getCategoria()) && categorias.get(e.getCategoria())) {
+
+                        if (categorias.containsKey(e.getCategoria()) && Boolean.TRUE.equals(categorias.get(e.getCategoria()))) { //Unboxed conversion. See: https://docs.oracle.com/javase/specs/jls/se8/html/jls-5.html#jls-5.1.8
+
                             filteredEvents.add(e);
                         }
                     }
