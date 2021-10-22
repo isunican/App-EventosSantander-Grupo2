@@ -47,6 +47,7 @@ public class EventsPresenterITest {
         sleep(5000);
         verify(view).onEventsLoaded(eventos.capture());
         assertEquals(345, eventos.getValue().size());
+
     }
 
     @Test

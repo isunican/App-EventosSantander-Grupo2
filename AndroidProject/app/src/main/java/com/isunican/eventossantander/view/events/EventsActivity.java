@@ -33,6 +33,12 @@ import java.util.Map;
 public class EventsActivity extends AppCompatActivity implements IEventsContract.View {
 
     private IEventsContract.Presenter presenter;
+    private Button btnAplicarFiltroOrden;
+    private ImageButton btnFiltroCategoriaDown;
+    private ImageButton btnFiltroCategoriaUp;
+    private LinearLayout layoutFiltroCategoria;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         presenter = new EventsPresenter(this);
         NavigationView menuFiltros = findViewById(R.id.menu_filtros);
         ListView listaEventos = findViewById(R.id.eventsListView);
+
         Button btnAplicarFiltroOrden = findViewById(R.id.btnAplicarFiltroOrden);
         ImageButton btnFiltroCategoriaUp =findViewById(R.id.btnFiltroCategoriaUp);
         ImageButton btnFiltroCategoriaDown =findViewById(R.id.btnFiltroCategoriaDown);
@@ -54,8 +61,10 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         int pos = layoutFiltroCategoria.getChildCount();
         for (int i = 0; i < pos; i++) {
             View viewAux = layoutFiltroCategoria.getChildAt(i);
+
             categorias.put(((CheckBox) viewAux).getText().toString(), false);
         }
+
 
         // Handler to show the filters for categories
         btnFiltroCategoriaDown.setOnClickListener(view -> {
@@ -74,6 +83,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         // Handler to control the events of sliding the finger (up, down, right, left)
         listaEventos.setOnTouchListener(new OnSwipeTouchListener(EventsActivity.this) {
             @Override
+
             public void onSwipeRight() {
                 menuFiltros.setVisibility(View.VISIBLE);
             }
@@ -81,6 +91,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             public void onSwipeLeft() {
                 menuFiltros.setVisibility(View.GONE);
             }
+
         });
 
         // Manejador para aplicar los filtros y ordenacion

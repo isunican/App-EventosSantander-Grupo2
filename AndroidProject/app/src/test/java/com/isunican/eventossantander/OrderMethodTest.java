@@ -1,9 +1,11 @@
 package com.isunican.eventossantander;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-import static org.junit.Assert.assertTrue;
 import android.os.Build;
 
+import com.isunican.eventossantander.presenter.events.EventsPresenter;
 import com.isunican.eventossantander.presenter.events.Options;
 
 import org.junit.BeforeClass;
@@ -13,36 +15,29 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = {Build.VERSION_CODES.O_MR1})
-public class FilterMethodTest {
+public class OrderMethodTest {
 
     private static Options options, options2;
 
     @BeforeClass
     public static void setup() {
         Map<String,Boolean> categories = new HashMap<>();
-        Map<String,Boolean> categoriesEmpty = new HashMap<>();
 
-        categories.put("Infantil", true);
-
-        options = new Options(categories, null, false);
-        options2 = new Options(categoriesEmpty, null, false);
+        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
+        options2 = new Options(categories, null, false);
     }
 
     @Test
-    public void getFilterCategoriesTest() {
-        assertTrue(options.getFilterOptions().get("Infantil"));
-
+    public void getOrderCategoriesTest() {
+        assertEquals(EventsPresenter.OrderType.DATE_ASC, options.getOrderTypeOptions());
     }
 
     @Test
-    public void getEmptyFilterCategoriesTest() {
-        assertTrue(options2.getFilterOptions().isEmpty());
-
+    public void getNullOrderCategoriesTest() {
+        assertNull(options2.getOrderTypeOptions());
     }
 }
