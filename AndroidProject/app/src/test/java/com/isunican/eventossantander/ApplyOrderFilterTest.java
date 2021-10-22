@@ -30,12 +30,12 @@ import java.util.Map;
 @Config(sdk = {Build.VERSION_CODES.O_MR1})
 public class ApplyOrderFilterTest {
 
-    private static List<Event> events, eventsExpectedAsc, eventsFilteredOrdered;
-    private static Options options, options2;
+    private List<Event> events, eventsExpectedAsc, eventsFilteredOrdered;
+    private Options options, options2;
 
-    private static final IEventsContract.View view = mock(EventsActivity.class);
+    private IEventsContract.View view = mock(EventsActivity.class);
 
-    private static IEventsContract.Presenter presenter;
+    private IEventsContract.Presenter presenter;
 
     @Before
     public void setup() {
@@ -92,7 +92,7 @@ public class ApplyOrderFilterTest {
         ArgumentCaptor<List<Event>> listCaptor = ArgumentCaptor.forClass(List.class);
         presenter.setList(events);
         presenter.onApplyOptions(options2);
-        verify(view, times(2)).onEventsLoaded(listCaptor.capture());
+        verify(view, times(1)).onEventsLoaded(listCaptor.capture());
         assertEquals(eventsFilteredOrdered, listCaptor.getValue());
     }
 }

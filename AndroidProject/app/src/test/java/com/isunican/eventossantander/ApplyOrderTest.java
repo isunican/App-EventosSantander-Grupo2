@@ -28,13 +28,13 @@ import java.util.Map;
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = {Build.VERSION_CODES.O_MR1})
 public class ApplyOrderTest {
-    private static List<Event> events, emptyEvents, oneEvent, eventsNoDate;
-    private static List<Event> eventsExpectedAsc, eventsExpectedDesc, eventsExpectedEmpty, eventsExpectedOne, eventsExpectedNoDateF, eventsExpectedNoDateT;
-    private static Options options, options2, options3;
+    private List<Event> events, emptyEvents, oneEvent, eventsNoDate;
+    private List<Event> eventsExpectedAsc, eventsExpectedDesc, eventsExpectedEmpty, eventsExpectedOne, eventsExpectedNoDateF, eventsExpectedNoDateT;
+    private Options options, options2, options3;
 
-    private static final IEventsContract.View view = mock(EventsActivity.class);
+    private IEventsContract.View view = mock(EventsActivity.class);
 
-    private static IEventsContract.Presenter presenter;
+    private IEventsContract.Presenter presenter;
 
     @Before
     public void setup() {
