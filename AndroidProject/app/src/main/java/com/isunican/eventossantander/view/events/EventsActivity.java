@@ -57,8 +57,6 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             categorias.put(((CheckBox) viewAux).getText().toString(), false);
         }
 
-        menuFiltros.setVisibility(View.VISIBLE); //Para las pruebas de Interfaz de Usuario
-
         // Handler to show the filters for categories
         btnFiltroCategoriaDown.setOnClickListener(view -> {
             btnFiltroCategoriaDown.setVisibility(View.GONE);
@@ -76,10 +74,6 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         // Handler to control the events of sliding the finger (up, down, right, left)
         listaEventos.setOnTouchListener(new OnSwipeTouchListener(EventsActivity.this) {
             @Override
-            public void onSwipeTop() {
-                Toast.makeText(EventsActivity.this, "top", Toast.LENGTH_SHORT).show();
-            }
-            @Override
             public void onSwipeRight() {
                 menuFiltros.setVisibility(View.VISIBLE);
             }
@@ -87,11 +81,6 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             public void onSwipeLeft() {
                 menuFiltros.setVisibility(View.GONE);
             }
-            @Override
-            public void onSwipeBottom() {
-                Toast.makeText(EventsActivity.this, "bottom", Toast.LENGTH_SHORT).show();
-            }
-
         });
 
         // Manejador para aplicar los filtros y ordenacion
