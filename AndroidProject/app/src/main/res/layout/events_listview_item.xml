@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/item_event_icon"
-        android:layout_width="@dimen/logo"
-        android:layout_height="@dimen/logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginLeft="@dimen/marginLogo"
         android:layout_marginTop="@dimen/marginLogo"
         android:layout_marginRight="@dimen/marginLogo"
@@ -17,8 +17,8 @@
         app:srcCompat="@drawable/ic_launcher_background" />
     <ImageView
         android:id="@+id/item_event_image"
-        android:layout_width="@dimen/logo"
-        android:layout_height="@dimen/logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginLeft="@dimen/marginLogo"
         android:layout_marginTop="@dimen/marginLogo"
         android:layout_marginRight="@dimen/marginLogo"
