@@ -37,8 +37,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     private ImageButton btnFiltroCategoriaDown;
     private ImageButton btnFiltroCategoriaUp;
     private LinearLayout layoutFiltroCategoria;
-
-
+    private boolean isFilterMenuVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +54,8 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         LinearLayout layoutFiltroCategoria = findViewById(R.id.layoutFiltroCategoria);
         btnFiltroCategoriaUp.setVisibility(View.GONE);
         layoutFiltroCategoria.setVisibility(View.GONE);
+
+        isFilterMenuVisible = false;
 
         //Map to store the categories filtered
         Map<String, Boolean> categorias = new HashMap<>();
@@ -162,6 +163,18 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         startActivity(intent);
     }
 
+    @Override
+    public void openFilterMenuView() {
+        NavigationView menuFiltros = findViewById(R.id.menu_filtros);
+        menuFiltros.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void closeFilterMenuView() {
+        NavigationView menuFiltros = findViewById(R.id.menu_filtros);
+        menuFiltros.setVisibility(View.GONE);
+    }
+
     public IEventsContract.Presenter getPresenter() {
         return presenter;
     }
@@ -185,6 +198,14 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
                 return true;
             case R.id.menu_info:
                 presenter.onInfoClicked();
+                return true;
+            case R.id.filter_menu:
+                presenter.onFilterMenuClicked(isFilterMenuVisible);
+                if (isFilterMenuVisible) {
+                    isFilterMenuVisible = false;
+                } else {
+                    isFilterMenuVisible = true;
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
