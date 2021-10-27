@@ -17,13 +17,16 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
+import com.isunican.eventossantander.presenter.events.BottomNavigationViewHelper;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
 import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.view.eventsdetail.EventsDetailActivity;
 import com.isunican.eventossantander.view.info.InfoActivity;
+import com.isunican.eventossantander.view.navigation.BottomNavigationBar;
 
 
 import java.util.HashMap;
@@ -125,6 +128,25 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             presenter.onApplyOptions(new Options(categorias, orderType, isDateFirst));
             menuFiltros.setVisibility(View.GONE);   // Closes the menu
         });
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener((item) -> {
+            switch (item.getItemId()) {
+                case R.id.inicioActivity:
+                    Intent intent1 = new Intent(this, EventsActivity.class);
+                    startActivity(intent1);
+                    break;
+
+                case R.id.favoritosActivity:
+                    Intent intent2 = new Intent(this, FavoriteEventsActivity.class);
+                    startActivity(intent2);
+                    break;
+            }
+
+            return false;
+        });
     }
 
 
@@ -158,8 +180,10 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
 
     @Override
     public void openInfoView() {
+
         Intent intent = new Intent(this, InfoActivity.class);
         startActivity(intent);
+
     }
 
     public IEventsContract.Presenter getPresenter() {

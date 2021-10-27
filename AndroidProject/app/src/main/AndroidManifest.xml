@@ -20,7 +20,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EventosSantander"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".view.events.FavoriteEventsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.navigation.BottomNavigationBar"
+            android:exported="true" />
         <activity
             android:name=".view.info.InfoActivity"
             android:exported="false" />

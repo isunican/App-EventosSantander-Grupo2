@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/inicioActivity"
+        android:icon="@drawable/ic_inicio"
+        android:title="Inicio" />
+    <item
+        android:id="@+id/favoritosActivity"
+        android:icon="@drawable/ic_fav"
+        android:title="Favoritos" />
 </menu>
