@@ -1,5 +1,9 @@
 package com.isunican.eventossantander.presenter.events;
 
+import android.view.View;
+
+import com.google.android.material.navigation.NavigationView;
+import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.view.Listener;
@@ -74,6 +78,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
                 return filteredEvents;
     }
 
+
     @Override
     public void onEventClicked(int eventIndex) {
         if (cachedEvents != null && eventIndex < cachedEvents.size()) {
@@ -90,6 +95,15 @@ public class EventsPresenter implements IEventsContract.Presenter {
     @Override
     public void onInfoClicked() {
         view.openInfoView();
+    }
+
+    @Override
+    public void onFilterMenuClicked(boolean isFilterMenuVisible) {
+        if (isFilterMenuVisible) {
+            view.closeFilterMenuView();
+        } else {
+            view.openFilterMenuView();
+        }
     }
 
     /**

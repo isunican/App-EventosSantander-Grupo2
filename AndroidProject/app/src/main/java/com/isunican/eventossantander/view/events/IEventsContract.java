@@ -18,6 +18,8 @@ public interface IEventsContract {
 
         void onInfoClicked();
 
+        void onFilterMenuClicked(boolean isFilterMenuVisible);
+
         void onApplyOptions(Options options);
 
         void setList(List<Event> events);
@@ -38,6 +40,10 @@ public interface IEventsContract {
         void openEventDetails(Event event);
 
         void openInfoView();
+
+        void openFilterMenuView();
+
+        void closeFilterMenuView();
 
     }
 }

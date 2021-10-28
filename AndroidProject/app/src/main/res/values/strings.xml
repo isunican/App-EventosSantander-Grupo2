@@ -21,4 +21,6 @@
     <!-- Error messages -->
     <string name="error_fragment_message">An error occurred</string>
     <string name="dismiss_error">Dismiss</string>
+    <string name="menu_filter">Filters</string>
+    <string name="filter_menu">Filters</string>
 </resources>

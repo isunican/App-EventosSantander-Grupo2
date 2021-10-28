@@ -51,8 +51,6 @@ public class EventArrayAdapter extends ArrayAdapter<Event> {
         categoriaTxt.setText(event.getCategoria());
         dateTxt.setText(event.getFecha());
 
-
-
         // Assign values to TextViews
         titleTxt.setText(event.getNombre());
         dateTxt.setText(event.getFecha());
