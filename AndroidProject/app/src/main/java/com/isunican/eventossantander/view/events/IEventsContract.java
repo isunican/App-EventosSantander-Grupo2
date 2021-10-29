@@ -41,9 +41,10 @@ public interface IEventsContract {
 
         void openInfoView();
 
-        void openFilterMenuView();
 
-        void closeFilterMenuView();
+        boolean isConectionAvailable();
+
+        void onConnectionError();
 
     }
 }
