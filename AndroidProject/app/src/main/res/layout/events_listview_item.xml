@@ -7,18 +7,19 @@
 
     <ImageView
         android:id="@+id/item_event_icon"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/marginLogo"
         android:layout_marginTop="@dimen/marginLogo"
         android:layout_marginRight="@dimen/marginLogo"
         android:layout_marginBottom="@dimen/marginLogo"
         android:layout_weight="1"
         app:srcCompat="@drawable/ic_launcher_background" />
+
     <ImageView
         android:id="@+id/item_event_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/marginLogo"
         android:layout_marginTop="@dimen/marginLogo"
         android:layout_marginRight="@dimen/marginLogo"
@@ -27,10 +28,10 @@
         app:srcCompat="@drawable/ic_launcher_background" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_marginBottom="10dp"
-        android:layout_weight="1"
+        android:layout_weight="6"
         android:orientation="vertical"
         android:paddingBottom="@dimen/marginTextView">
 
@@ -62,5 +63,27 @@
             android:layout_weight="1"
             android:text="TextView" />
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btn_event_fav"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="1.2"
+        android:backgroundTint="#00FFFFFF"
+        android:clickable="true"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_baseline_star_border_24" />
+
+    <ImageButton
+        android:id="@+id/btn_event_fav2"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:backgroundTint="#00FFFFFF"
+        android:clickable="true"
+        android:visibility="visible"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
 
 </LinearLayout>
