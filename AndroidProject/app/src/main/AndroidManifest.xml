@@ -4,6 +4,7 @@
     package="com.isunican.eventossantander">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-feature
         android:name="android.hardware.touchscreen"
@@ -22,9 +23,6 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".view.events.FavoriteEventsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".view.navigation.BottomNavigationBar"
             android:exported="true" />
         <activity
             android:name=".view.info.InfoActivity"

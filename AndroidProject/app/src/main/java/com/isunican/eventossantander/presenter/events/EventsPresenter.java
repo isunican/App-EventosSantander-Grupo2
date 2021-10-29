@@ -31,8 +31,8 @@ public class EventsPresenter implements IEventsContract.Presenter {
             public void onSuccess(List<Event> data) {
                 // Orders events with default options:
                 //   Dates closer to further & events without dates last.
-                onApplyOrder(data, OrderType.DATE_ASC, false);
 
+                onApplyOrder(data, OrderType.DATE_ASC, false);
                 view.onEventsLoaded(data);
                 view.onLoadSuccess(data.size());
                 cachedEvents = data;
@@ -40,7 +40,11 @@ public class EventsPresenter implements IEventsContract.Presenter {
 
             @Override
             public void onFailure() {
-                view.onLoadError();
+                if (!view.isConectionAvailable()) {
+                    view.onConnectionError();
+                } else {
+                    view.onLoadError();
+                }
                 cachedEvents = null;
             }
         });

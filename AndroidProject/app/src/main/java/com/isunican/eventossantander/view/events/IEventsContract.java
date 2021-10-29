@@ -1,5 +1,6 @@
 package com.isunican.eventossantander.view.events;
 
+import android.app.Dialog;
 import android.widget.ListView;
 
 import com.isunican.eventossantander.model.Event;
@@ -38,6 +39,10 @@ public interface IEventsContract {
         void openEventDetails(Event event);
 
         void openInfoView();
+
+        boolean isConectionAvailable();
+
+        void onConnectionError();
 
     }
 }
