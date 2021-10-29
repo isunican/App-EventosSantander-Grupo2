@@ -1,11 +1,11 @@
 
-_
-java:S11174"IRename "btnAplicarFiltroOrden" which hides the field declared at line 36.(˜˜Ø…
-c
-java:S11175"HRename "btnFiltroCategoriaUp" which hides the field declared at line 38.(õ§‘áıÿÿÿÿ
-`
-java:S11176"JRename "btnFiltroCategoriaDown" which hides the field declared at line 37.(™’Ü
-_
-java:S11177"IRename "layoutFiltroCategoria" which hides the field declared at line 39.(ß„ù
-]
-java:S1126j"BReplace this if-then-else statement by a single method invocation.(¼ÜàÕûÿÿÿÿ
+f
+java:S11173"IRename "btnAplicarFiltroOrden" which hides the field declared at line 36.(˜˜Ø…8ºÈ¹äÌ/
+j
+java:S11174"HRename "btnFiltroCategoriaUp" which hides the field declared at line 38.(õ§‘áıÿÿÿÿ8ºÈ¹äÌ/
+g
+java:S11175"JRename "btnFiltroCategoriaDown" which hides the field declared at line 37.(™’Ü8ºÈ¹äÌ/
+f
+java:S11176"IRename "layoutFiltroCategoria" which hides the field declared at line 39.(ß„ù8ºÈ¹äÌ/
+d
+java:S1126k"BReplace this if-then-else statement by a single method invocation.(¼ÜàÕûÿÿÿÿ8ÙÈ¹äÌ/
