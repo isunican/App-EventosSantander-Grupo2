@@ -1,14 +1,13 @@
 package com.isunican.eventossantander.view.eventsdetail;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.text.HtmlCompat;
-
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.text.HtmlCompat;
 
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;

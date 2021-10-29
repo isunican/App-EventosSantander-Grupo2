@@ -1,31 +1,30 @@
 package com.isunican.eventossantander.presenter.events;
 
-import android.view.View;
-
-import com.google.android.material.navigation.NavigationView;
-import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.view.Listener;
 import com.isunican.eventossantander.view.events.IEventsContract;
+import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.ArrayList;
 import java.util.Map;
 
 public class EventsPresenter implements IEventsContract.Presenter {
 
     private final IEventsContract.View view;
+    private IGestionarFavoritos sharedPref;
     private List<Event> cachedEvents;
     public enum OrderType { DATE_ASC, DATE_DESC }
 
     public EventsPresenter(IEventsContract.View view) {
         this.view = view;
+        this.sharedPref = sharedPref;
         loadData();
     }
 
@@ -189,6 +188,17 @@ public class EventsPresenter implements IEventsContract.Presenter {
         }
 
         return result;
+    }
+
+    @Override
+    public void onFavouriteClicked(int eventIndex, Boolean isClicked, IGestionarFavoritos sharedPref) {
+        // isClicked = true -> Quitar evento de favoritos
+        // isClicked = false -> Anhadir evento a favoritos
+        if (isClicked) {
+            // TODO
+        } else {
+            sharedPref.setFavourite(eventIndex,cachedEvents);
+        }
     }
 
     /**

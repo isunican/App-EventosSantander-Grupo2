@@ -1,24 +1,21 @@
 package com.isunican.eventossantander;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+
+import android.os.Build;
+
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
 import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.view.events.EventsActivity;
 import com.isunican.eventossantander.view.events.IEventsContract;
 
-
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
-
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-
-import android.os.Build;
 
 import java.util.ArrayList;
 import java.util.HashMap;

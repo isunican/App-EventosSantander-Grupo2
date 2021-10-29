@@ -1,8 +1,5 @@
 package com.isunican.eventossantander.view.events;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,14 +14,18 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.navigation.NavigationView;
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
 import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.view.eventsdetail.EventsDetailActivity;
+import com.isunican.eventossantander.view.favourites.GestionarFavoritosUsuario;
+import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
 import com.isunican.eventossantander.view.info.InfoActivity;
-
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +38,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     private ImageButton btnFiltroCategoriaDown;
     private ImageButton btnFiltroCategoriaUp;
     private LinearLayout layoutFiltroCategoria;
+    private IGestionarFavoritos sharedPref;
     private boolean isFilterMenuVisible;
 
     @Override
@@ -44,7 +46,9 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sharedPref = new GestionarFavoritosUsuario(this);
         presenter = new EventsPresenter(this);
+
         NavigationView menuFiltros = findViewById(R.id.menu_filtros);
         ListView listaEventos = findViewById(R.id.eventsListView);
 
@@ -125,6 +129,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             // Apply the filters & order selected
             presenter.onApplyOptions(new Options(categorias, orderType, isDateFirst));
             menuFiltros.setVisibility(View.GONE);   // Closes the menu
+
         });
     }
 
@@ -210,5 +215,9 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public IGestionarFavoritos getSharedPref(){
+        return sharedPref;
     }
 }

@@ -1,9 +1,8 @@
 package com.isunican.eventossantander.view.events;
 
-import android.widget.ListView;
-
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.Options;
+import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
 
 import java.util.List;
 import java.util.Map;
@@ -21,6 +20,8 @@ public interface IEventsContract {
         void onFilterMenuClicked(boolean isFilterMenuVisible);
 
         void onApplyOptions(Options options);
+
+        void onFavouriteClicked(int eventIndex, Boolean isClicked, IGestionarFavoritos sharedPref);
 
         void setList(List<Event> events);
 

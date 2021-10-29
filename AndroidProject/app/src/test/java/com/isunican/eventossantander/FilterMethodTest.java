@@ -2,6 +2,7 @@ package com.isunican.eventossantander;
 
 
 import static org.junit.Assert.assertTrue;
+
 import android.os.Build;
 
 import com.isunican.eventossantander.presenter.events.Options;
@@ -13,9 +14,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = {Build.VERSION_CODES.O_MR1})

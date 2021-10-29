@@ -7,12 +7,13 @@ import com.isunican.eventossantander.model.Event;
 
 import java.util.List;
 
-public class UserSharedPreferences implements ISharedPreferences {
+public class GestionarFavoritosUsuario implements IGestionarFavoritos {
 
     private SharedPreferences sharedPref;
     private String idFavouriteEvents;
 
-    public UserSharedPreferences(Context context) {
+    // contexto y nombre
+    public GestionarFavoritosUsuario(Context context) {
         sharedPref = context.getSharedPreferences("favourites", Context.MODE_PRIVATE);
     }
 
@@ -34,5 +35,15 @@ public class UserSharedPreferences implements ISharedPreferences {
 
         editor.putString(idFavouriteEvents, "favourites");
         editor.apply();
+    }
+
+    @Override
+    public boolean isFavourite(int eventId) {
+        return idFavouriteEvents.contains(String.valueOf(eventId));
+    }
+
+    @Override
+    public void removeFavourite(int eventId, List<Event> cachedEvents) {
+        // TODO
     }
 }

@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/item_event_icon"
@@ -72,18 +71,18 @@
         android:layout_weight="1.2"
         android:backgroundTint="#00FFFFFF"
         android:clickable="true"
-        android:visibility="gone"
+        android:visibility="visible"
         app:srcCompat="@drawable/ic_baseline_star_border_24" />
 
     <ImageButton
-        android:id="@+id/btn_event_fav2"
+        android:id="@+id/btn_event_unfav"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_weight="1"
         android:backgroundTint="#00FFFFFF"
         android:clickable="true"
-        android:visibility="visible"
+        android:visibility="gone"
         app:srcCompat="@drawable/ic_baseline_star_24" />
 
 </LinearLayout>
