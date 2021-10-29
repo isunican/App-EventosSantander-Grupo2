@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.presenter.events.BottomNavigationViewHelper;
-import com.isunican.eventossantander.view.navigation.BottomNavigationBar;
 
 import android.content.Intent;
 import android.os.Bundle;
