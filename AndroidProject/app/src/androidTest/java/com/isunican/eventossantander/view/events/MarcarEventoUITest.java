@@ -30,18 +30,35 @@ public class MarcarEventoUITest {
     public ActivityScenarioRule<EventsActivity> activityRule = new ActivityScenarioRule(EventsActivity.class);
 
     /**
-     * This test corresponds to the planned UI test "UIT1.a".
+     * Historia de Usuario: Marcar Evento.
+     * Identificador: "UIT1.a".
+     * Autor: Ivan Gonzalez del Pozo.
      */
     @Test
     public void markEventSuccessTest() {
         // Mark first event as favourite.
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.btn_event_fav)).perform(click());
         // Check that the "Favourite" button changed.
-        onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.btn_event_nofav)).check(matches(isDisplayed()));
+        onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.btn_event_fav2)).check(matches(isDisplayed()));
     }
 
     /**
-     * This test corresponds to the planned UI test "UIT1.b".
+     * Historia de Usuario: Marcar Evento.
+     * Identificador: "UIT1.b".
+     * Autor: Ivan Gonzalez del Pozo.
+     */
+    @Test
+    public void unmarkEventSuccessTest() {
+        // Unmark first event.
+        onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.btn_event_fav2)).perform(click());
+        // Check that the "Favourite" button changed.
+        onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.btn_event_fav)).check(matches(isDisplayed()));
+    }
+
+    /**
+     * Historia de Usuario: Marcar Evento.
+     * Identificador: "UIT1.c".
+     * Autor: Ivan Gonzalez del Pozo.
      */
     @Test (expected = NoMatchingViewException.class)
     public void markEventFailureTest() {
