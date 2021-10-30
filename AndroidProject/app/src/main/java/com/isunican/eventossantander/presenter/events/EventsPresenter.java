@@ -44,11 +44,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
 
             @Override
             public void onFailure() {
-                if (!view.isConectionAvailable()) {
-                    view.onConnectionError();
-                } else {
-                    view.onLoadError();
-                }
+                view.onLoadError();
                 cachedEvents = null;
             }
         });

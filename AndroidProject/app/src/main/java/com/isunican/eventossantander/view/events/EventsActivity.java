@@ -134,22 +134,16 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             menuFiltros.setVisibility(View.GONE);   // Closes the menu
         });
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
-        BottomNavigationMenuView menu = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
-        BottomNavigationItemView itemNormal = (BottomNavigationItemView) menu.getChildAt(0);
-        BottomNavigationItemView itemFav = (BottomNavigationItemView) menu.getChildAt(1);
+
         bottomNavigationView.setOnNavigationItemSelectedListener((item) -> {
             switch (item.getItemId()) {
 
                 case R.id.inicioActivity:
-                    itemNormal.setChecked(true);
-                    itemFav.setChecked(false);
                     Intent intent1 = new Intent(this, EventsActivity.class);
                     startActivity(intent1);
                     break;
 
                 case R.id.favoritosActivity:
-                    itemFav.setChecked(true);
-                    itemNormal.setChecked(false);
                     Intent intent2 = new Intent(this, FavoriteEventsActivity.class);
                     startActivity(intent2);
                     break;
@@ -170,12 +164,6 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     }
 
     @Override
-    public void onLoadError() {
-        //Todavia no existe una gestion de errores planificada
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void onLoadSuccess(int elementsLoaded) {
         String text = String.format("Loaded %d events", elementsLoaded);
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
@@ -189,19 +177,21 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     }
 
     @Override
+    public void onLoadError() {
+        if (!Utilities.isConnected(this)) {
+            onConnectionError();
+        } else {
+            //Todavia no existe una gestion de errores planificada
+            throw new UnsupportedOperationException();
+        }
+    }
+
+    @Override
     public void openInfoView() {
 
         Intent intent = new Intent(this, InfoActivity.class);
         startActivity(intent);
 
-    }
-
-    @Override
-    public boolean isConectionAvailable() {
-        if (Utilities.isConnected(this)) {
-            return true;
-        }
-        return false;
     }
 
     @Override
