@@ -140,15 +140,15 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             switch (item.getItemId()) {
 
                 case R.id.inicioActivity:
-                    itemNormal.setChecked(true);
-                    itemFav.setChecked(false);
+                    //itemNormal.setChecked(true);
+                    //itemFav.setChecked(false);
                     Intent intent1 = new Intent(this, EventsActivity.class);
                     startActivity(intent1);
                     break;
 
                 case R.id.favoritosActivity:
-                    itemFav.setChecked(true);
-                    itemNormal.setChecked(false);
+                    //itemFav.setChecked(true);
+                    //itemNormal.setChecked(false);
                     Intent intent2 = new Intent(this, FavoriteEventsActivity.class);
                     startActivity(intent2);
                     break;
