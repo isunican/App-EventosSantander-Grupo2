@@ -58,6 +58,8 @@ public class EventArrayAdapter extends ArrayAdapter<Event> {
         // Coloco la imagen correspondiente dependiendo de si el evento estaba marcado como favorito o no
         boolean favorito = sharedPref.isFavourite(id);
 
+        // PROBLEMA: CIERRE DE APP
+        // Solucionar: TODO
         if (favorito) {
             btnEventFav.setImageResource(R.id.btn_event_fav);
             btnEventFav.setTag(R.id.btn_event_fav);
