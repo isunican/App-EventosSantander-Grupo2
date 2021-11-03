@@ -26,6 +26,8 @@ public interface IEventsContract {
         List<Event> getList();
 
         List<Event> onApplyFilter(Map<String, Boolean> categorias);
+
+        void setFavEventsList(List<Event> favEvents);
     }
 
     interface View {

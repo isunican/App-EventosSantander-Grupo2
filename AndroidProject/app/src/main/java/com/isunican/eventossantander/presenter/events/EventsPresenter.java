@@ -19,6 +19,8 @@ public class EventsPresenter implements IEventsContract.Presenter {
     private final IEventsContract.View view;
     private List<Event> cachedEvents;
 
+    private List<Event> favEvents;
+
     public EventsPresenter(IEventsContract.View view) {
         this.view = view;
         loadData();
@@ -217,5 +219,21 @@ public class EventsPresenter implements IEventsContract.Presenter {
      */
     public List<Event> getList() {
         return this.cachedEvents;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY: Sets this presenter's list to the one passed as argument
+     * @param events List of events given to the presenter.
+     */
+    public void setFavEventsList(List<Event> events) {
+        this.favEvents = events;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY: Gets this presenter's list
+     * @result this presenter's list of events.
+     */
+    public List<Event> getFavEventsList() {
+        return this.favEvents;
     }
 }
