@@ -7,6 +7,7 @@ import android.os.Build;
 
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
 import com.isunican.eventossantander.presenter.events.Options;
+import com.isunican.eventossantander.presenter.events.Utilities;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -27,13 +28,13 @@ public class OrderMethodTest {
     public static void setup() {
         Map<String,Boolean> categories = new HashMap<>();
 
-        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
+        options = new Options(categories, Utilities.OrderType.DATE_ASC, false);
         options2 = new Options(categories, null, false);
     }
 
     @Test
     public void getOrderCategoriesTest() {
-        assertEquals(EventsPresenter.OrderType.DATE_ASC, options.getOrderTypeOptions());
+        assertEquals(Utilities.OrderType.DATE_ASC, options.getOrderTypeOptions());
     }
 
     @Test

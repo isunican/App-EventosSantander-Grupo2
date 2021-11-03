@@ -40,12 +40,7 @@ import java.util.Map;
 public class EventsActivity extends AppCompatActivity implements IEventsContract.View {
 
     private IEventsContract.Presenter presenter;
-    private Button btnAplicarFiltroOrden;
-    private ImageButton btnFiltroCategoriaDown;
-    private ImageButton btnFiltroCategoriaUp;
-    private LinearLayout layoutFiltroCategoria;
-
-
+    private boolean isFilterMenuVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,9 +114,9 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             }
 
             // Check order type selected
-            EventsPresenter.OrderType orderType = EventsPresenter.OrderType.DATE_ASC;   // 'Show events closer to current date' selected by default
+            Utilities.OrderType orderType = Utilities.OrderType.DATE_ASC;   // 'Show events closer to current date' selected by default
             if (rbOrdenarLejana.isChecked()) {
-                orderType = EventsPresenter.OrderType.DATE_DESC;    // Further away from current date
+                orderType = Utilities.OrderType.DATE_DESC;    // Further away from current date
             }
             boolean isDateFirst = false;    // Events without a date are shown last by default
             if (!checkBoxSinFecha.isChecked()) {
@@ -133,22 +128,15 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             menuFiltros.setVisibility(View.GONE);   // Closes the menu
         });
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
-        BottomNavigationMenuView menu = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
-        BottomNavigationItemView itemNormal = (BottomNavigationItemView) menu.getChildAt(0);
-        BottomNavigationItemView itemFav = (BottomNavigationItemView) menu.getChildAt(1);
         bottomNavigationView.setOnNavigationItemSelectedListener((item) -> {
             switch (item.getItemId()) {
 
                 case R.id.inicioActivity:
-                    itemNormal.setChecked(true);
-                    itemFav.setChecked(false);
                     Intent intent1 = new Intent(this, EventsActivity.class);
                     startActivity(intent1);
                     break;
 
                 case R.id.favoritosActivity:
-                    itemFav.setChecked(true);
-                    itemNormal.setChecked(false);
                     Intent intent2 = new Intent(this, FavoriteEventsActivity.class);
                     startActivity(intent2);
                     break;

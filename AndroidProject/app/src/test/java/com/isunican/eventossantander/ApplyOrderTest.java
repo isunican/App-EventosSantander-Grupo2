@@ -3,6 +3,7 @@ package com.isunican.eventossantander;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
 import com.isunican.eventossantander.presenter.events.Options;
+import com.isunican.eventossantander.presenter.events.Utilities;
 import com.isunican.eventossantander.view.events.EventsActivity;
 import com.isunican.eventossantander.view.events.IEventsContract;
 
@@ -93,9 +94,9 @@ public class ApplyOrderTest {
         eventsExpectedNoDateT.add(e2);
         eventsExpectedNoDateT.add(e1);
 
-        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
-        options2 = new Options(categories, EventsPresenter.OrderType.DATE_DESC, false);
-        options3 = new Options(categories, EventsPresenter.OrderType.DATE_ASC, true);
+        options = new Options(categories, Utilities.OrderType.DATE_ASC, false);
+        options2 = new Options(categories, Utilities.OrderType.DATE_DESC, false);
+        options3 = new Options(categories, Utilities.OrderType.DATE_ASC, true);
     }
 
     @Test
