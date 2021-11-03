@@ -1,5 +1,6 @@
 package com.isunican.eventossantander.view.events;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,6 +40,7 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         presenter = new FavoriteEventsPresenter(this);
@@ -124,10 +126,10 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
             menuFiltros.setVisibility(View.GONE);   // Closes the menu
         });
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
+        setContentView(R.layout.activity_favorite_events);
 
         bottomNavigationView.setOnNavigationItemSelectedListener((item) -> {
             switch (item.getItemId()) {
-
                 case R.id.inicioActivity:
                     Intent intent1 = new Intent(this, EventsActivity.class);
                     startActivity(intent1);

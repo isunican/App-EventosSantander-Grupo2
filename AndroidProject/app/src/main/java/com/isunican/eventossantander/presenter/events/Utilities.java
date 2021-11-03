@@ -62,7 +62,6 @@ public class Utilities {
         }
         return false;
     }
-
     public static Dialog getDialog() {
         return dialogo;
     }
