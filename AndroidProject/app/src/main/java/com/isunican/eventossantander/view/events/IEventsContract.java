@@ -46,5 +46,7 @@ public interface IEventsContract {
 
         void closeFilterMenuView();
 
+        void onConnectionError();
+
     }
 }
