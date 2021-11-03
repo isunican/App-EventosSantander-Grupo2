@@ -1,9 +1,10 @@
-package com.isunican.eventossantander;
+package com.isunican.eventossantander.view.eventsdetail;
 
 import android.content.pm.ActivityInfo;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.view.events.EventsActivity;
 import com.isunican.eventossantander.view.events.IEventsContract;
@@ -15,6 +16,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import androidx.test.espresso.IdlingRegistry;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.rule.ActivityTestRule;
 
@@ -50,7 +52,7 @@ public class EventsDetailUITest {
 
     @Test
     public void eventDetailTest(){
-        onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).perform(click()); //Open first event from the list
+        onData(anything()).inAdapterView(ViewMatchers.withId(R.id.eventsListView)).atPosition(0).perform(click()); //Open first event from the list
         onView(withId(R.id.event_detail_title)).check(matches(withText(TITLE))); //Check event name
         onView(withId(R.id.event_detail_date)).check(matches(withText(DATE))); //Check event date
         onView(withId(R.id.event_detail_description)).check(matches(withText(containsString(DESC))));; //Check description shown contains first part of the event desc
