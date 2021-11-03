@@ -7,6 +7,7 @@ import android.os.Build;
 
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.view.events.IEventsContract;
+import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
 
 import org.junit.Assert;
 import org.junit.runner.RunWith;
@@ -38,6 +39,9 @@ public class EventsPresenterTest {
     @Mock
     private IEventsContract.View view;
 
+    @Mock
+    private IGestionarFavoritos sharedPref;
+
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
     private IEventsContract.Presenter presenter;
@@ -46,7 +50,6 @@ public class EventsPresenterTest {
     public void setup() {
         presenter = new EventsPresenter(view);
         events = new ArrayList<>();
-        List<Event> emptyEvents = new ArrayList<>();
         List<Event> eventsCulturaCientifica = new ArrayList<>();
         List<Event> eventsNoCategory = new ArrayList<>();
 
@@ -154,20 +157,20 @@ public class EventsPresenterTest {
     public void testOnFavouriteClicked() {
         // Identificador: "UT.1a"
         presenter.setList(events);
-        presenter.onFavouriteClicked(1, true);
+        presenter.onFavouriteClicked(1, true, sharedPref);
         assertEquals("1", presenter.getFavourites());
 
         // Identificador: "UT.1b"
-        presenter.onFavouriteClicked(2, true);
+        presenter.onFavouriteClicked(2, true, sharedPref);
         assertEquals("1,2", presenter.getFavourites());
 
         // Identificador: "UT.1c"
-        presenter.onFavouriteClicked(1, false);
+        presenter.onFavouriteClicked(1, false, sharedPref);
         assertEquals("2", presenter.getFavourites());
 
         // Identificador: "UT.1d"
         try {
-            presenter.onFavouriteClicked(-1, true);
+            presenter.onFavouriteClicked(-1, true, sharedPref);
             Assert.fail("Should have thrown an exception.");
         } catch (Exception e) {
             Assert.assertTrue(true);    // Success.
@@ -175,7 +178,7 @@ public class EventsPresenterTest {
 
         // Identificador: "UT.1e"
         try {
-            presenter.onFavouriteClicked(999999, true);
+            presenter.onFavouriteClicked(999999, true, sharedPref);
             Assert.fail("Should have thrown an exception.");
         } catch (Exception e) {
             Assert.assertTrue(true);    // Success.
@@ -191,12 +194,12 @@ public class EventsPresenterTest {
     public void testOnAddFavourite() {
         // Identificador: "UT.2a"
         presenter.setList(events);
-        presenter.onFavouriteClicked(3, true);
+        presenter.onFavouriteClicked(3, true, sharedPref);
         assertEquals("3", presenter.getFavourites());
 
         // Identificador: "UT.2b"
         try {
-            presenter.onFavouriteClicked(null, true);
+            presenter.onFavouriteClicked(null, true, sharedPref);
             Assert.fail("Should have thrown an exception.");
         } catch (Exception e) {
             assertEquals("3", presenter.getFavourites());
@@ -212,13 +215,13 @@ public class EventsPresenterTest {
     public void testOnRemoveFavourite() {
         // Identificador: "UT.3a"
         presenter.setList(events);
-        presenter.onFavouriteClicked(3, true);  // Adds event
-        presenter.onFavouriteClicked(3, false); // Removes event
+        presenter.onFavouriteClicked(3, true, sharedPref);  // Adds event
+        presenter.onFavouriteClicked(3, false, sharedPref); // Removes event
         assertEquals("", presenter.getFavourites());
 
         // Identificador: "UT.3b"
         try {
-            presenter.onFavouriteClicked(null, false);
+            presenter.onFavouriteClicked(null, false, sharedPref);
             Assert.fail("Should have thrown an exception.");
         } catch (Exception e) {
             assertEquals("", presenter.getFavourites());

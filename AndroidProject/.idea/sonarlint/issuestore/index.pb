@@ -1,12 +1,20 @@
 
-
-Oapp/src/main/java/com/isunican/eventossantander/view/events/EventsActivity.java,e\8\e8450eb23768c947a7ac38a236360f2d4e90ebe5
-€
-Papp/src/main/java/com/isunican/eventossantander/view/events/IEventsContract.java,4\f\4f9c99a06d595f3f6da2794b3edc92f33c29248e
 }
 Mapp/src/main/java/com/isunican/eventossantander/presenter/events/Options.java,7\c\7c289858c3ae826f978159fe282864abb151c155
+@
+app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
+€
+Papp/src/main/java/com/isunican/eventossantander/view/events/IEventsContract.java,4\f\4f9c99a06d595f3f6da2794b3edc92f33c29248e
+‚
+Rapp/src/main/java/com/isunican/eventossantander/view/events/EventArrayAdapter.java,7\5\755b7722086b1f54ec7b8ad4c164591c1e6087e8
 Š
 Zapp/src/androidTest/java/com/isunican/eventossantander/view/events/MarcarEventoUITest.java,c\a\cae4b80a4cddbfc98ee1c07de01428eafc6ac31d
+ˆ
+Xapp/src/main/java/com/isunican/eventossantander/view/favourites/IGestionarFavoritos.java,3\a\3a3efb87bc0babf4e62239c76562daaa66f5335c
+Ž
+^app/src/main/java/com/isunican/eventossantander/view/favourites/GestionarFavoritosUsuario.java,6\a\6af16ab3c4b607bc61543d2bf813414fbbcb1165
+
+Oapp/src/main/java/com/isunican/eventossantander/view/events/EventsActivity.java,e\8\e8450eb23768c947a7ac38a236360f2d4e90ebe5
 …
 Uapp/src/main/java/com/isunican/eventossantander/presenter/events/EventsPresenter.java,2\5\25fc41d46f44b04d771221afc5ec7722f096844a
 ‰
