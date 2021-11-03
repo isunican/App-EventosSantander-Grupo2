@@ -1,5 +1,6 @@
 package com.isunican.eventossantander.view.events;
 
+<<<<<<< HEAD
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
