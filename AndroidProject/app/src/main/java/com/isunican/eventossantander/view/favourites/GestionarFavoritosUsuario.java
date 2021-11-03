@@ -39,7 +39,11 @@ public class GestionarFavoritosUsuario implements IGestionarFavoritos {
 
     @Override
     public boolean isFavourite(int eventId) {
-        return idFavouriteEvents.contains(String.valueOf(eventId));
+        boolean result = false;
+        if (idFavouriteEvents != null) {
+            result = idFavouriteEvents.contains(String.valueOf(eventId));
+        }
+        return result;
     }
 
     @Override

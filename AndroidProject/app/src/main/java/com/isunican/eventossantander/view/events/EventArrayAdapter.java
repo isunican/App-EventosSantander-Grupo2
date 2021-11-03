@@ -61,11 +61,11 @@ public class EventArrayAdapter extends ArrayAdapter<Event> {
         // PROBLEMA: CIERRE DE APP
         // Solucionar: TODO
         if (favorito) {
-            btnEventFav.setImageResource(R.id.btn_event_fav);
-            btnEventFav.setTag(R.id.btn_event_fav);
+            btnEventFav.setImageResource(R.drawable.ic_baseline_star_24);
+            btnEventFav.setTag(R.drawable.ic_baseline_star_24);
         } else {
-            btnEventFav.setImageResource(R.id.btn_event_unfav);
-            btnEventFav.setTag(R.id.btn_event_unfav);
+            btnEventFav.setImageResource(R.drawable.ic_baseline_star_border_24);
+            btnEventFav.setTag(R.drawable.ic_baseline_star_border_24);
         }
 
         // Assign values to TextViews
@@ -91,12 +91,12 @@ public class EventArrayAdapter extends ArrayAdapter<Event> {
         btnEventFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int eventId = event.getIdentificador();
+                int eventId = position;
 
                 if (!favorito) {
                     presenter.onFavouriteClicked(eventId, favorito, sharedPref);
-                    btnEventFav.setImageResource(R.id.btn_event_fav);
-                    btnEventFav.setTag(R.id.btn_event_fav);
+                    btnEventFav.setImageResource(R.drawable.ic_baseline_star_24);
+                    btnEventFav.setTag(R.drawable.ic_baseline_star_24);
                 } else if (btnEventFav.getTag() == "@drawable/ic_baseline_star_24") {
                     // TODO
                 }
