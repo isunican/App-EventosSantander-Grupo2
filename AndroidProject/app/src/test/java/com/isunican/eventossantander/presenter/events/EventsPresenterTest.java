@@ -3,6 +3,7 @@ package com.isunican.eventossantander.presenter.events;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 import android.os.Build;
@@ -11,7 +12,6 @@ import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.view.events.IEventsContract;
 import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
 
-import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
@@ -161,27 +161,21 @@ public class EventsPresenterTest {
         presenter.setList(events);
         presenter.onFavouriteClicked(1, false, sharedPref);
         verify(sharedPref).setFavourite(eq(1), any());
-        //assertEquals("1", sharedPref.getFavourites());
 
         // Identificador: "UT.1b"
         presenter.onFavouriteClicked(2, false, sharedPref);
         verify(sharedPref).setFavourite(eq(2), any());
-        //assertEquals("1,2", sharedPref.getFavourites());
 
         // Identificador: "UT.1d"
-        try {
-            presenter.onFavouriteClicked(-1, false, sharedPref);
-            Assert.fail("Should have thrown an exception.");
-        } catch (Exception e) {
-            Assert.assertTrue(true);    // Success.
-        }
+        presenter.onFavouriteClicked(0, false, sharedPref);
+        verify(sharedPref, never()).setFavourite(eq(0), any());
 
         // Identificador: "UT.1e"
-        try {
-            presenter.onFavouriteClicked(999999, false, sharedPref);
-            Assert.fail("Should have thrown an exception.");
-        } catch (Exception e) {
-            Assert.assertTrue(true);    // Success.
-        }
+        presenter.onFavouriteClicked(-1, false, sharedPref);
+        verify(sharedPref, never()).setFavourite(eq(-1), any());
+
+        // Identificador: "UT.1f"
+        presenter.onFavouriteClicked(999999, false, sharedPref);
+        verify(sharedPref, never()).setFavourite(eq(999999), any());
     }
 }
