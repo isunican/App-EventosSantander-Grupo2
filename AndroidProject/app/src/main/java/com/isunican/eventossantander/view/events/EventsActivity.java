@@ -217,6 +217,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         }
     }
 
+    @Override
     public IGestionarFavoritos getSharedPref(){
         return sharedPref;
     }

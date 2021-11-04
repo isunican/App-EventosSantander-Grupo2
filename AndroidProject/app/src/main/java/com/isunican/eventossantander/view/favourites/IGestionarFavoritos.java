@@ -11,8 +11,6 @@ public interface IGestionarFavoritos {
 
     void setFavourite(int eventIndex, List<Event> cachedEvents);
 
-    void removeFavourite(int eventId, List<Event> cachedEvents);
-
     boolean isFavourite(int eventId);
 
 }
