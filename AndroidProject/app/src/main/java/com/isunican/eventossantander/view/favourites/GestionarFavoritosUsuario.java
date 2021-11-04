@@ -31,17 +31,16 @@ public class GestionarFavoritosUsuario implements IGestionarFavoritos {
     public void setFavourite(int eventIndex, List<Event> cachedEvents) {
         idFavouriteEvents = getFavourites();
         SharedPreferences.Editor editor = sharedPref.edit();
-        Log.i("setFavourite", "idFavouriteEvents : " + idFavouriteEvents);
         idFavouriteEvents = idFavouriteEvents.concat(cachedEvents.get(eventIndex).getIdentificador() + ",");
 
-        editor.putString(idFavouriteEvents, "favourites");
+        editor.putString("favourites", idFavouriteEvents);
         editor.apply();
     }
 
     @Override
     public boolean isFavourite(int eventId) {
         boolean result = false;
-        Log.i("isFavourite", "eventId . " + eventId +" idFavouriteEvents : " + idFavouriteEvents);
+        idFavouriteEvents = getFavourites();
         if (idFavouriteEvents != null) {
             result = idFavouriteEvents.contains(String.valueOf(eventId));
         }

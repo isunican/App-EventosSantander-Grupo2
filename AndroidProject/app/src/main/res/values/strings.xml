@@ -23,4 +23,5 @@
     <string name="dismiss_error">Dismiss</string>
     <string name="menu_filter">Filters</string>
     <string name="filter_menu">Filters</string>
+    <string name="favourite_btn">Favourite</string>
 </resources>
