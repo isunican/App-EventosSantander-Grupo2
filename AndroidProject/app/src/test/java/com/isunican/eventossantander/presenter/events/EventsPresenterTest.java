@@ -158,15 +158,11 @@ public class EventsPresenterTest {
         // Identificador: "UT.1a"
         presenter.setList(events);
         presenter.onFavouriteClicked(1, true, sharedPref);
-        assertEquals("1", presenter.getFavourites());
+        assertEquals("1", sharedPref.getFavourites());
 
         // Identificador: "UT.1b"
         presenter.onFavouriteClicked(2, true, sharedPref);
-        assertEquals("1,2", presenter.getFavourites());
-
-        // Identificador: "UT.1c"
-        presenter.onFavouriteClicked(1, false, sharedPref);
-        assertEquals("2", presenter.getFavourites());
+        assertEquals("1,2", sharedPref.getFavourites());
 
         // Identificador: "UT.1d"
         try {
@@ -182,49 +178,6 @@ public class EventsPresenterTest {
             Assert.fail("Should have thrown an exception.");
         } catch (Exception e) {
             Assert.assertTrue(true);    // Success.
-        }
-    }
-
-    /**
-     * Historia de Usuario: Marcar Evento.
-     * Identificador: "UT.2".
-     * Autor: Ivan Gonzalez del Pozo.
-     */
-    @Test
-    public void testOnAddFavourite() {
-        // Identificador: "UT.2a"
-        presenter.setList(events);
-        presenter.onFavouriteClicked(3, true, sharedPref);
-        assertEquals("3", presenter.getFavourites());
-
-        // Identificador: "UT.2b"
-        try {
-            presenter.onFavouriteClicked(null, true, sharedPref);
-            Assert.fail("Should have thrown an exception.");
-        } catch (Exception e) {
-            assertEquals("3", presenter.getFavourites());
-        }
-    }
-
-    /**
-     * Historia de Usuario: Marcar Evento.
-     * Identificador: "UT.3".
-     * Autor: Ivan Gonzalez del Pozo.
-     */
-    @Test
-    public void testOnRemoveFavourite() {
-        // Identificador: "UT.3a"
-        presenter.setList(events);
-        presenter.onFavouriteClicked(3, true, sharedPref);  // Adds event
-        presenter.onFavouriteClicked(3, false, sharedPref); // Removes event
-        assertEquals("", presenter.getFavourites());
-
-        // Identificador: "UT.3b"
-        try {
-            presenter.onFavouriteClicked(null, false, sharedPref);
-            Assert.fail("Should have thrown an exception.");
-        } catch (Exception e) {
-            assertEquals("", presenter.getFavourites());
         }
     }
 }
