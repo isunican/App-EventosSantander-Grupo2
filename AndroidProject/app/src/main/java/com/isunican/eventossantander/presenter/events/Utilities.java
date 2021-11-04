@@ -53,6 +53,11 @@ public class Utilities {
         return builder.create();
     }
 
+    /**
+     * Only for test purposes
+     * @param context
+     * @return the dialog created
+     */
     public static boolean isConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();

@@ -1,6 +1,4 @@
-package com.isunican.eventossantander.view.events;
-
-<<<<<<< HEAD
+package com.isunican.eventossantander.view.favourites;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,9 +7,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
-import com.isunican.eventossantander.presenter.events.FavoriteEventsPresenter;
 import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.presenter.events.Utilities;
+import com.isunican.eventossantander.view.events.EventsActivity;
+import com.isunican.eventossantander.view.events.OnSwipeTouchListener;
 import com.isunican.eventossantander.view.eventsdetail.EventsDetailActivity;
 import com.isunican.eventossantander.view.info.InfoActivity;
 
@@ -36,15 +35,21 @@ import java.util.Map;
 public class FavoriteEventsActivity extends AppCompatActivity implements IFavoriteEventsContract.View {
 
     private IFavoriteEventsContract.Presenter presenter;
+    private Button btnAplicarFiltroOrden;
+    private ImageButton btnFiltroCategoriaDown;
+    private ImageButton btnFiltroCategoriaUp;
+    private LinearLayout layoutFiltroCategoria;
+    private IGestionarFavoritos sharedPref;
     private boolean isFilterMenuVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
+        sharedPref = new GestionarFavoritosUsuario(this);
         presenter = new FavoriteEventsPresenter(this);
+
         NavigationView menuFiltros = findViewById(R.id.menu_filtros);
         ListView listaEventos = findViewById(R.id.eventsListView);
 
@@ -125,12 +130,13 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
             // Apply the filters & order selected
             presenter.onApplyOptions(new Options(categorias, orderType, isDateFirst));
             menuFiltros.setVisibility(View.GONE);   // Closes the menu
-        });
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
-        setContentView(R.layout.activity_favorite_events);
 
+        });
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener((item) -> {
             switch (item.getItemId()) {
+
                 case R.id.inicioActivity:
                     Intent intent1 = new Intent(this, EventsActivity.class);
                     startActivity(intent1);
@@ -157,6 +163,12 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
     }
 
     @Override
+    public void onLoadError() {
+        //Todavia no existe una gestion de errores planificada
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void onLoadSuccess(int elementsLoaded) {
         String text = String.format("Loaded %d events", elementsLoaded);
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
@@ -170,21 +182,17 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
     }
 
     @Override
-    public void onLoadError() {
-        if (!Utilities.isConnected(this)) {
-            onConnectionError();
-        } else {
-            //Todavia no existe una gestion de errores planificada
-            throw new UnsupportedOperationException();
-        }
+    public void openInfoView() {
+        Intent intent = new Intent(this, InfoActivity.class);
+        startActivity(intent);
     }
 
     @Override
-    public void openInfoView() {
-
-        Intent intent = new Intent(this, InfoActivity.class);
-        startActivity(intent);
-
+    public boolean isConectionAvailable() {
+        if (Utilities.isConnected(this)) {
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -228,13 +236,22 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
             case R.id.menu_info:
                 presenter.onInfoClicked();
                 return true;
+            case R.id.filter_menu:
+                presenter.onFilterMenuClicked(isFilterMenuVisible);
+                if (isFilterMenuVisible) {
+                    isFilterMenuVisible = false;
+                } else {
+                    isFilterMenuVisible = true;
+                }
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
+    public IGestionarFavoritos getSharedPref(){
+        return sharedPref;
     }
+
 }

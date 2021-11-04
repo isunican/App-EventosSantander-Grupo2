@@ -1,19 +1,25 @@
-package com.isunican.eventossantander.presenter.events;
+package com.isunican.eventossantander.view.favourites;
 
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
+import com.isunican.eventossantander.presenter.events.EventsPresenter;
+import com.isunican.eventossantander.presenter.events.Options;
+import com.isunican.eventossantander.presenter.events.Utilities;
 import com.isunican.eventossantander.view.Listener;
 import com.isunican.eventossantander.view.events.IEventsContract;
-import com.isunican.eventossantander.view.events.IFavoriteEventsContract;
+import com.isunican.eventossantander.view.favourites.IFavoriteEventsContract;
+import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presenter {
 
@@ -33,20 +39,43 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
                 //   Dates closer to further & events without dates last.
 
                 onApplyOrder(data, Utilities.OrderType.DATE_ASC, false);
-                view.onEventsLoaded(data);
-                view.onLoadSuccess(data.size());
-                cachedEvents = data;
+
+                // Los eventos cacheados los filtro con los ids que vengan
+                String ids = view.getSharedPref().getFavourites();
+
+                List<Event> filtered = filterFavourites(data, ids);
+
+                view.onEventsLoaded(filtered);
+                view.onLoadSuccess(filtered.size());
+                cachedEvents = filtered;
             }
 
             @Override
             public void onFailure() {
-                view.onLoadError();
+                if (!view.isConectionAvailable()) {
+                    view.onConnectionError();
+                } else {
+                    view.onLoadError();
+                }
                 cachedEvents = null;
             }
         });
+    }
 
-        // Los eventos cacheados los filtro con los ids que vengan
+    private List<Event> filterFavourites(List<Event> unfiltered, String idEvents) {
 
+        Set<Event> filtered = new HashSet<>();
+        String[] ids = idEvents.split(",");
+
+        for (Event e: unfiltered) {
+            for (String id: ids) {
+                if (String.valueOf(e.getIdentificador()).equals(id)) {
+                    filtered.add(e);
+                    continue;
+                }
+            }
+        }
+        return new ArrayList<>(filtered);
     }
 
     /**
@@ -76,7 +105,6 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
         }
         return filteredEvents;
     }
-
 
     @Override
     public void onEventClicked(int eventIndex) {

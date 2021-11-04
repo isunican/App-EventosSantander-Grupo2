@@ -4,6 +4,7 @@ import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.view.Listener;
 import com.isunican.eventossantander.view.events.IEventsContract;
+import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -18,7 +19,6 @@ public class EventsPresenter implements IEventsContract.Presenter {
 
     private final IEventsContract.View view;
     private List<Event> cachedEvents;
-
     private List<Event> favEvents;
 
     public EventsPresenter(IEventsContract.View view) {
@@ -97,6 +97,15 @@ public class EventsPresenter implements IEventsContract.Presenter {
         view.openInfoView();
     }
 
+    @Override
+    public void onFilterMenuClicked(boolean isFilterMenuVisible) {
+        if (isFilterMenuVisible) {
+            view.closeFilterMenuView();
+        } else {
+            view.openFilterMenuView();
+        }
+    }
+
     /**
      * Takes the Filter & Order options selected from the menu, applies
      * them to the events list and reloads it.
@@ -120,6 +129,17 @@ public class EventsPresenter implements IEventsContract.Presenter {
         // Reloads the events with the filters & order applied
         view.onEventsLoaded(eventList);
         view.onLoadSuccess(eventList.size());
+    }
+
+    @Override
+    public void onFavouriteClicked(int eventIndex, Boolean isClicked, IGestionarFavoritos sharedPref) {
+        // isClicked = true -> Quitar evento de favoritos
+        // isClicked = false -> Anhadir evento a favoritos
+        if (isClicked) {
+            // TODO
+        } else {
+            sharedPref.setFavourite(eventIndex, cachedEvents);
+        }
     }
 
 

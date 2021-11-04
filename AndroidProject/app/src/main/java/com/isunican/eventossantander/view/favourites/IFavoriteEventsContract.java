@@ -1,4 +1,4 @@
-package com.isunican.eventossantander.view.events;
+package com.isunican.eventossantander.view.favourites;
 
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.Options;
@@ -42,7 +42,11 @@ public interface IFavoriteEventsContract {
 
         void closeFilterMenuView();
 
+        boolean isConectionAvailable();
+
         void onConnectionError();
+
+        IGestionarFavoritos getSharedPref();
 
     }
 }

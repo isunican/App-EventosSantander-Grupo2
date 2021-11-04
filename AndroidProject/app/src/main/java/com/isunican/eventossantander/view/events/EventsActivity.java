@@ -2,9 +2,7 @@ package com.isunican.eventossantander.view.events;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuView;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,17 +17,17 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
-import com.isunican.eventossantander.presenter.events.BottomNavigationViewHelper;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
 import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.presenter.events.Utilities;
 import com.isunican.eventossantander.view.eventsdetail.EventsDetailActivity;
+import com.isunican.eventossantander.view.favourites.FavoriteEventsActivity;
+import com.isunican.eventossantander.view.favourites.GestionarFavoritosUsuario;
+import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
 import com.isunican.eventossantander.view.info.InfoActivity;
 
 
@@ -38,8 +36,12 @@ import java.util.List;
 import java.util.Map;
 
 public class EventsActivity extends AppCompatActivity implements IEventsContract.View {
-
     private IEventsContract.Presenter presenter;
+    private Button btnAplicarFiltroOrden;
+    private ImageButton btnFiltroCategoriaDown;
+    private ImageButton btnFiltroCategoriaUp;
+    private LinearLayout layoutFiltroCategoria;
+    private IGestionarFavoritos sharedPref;
     private boolean isFilterMenuVisible;
 
     @Override
@@ -47,7 +49,9 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sharedPref = new GestionarFavoritosUsuario(this);
         presenter = new EventsPresenter(this);
+
         NavigationView menuFiltros = findViewById(R.id.menu_filtros);
         ListView listaEventos = findViewById(R.id.eventsListView);
 
@@ -57,6 +61,8 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         LinearLayout layoutFiltroCategoria = findViewById(R.id.layoutFiltroCategoria);
         btnFiltroCategoriaUp.setVisibility(View.GONE);
         layoutFiltroCategoria.setVisibility(View.GONE);
+
+        isFilterMenuVisible = false;
 
         //Map to store the categories filtered
         Map<String, Boolean> categorias = new HashMap<>();
@@ -81,7 +87,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             btnFiltroCategoriaUp.setVisibility(View.GONE);
             layoutFiltroCategoria.setVisibility(View.GONE);
         });
-        
+
         // Handler to control the events of sliding the finger (up, down, right, left)
         listaEventos.setOnTouchListener(new OnSwipeTouchListener(EventsActivity.this) {
             @Override
@@ -126,7 +132,9 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             // Apply the filters & order selected
             presenter.onApplyOptions(new Options(categorias, orderType, isDateFirst));
             menuFiltros.setVisibility(View.GONE);   // Closes the menu
+
         });
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener((item) -> {
             switch (item.getItemId()) {
@@ -177,10 +185,8 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
 
     @Override
     public void openInfoView() {
-
         Intent intent = new Intent(this, InfoActivity.class);
         startActivity(intent);
-
     }
 
     @Override
@@ -194,6 +200,18 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     @Override
     public void onConnectionError() {
         Utilities.createPopUp(this, Utilities.CONNECTION_ERROR_MESSAGE, 1).show();
+    }
+
+    @Override
+    public void openFilterMenuView() {
+        NavigationView menuFiltros = findViewById(R.id.menu_filtros);
+        menuFiltros.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void closeFilterMenuView() {
+        NavigationView menuFiltros = findViewById(R.id.menu_filtros);
+        menuFiltros.setVisibility(View.GONE);
     }
 
     public IEventsContract.Presenter getPresenter() {
@@ -220,13 +238,21 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             case R.id.menu_info:
                 presenter.onInfoClicked();
                 return true;
+            case R.id.filter_menu:
+                presenter.onFilterMenuClicked(isFilterMenuVisible);
+                if (isFilterMenuVisible) {
+                    isFilterMenuVisible = false;
+                } else {
+                    isFilterMenuVisible = true;
+                }
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
+    public IGestionarFavoritos getSharedPref(){
+        return sharedPref;
     }
 }
