@@ -1,6 +1,8 @@
 package com.isunican.eventossantander.presenter.events;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
 import android.os.Build;
@@ -157,16 +159,18 @@ public class EventsPresenterTest {
     public void testOnFavouriteClicked() {
         // Identificador: "UT.1a"
         presenter.setList(events);
-        presenter.onFavouriteClicked(1, true, sharedPref);
-        assertEquals("1", sharedPref.getFavourites());
+        presenter.onFavouriteClicked(1, false, sharedPref);
+        verify(sharedPref).setFavourite(eq(1), any());
+        //assertEquals("1", sharedPref.getFavourites());
 
         // Identificador: "UT.1b"
-        presenter.onFavouriteClicked(2, true, sharedPref);
-        assertEquals("1,2", sharedPref.getFavourites());
+        presenter.onFavouriteClicked(2, false, sharedPref);
+        verify(sharedPref).setFavourite(eq(2), any());
+        //assertEquals("1,2", sharedPref.getFavourites());
 
         // Identificador: "UT.1d"
         try {
-            presenter.onFavouriteClicked(-1, true, sharedPref);
+            presenter.onFavouriteClicked(-1, false, sharedPref);
             Assert.fail("Should have thrown an exception.");
         } catch (Exception e) {
             Assert.assertTrue(true);    // Success.
@@ -174,7 +178,7 @@ public class EventsPresenterTest {
 
         // Identificador: "UT.1e"
         try {
-            presenter.onFavouriteClicked(999999, true, sharedPref);
+            presenter.onFavouriteClicked(999999, false, sharedPref);
             Assert.fail("Should have thrown an exception.");
         } catch (Exception e) {
             Assert.assertTrue(true);    // Success.

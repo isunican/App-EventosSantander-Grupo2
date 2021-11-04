@@ -192,6 +192,10 @@ public class EventsPresenter implements IEventsContract.Presenter {
 
     @Override
     public void onFavouriteClicked(int eventIndex, Boolean isClicked, IGestionarFavoritos sharedPref) {
+        if (eventIndex < 0 || eventIndex > cachedEvents.size()) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+
         // isClicked = true -> Quitar evento de favoritos
         // isClicked = false -> Anhadir evento a favoritos
         if (isClicked) {
