@@ -1,5 +1,7 @@
 package com.isunican.eventossantander.view.events;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,16 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
 import com.isunican.eventossantander.presenter.events.Options;
+import com.isunican.eventossantander.presenter.events.Utilities;
 import com.isunican.eventossantander.view.eventsdetail.EventsDetailActivity;
+import com.isunican.eventossantander.view.favourites.FavoriteEventsActivity;
 import com.isunican.eventossantander.view.favourites.GestionarFavoritosUsuario;
 import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
 import com.isunican.eventossantander.view.info.InfoActivity;
@@ -32,7 +33,6 @@ import java.util.List;
 import java.util.Map;
 
 public class EventsActivity extends AppCompatActivity implements IEventsContract.View {
-
     private IEventsContract.Presenter presenter;
     private Button btnAplicarFiltroOrden;
     private ImageButton btnFiltroCategoriaDown;
@@ -84,7 +84,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             btnFiltroCategoriaUp.setVisibility(View.GONE);
             layoutFiltroCategoria.setVisibility(View.GONE);
         });
-        
+
         // Handler to control the events of sliding the finger (up, down, right, left)
         listaEventos.setOnTouchListener(new OnSwipeTouchListener(EventsActivity.this) {
             @Override
@@ -117,9 +117,9 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             }
 
             // Check order type selected
-            EventsPresenter.OrderType orderType = EventsPresenter.OrderType.DATE_ASC;   // 'Show events closer to current date' selected by default
+             Utilities.OrderType orderType = Utilities.OrderType.DATE_ASC;   // 'Show events closer to current date' selected by default
             if (rbOrdenarLejana.isChecked()) {
-                orderType = EventsPresenter.OrderType.DATE_DESC;    // Further away from current date
+                 orderType = Utilities.OrderType.DATE_DESC;    // Further away from current date
             }
             boolean isDateFirst = false;    // Events without a date are shown last by default
             if (!checkBoxSinFecha.isChecked()) {
@@ -127,8 +127,26 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             }
 
             // Apply the filters & order selected
-            presenter.onApplyOptions(new Options(categorias, orderType, isDateFirst));
+             presenter.onApplyOptions(new Options(categorias, orderType, isDateFirst));
             menuFiltros.setVisibility(View.GONE);   // Closes the menu
+
+        });
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener((item) -> {
+            switch (item.getItemId()) {
+
+                case R.id.inicioActivity:
+                    Intent intent1 = new Intent(this, EventsActivity.class);
+                    startActivity(intent1);
+                    break;
+
+                case R.id.favoritosActivity:
+                    Intent intent2 = new Intent(this, FavoriteEventsActivity.class);
+                    startActivity(intent2);
+                    break;
+            }
+            return false;
 
         });
     }
@@ -169,6 +187,12 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     }
 
     @Override
+    public void openFavouritesView() {
+        Intent intent = new Intent(this, FavoriteEventsActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     public void openFilterMenuView() {
         NavigationView menuFiltros = findViewById(R.id.menu_filtros);
         menuFiltros.setVisibility(View.VISIBLE);
@@ -204,6 +228,9 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             case R.id.menu_info:
                 presenter.onInfoClicked();
                 return true;
+            case R.id.listaFav:
+                presenter.onFavouritesClicked();
+                return true;
             case R.id.filter_menu:
                 presenter.onFilterMenuClicked(isFilterMenuVisible);
                 if (isFilterMenuVisible) {
@@ -217,7 +244,21 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         }
     }
 
+    @Override
     public IGestionarFavoritos getSharedPref(){
         return sharedPref;
+    }
+
+    @Override
+    public boolean isConectionAvailable() {
+        if (Utilities.isConnected(this)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onConnectionError() {
+         Utilities.createPopUp(this, Utilities.CONNECTION_ERROR_MESSAGE, 1).show();
     }
 }

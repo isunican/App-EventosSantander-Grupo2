@@ -20,7 +20,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
     private final IEventsContract.View view;
     private IGestionarFavoritos sharedPref;
     private List<Event> cachedEvents;
-    public enum OrderType { DATE_ASC, DATE_DESC }
+    private List<Event> favEvents;
 
     public EventsPresenter(IEventsContract.View view) {
         this.view = view;
@@ -35,7 +35,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
                 // Orders events with default options:
                 //   Dates closer to further & events without dates last.
 
-                onApplyOrder(data, OrderType.DATE_ASC, false);
+                onApplyOrder(data, Utilities.OrderType.DATE_ASC, false);
                 view.onEventsLoaded(data);
                 view.onLoadSuccess(data.size());
                 cachedEvents = data;
@@ -43,7 +43,11 @@ public class EventsPresenter implements IEventsContract.Presenter {
 
             @Override
             public void onFailure() {
-                view.onLoadError();
+                if (!view.isConectionAvailable()) {
+                    view.onConnectionError();
+                } else {
+                    view.onLoadError();
+                }
                 cachedEvents = null;
             }
         });
@@ -97,6 +101,11 @@ public class EventsPresenter implements IEventsContract.Presenter {
     }
 
     @Override
+    public void onFavouritesClicked() {
+        view.openFavouritesView();
+    }
+
+    @Override
     public void onFilterMenuClicked(boolean isFilterMenuVisible) {
         if (isFilterMenuVisible) {
             view.closeFilterMenuView();
@@ -130,7 +139,6 @@ public class EventsPresenter implements IEventsContract.Presenter {
         view.onLoadSuccess(eventList.size());
     }
 
-
     /**
      * Takes the event list and order options and orders the list according to them.
      * @param eventList Event list to be ordered.
@@ -138,19 +146,19 @@ public class EventsPresenter implements IEventsContract.Presenter {
      * @param isDateFirst == true -> Show events without dates first in the list.
      *                    == false-> Show events without dates last in the list.
      */
-    private void onApplyOrder(List<Event> eventList, OrderType type, boolean isDateFirst) {
+      private void onApplyOrder(List<Event> eventList, Utilities.OrderType type, boolean isDateFirst) {
         Collections.sort(eventList, (e1, e2) -> {
             int result;
             boolean fecha1IsNull = nullOrEmpty(e1.getFecha());
             boolean fecha2IsNull = nullOrEmpty(e2.getFecha());
 
             if (fecha1IsNull || fecha2IsNull) {         // One of the events does not have a date
-                result = onApplyOrderWithoutDate(fecha1IsNull, fecha2IsNull, isDateFirst);
+                  result = onApplyOrderWithoutDate(fecha1IsNull, fecha2IsNull, isDateFirst);
 
             } else {                                    // Both events have dates
                 Date date1 = stringToDate(e1.getFecha());
                 Date date2 = stringToDate(e2.getFecha());
-                if (type == OrderType.DATE_ASC) {   // Show events closer to current date first
+                if (type == Utilities.OrderType.DATE_ASC) {   // Show events closer to current date first
                     result = date1.compareTo(date2);
                 } else {                            // Show further away from current date first
                     result = date2.compareTo(date1);
@@ -172,7 +180,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
      * @return 1 if Event1 has to be shown last, -1 if Event1 has to be shown first and 0 if
      * both events are equal.
      */
-    private int onApplyOrderWithoutDate(boolean fecha1IsNull, boolean fecha2IsNull, boolean isDateFirst) {
+     private int onApplyOrderWithoutDate(boolean fecha1IsNull, boolean fecha2IsNull, boolean isDateFirst) {
         int result = 0;
 
         // Shows events without dates last by default
@@ -238,5 +246,21 @@ public class EventsPresenter implements IEventsContract.Presenter {
      */
     public List<Event> getList() {
         return this.cachedEvents;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY: Sets this presenter's list to the one passed as argument
+     * @param events List of events given to the presenter.
+     */
+    public void setFavEventsList(List<Event> events) {
+        this.favEvents = events;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY: Gets this presenter's list
+     * @result this presenter's list of events.
+     */
+    public List<Event> getFavEventsList() {
+        return this.favEvents;
     }
 }
