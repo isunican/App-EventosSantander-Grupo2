@@ -45,8 +45,13 @@ public class BotonMenuUITest {
     @Rule
     public ActivityScenarioRule<EventsActivity> activityRule = new ActivityScenarioRule(EventsActivity.class);
 
+    /**
+     * Historia de usuario: Anhadir boton para abrir el menu.
+     * Identificador: "UIT.1"
+     * Autor: Jesus Ortega Zorrilla
+     */
     @Test
-    public void eventosCulturaCientifica () {
+    public void abrirMenuBotonUITest () {
         onView(ViewMatchers.withId(R.id.filter_menu)).perform(click());
         onView(withId(R.id.txtFiltroCategoria)).check(matches(withText("Filtro categoría")));
         //Para probar que el filtrado esta plegado inicialmente

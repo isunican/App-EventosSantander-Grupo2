@@ -28,12 +28,22 @@ public class FilterMenuITest {
         presenter = new EventsPresenter(view);
     }
 
+    /**
+     * Historia de usuario: Anhadir boton para abrir el menu.
+     * Identificador: "IT.1a"
+     * Autor: Jesus Ortega Zorrilla
+     */
     @Test
     public void closeFilterMenu() {
         presenter.onFilterMenuClicked(true);
         verify(view, times(1)).closeFilterMenuView();
     }
 
+    /**
+     * Historia de usuario: Anhadir boton para abrir el menu.
+     * Identificador: "IT.1b"
+     * Autor: Jesus Ortega Zorrilla
+     */
     @Test
     public void openFilterMenu() {
         presenter.onFilterMenuClicked(false);
