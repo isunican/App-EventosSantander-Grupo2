@@ -117,9 +117,9 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             }
 
             // Check order type selected
-            Utilities.OrderType orderType = Utilities.OrderType.DATE_ASC;   // 'Show events closer to current date' selected by default
+             Utilities.OrderType orderType = Utilities.OrderType.DATE_ASC;   // 'Show events closer to current date' selected by default
             if (rbOrdenarLejana.isChecked()) {
-                orderType = Utilities.OrderType.DATE_DESC;    // Further away from current date
+                 orderType = Utilities.OrderType.DATE_DESC;    // Further away from current date
             }
             boolean isDateFirst = false;    // Events without a date are shown last by default
             if (!checkBoxSinFecha.isChecked()) {
@@ -127,7 +127,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             }
 
             // Apply the filters & order selected
-            presenter.onApplyOptions(new Options(categorias, orderType, isDateFirst));
+             presenter.onApplyOptions(new Options(categorias, orderType, isDateFirst));
             menuFiltros.setVisibility(View.GONE);   // Closes the menu
 
         });
@@ -259,6 +259,6 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
 
     @Override
     public void onConnectionError() {
-        Utilities.createPopUp(this, Utilities.CONNECTION_ERROR_MESSAGE, 1).show();
+         Utilities.createPopUp(this, Utilities.CONNECTION_ERROR_MESSAGE, 1).show();
     }
 }

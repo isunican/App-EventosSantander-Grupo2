@@ -60,6 +60,7 @@ public class FiltradoUITest {
 
     @Test
     public void eventosCulturaCientifica () throws InterruptedException {
+        onView(ViewMatchers.withId(R.id.filter_menu)).perform(click());
         onView(ViewMatchers.withId(R.id.eventsListView)).perform(swipeRight());
         //Simulamos el gesto, recomendado por el profesor
         onView(withId(R.id.btnFiltroCategoriaDown)).perform(click());

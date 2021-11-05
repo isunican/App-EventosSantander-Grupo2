@@ -42,6 +42,7 @@ public class OrderDateUITest {
 
     @Test
     public void orderAscTest() throws InterruptedException {
+        onView(ViewMatchers.withId(R.id.filter_menu)).perform(click());
         onView(ViewMatchers.withId(R.id.eventsListView)).perform(swipeRight());
         onView(withId(R.id.rbOrdenarProxima)).perform(click()); //Checked by default in this version, so not really needed but this might change in the future
         sleep(2000);
