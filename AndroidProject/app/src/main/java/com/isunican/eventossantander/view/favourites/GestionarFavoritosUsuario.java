@@ -20,7 +20,7 @@ public class GestionarFavoritosUsuario implements IGestionarFavoritos {
     // Devuelve un string con el id de los eventos favoritos, sino devuelve nulo
     @Override
     public String getFavourites() {
-        String defaultValue = null;
+        String defaultValue = "";
         idFavouriteEvents = sharedPref.getString("favourites", defaultValue);
         return idFavouriteEvents;
     }
@@ -31,9 +31,9 @@ public class GestionarFavoritosUsuario implements IGestionarFavoritos {
         idFavouriteEvents = getFavourites();
         SharedPreferences.Editor editor = sharedPref.edit();
 
-        idFavouriteEvents = idFavouriteEvents + cachedEvents.get(eventIndex).getIdentificador() + ",";
+        idFavouriteEvents = idFavouriteEvents.concat(cachedEvents.get(eventIndex).getIdentificador() + ",");
 
-        editor.putString(idFavouriteEvents, "favourites");
+        editor.putString("favourites", idFavouriteEvents);
         editor.apply();
     }
 
