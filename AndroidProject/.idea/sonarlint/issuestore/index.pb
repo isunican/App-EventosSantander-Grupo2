@@ -19,8 +19,6 @@ Yapp/src/test/java/com/isunican/eventossantander/presenter/events/EventsPresente
 Kapp/src/main/java/com/isunican/eventossantander/model/EventsRepository.java,4\1\41a192f053772cb273eec3d39dd683d3be7537fa
 Œ
 \app/src/main/java/com/isunican/eventossantander/view/favourites/IFavoriteEventsContract.java,3\8\382514896e62c179ffe81daa0c23b0e6d44f93e9
-€
-Papp/src/main/java/com/isunican/eventossantander/view/events/IEventsContract.java,4\f\4f9c99a06d595f3f6da2794b3edc92f33c29248e
 
 Oapp/src/main/java/com/isunican/eventossantander/presenter/events/Utilities.java,1\7\179d2914e85f5b5ba5cdb12923f4830c35dee827
 {
