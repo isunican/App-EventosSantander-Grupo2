@@ -1,14 +1,11 @@
-package com.isunican.eventossantander.view.favourites;
+package com.isunican.eventossantander.presenter.favourites;
 
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
-import com.isunican.eventossantander.presenter.events.EventsPresenter;
 import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.presenter.events.Utilities;
 import com.isunican.eventossantander.view.Listener;
-import com.isunican.eventossantander.view.events.IEventsContract;
 import com.isunican.eventossantander.view.favourites.IFavoriteEventsContract;
-import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -42,8 +39,11 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
 
                 // Los eventos cacheados los filtro con los ids que vengan
                 String ids = view.getSharedPref().getFavourites();
-
                 List<Event> filtered = filterFavourites(data, ids);
+
+                if (filtered.size() == 0) {
+                    view.showEmptyListMessage();
+                }
 
                 view.onEventsLoaded(filtered);
                 view.onLoadSuccess(filtered.size());

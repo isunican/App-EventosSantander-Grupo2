@@ -8,21 +8,23 @@ import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.ArrayList;
 import java.util.Map;
 
 public class EventsPresenter implements IEventsContract.Presenter {
 
     private final IEventsContract.View view;
+    private IGestionarFavoritos sharedPref;
     private List<Event> cachedEvents;
     private List<Event> favEvents;
 
     public EventsPresenter(IEventsContract.View view) {
         this.view = view;
+        this.sharedPref = sharedPref;
         loadData();
     }
 
@@ -79,6 +81,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
                 return filteredEvents;
     }
 
+
     @Override
     public void onEventClicked(int eventIndex) {
         if (cachedEvents != null && eventIndex < cachedEvents.size()) {
@@ -95,6 +98,11 @@ public class EventsPresenter implements IEventsContract.Presenter {
     @Override
     public void onInfoClicked() {
         view.openInfoView();
+    }
+
+    @Override
+    public void onFavouritesClicked() {
+        view.openFavouritesView();
     }
 
     @Override
@@ -130,18 +138,6 @@ public class EventsPresenter implements IEventsContract.Presenter {
         view.onEventsLoaded(eventList);
         view.onLoadSuccess(eventList.size());
     }
-
-    @Override
-    public void onFavouriteClicked(int eventIndex, Boolean isClicked, IGestionarFavoritos sharedPref) {
-        // isClicked = true -> Quitar evento de favoritos
-        // isClicked = false -> Anhadir evento a favoritos
-        if (isClicked) {
-            // TODO
-        } else {
-            sharedPref.setFavourite(eventIndex, cachedEvents);
-        }
-    }
-
 
     /**
      * Takes the event list and order options and orders the list according to them.
@@ -200,6 +196,17 @@ public class EventsPresenter implements IEventsContract.Presenter {
         }
 
         return result;
+    }
+
+    @Override
+    public void onFavouriteClicked(int eventIndex, Boolean isClicked, IGestionarFavoritos sharedPref) {
+        // isClicked = true -> Quitar evento de favoritos
+        // isClicked = false -> Anhadir evento a favoritos
+        if (isClicked) {
+            // TODO
+        } else {
+            sharedPref.setFavourite(eventIndex,cachedEvents);
+        }
     }
 
     /**

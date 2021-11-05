@@ -1,8 +1,5 @@
 package com.isunican.eventossantander.view.events;
 
-import android.app.Dialog;
-import android.widget.ListView;
-
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
@@ -19,6 +16,8 @@ public interface IEventsContract {
         void onReloadClicked();
 
         void onInfoClicked();
+
+        void onFavouritesClicked();
 
         void onFilterMenuClicked(boolean isFilterMenuVisible);
 
@@ -46,6 +45,8 @@ public interface IEventsContract {
         void openEventDetails(Event event);
 
         void openInfoView();
+
+        void openFavouritesView();
 
         void openFilterMenuView();
 

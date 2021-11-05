@@ -226,6 +226,7 @@
                         android:text="Aplicar" />
                 </LinearLayout>
             </ScrollView>
+
         </com.google.android.material.navigation.NavigationView>
 
         <ListView

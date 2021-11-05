@@ -9,6 +9,7 @@ import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.presenter.events.Utilities;
+import com.isunican.eventossantander.presenter.favourites.FavoriteEventsPresenter;
 import com.isunican.eventossantander.view.events.EventsActivity;
 import com.isunican.eventossantander.view.events.OnSwipeTouchListener;
 import com.isunican.eventossantander.view.eventsdetail.EventsDetailActivity;
@@ -26,6 +27,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -253,5 +255,11 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
     public IGestionarFavoritos getSharedPref(){
         return sharedPref;
     }
+
+    @Override
+    public void showEmptyListMessage() {
+        Utilities.createPopUp(this, Utilities.EMPTY_FAVOURITE_MESSAGE, 1).show();
+    }
+
 
 }

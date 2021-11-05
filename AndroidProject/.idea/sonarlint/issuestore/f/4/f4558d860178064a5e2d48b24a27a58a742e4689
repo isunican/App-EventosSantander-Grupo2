@@ -1,0 +1,22 @@
+
+m
+java:S37760"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(¨Œşÿÿÿÿ
+_
+java:S1117:"IRename "btnAplicarFiltroOrden" which hides the field declared at line 40.(˜˜Ø…
+c
+java:S1117;"HRename "btnFiltroCategoriaUp" which hides the field declared at line 42.(õ§‘áıÿÿÿÿ
+`
+java:S1117<"JRename "btnFiltroCategoriaDown" which hides the field declared at line 41.(™’Ü
+_
+java:S1117="IRename "layoutFiltroCategoria" which hides the field declared at line 43.(ß„ù
+d
+java:S1126r"BReplace this if-then-else statement by a single method invocation.(¼ÜàÕûÿÿÿÿ8¦ÌÂİÎ/
+i
+java:S1874‹"KRemove this use of "setOnNavigationItemSelectedListener"; it is deprecated.(˜ÃˆÎ8©ÌÂİÎ/
+P
+java:S1611‹"2Remove the parentheses around the "item" parameter(˜ÃˆÎ8©ÌÂİÎ/
+D	java:S131Œ""Add a default case to this switch.(øå´¡ÿÿÿÿÿ8¬ÌÂİÎ/
+_
+java:S1126Â"AReplace this if-then-else statement by a single return statement.(ŒÖŠ8³ÌÂİÎ/
+n
+java:S1301Œ"KReplace this "switch" statement by "if" statements to increase readability.(øå´¡ÿÿÿÿÿ8¼ÌÂİÎ/

@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.text.HtmlCompat;
 
-
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
@@ -105,6 +104,7 @@ public class EventArrayAdapter extends ArrayAdapter<Event> {
                     presenter.onFavouriteClicked(eventId, favorito, sharedPref);
                     btnEventFav.setImageResource(R.drawable.ic_baseline_star_24);
                     btnEventFav.setTag(R.drawable.ic_baseline_star_24);
+
                 } else {
                     // TODO
                 }

@@ -48,5 +48,6 @@ public interface IFavoriteEventsContract {
 
         IGestionarFavoritos getSharedPref();
 
+        void showEmptyListMessage();
     }
 }

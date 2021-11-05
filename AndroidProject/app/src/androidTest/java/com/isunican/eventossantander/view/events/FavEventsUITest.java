@@ -1,7 +1,8 @@
-package com.isunican.eventossantander;
+package com.isunican.eventossantander.view.events;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -9,14 +10,22 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 
 import static org.hamcrest.core.IsAnything.anything;
 
+import androidx.test.InstrumentationRegistry;
+import androidx.test.espresso.IdlingRegistry;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
+import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
+import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
 import com.isunican.eventossantander.view.events.EventsActivity;
 import com.isunican.eventossantander.view.events.IEventsContract;
+import com.isunican.eventossantander.view.favourites.IFavoriteEventsContract;
 
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -25,16 +34,21 @@ import java.util.List;
 
 public class FavEventsUITest {
 
-    private final String TITLE = "En busca de vida en Marte: nuevas misiones y nuevos retos ";
-    private final String DATE = "Miércoles 08/09/2021, a las 19:00h. ";
+    private static final String TITLE = "Museo virtual \"Luis Quintanilla, arte y memoria\"";
+    private static final String DATE = "Sábado 31/07/2021, todo el día. ";
     private  final String CATEGORY = "Online";
-    private  final String TITLE_2 = "\"Retratos de buques\", exposición temporal";
-    private  final String DATE_2 = "Sábado 31/07/2021, de 10:00 a 19:30h. ";
-    private  final String CATEGORY_2 = "Música";
+    private static final String TITLE_2 = "Gabinete de estampas virtual de la UC";
+    private static final String DATE_2 = "Sábado 31/07/2021, todo el día. ";
+    private  final String CATEGORY_2 = "Artes plásticas";
 
-    private IEventsContract.Presenter presenter;
     private List<Event> favEvents, emptyEvents;
     private Event e1, e2;
+
+    @BeforeClass
+    public static void setUp() {
+        EventsRepository.setLocalSource();
+        IdlingRegistry.getInstance().register(EventsRepository.getIdlingResource());
+    }
 
     @Before
     public void setup() {
@@ -54,29 +68,29 @@ public class FavEventsUITest {
 
     }
 
+    @AfterClass
+    public static void clean() {
+        EventsRepository.setOnlineSource();
+        IdlingRegistry.getInstance().unregister(EventsRepository.getIdlingResource());
+    }
+
     @Rule
     public ActivityScenarioRule<EventsActivity> activityRule = new ActivityScenarioRule(EventsActivity.class);
 
     @Test
-    public void eventosFavoritosVacia () {
-        presenter.setFavEventsList(emptyEvents);
-        onView(withId(R.id.favoritosActivity)).perform(click());
-        onView(withId(R.id.textView4)).check(matches(withText("No hay eventos favoritos")));
-
-    }
-
-    @Test
     public void eventosFavoritosNoVacia () throws InterruptedException {
-        presenter.setFavEventsList(favEvents);
-        onView(withId(R.id.favoritosActivity)).perform(click());
+
+        onData(anything()).inAdapterView(ViewMatchers.withId(R.id.eventsListView)).atPosition(1).onChildView(withId(R.id.btn_event_fav)).perform(click());
+
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getContext());
+        onView(withText(R.string.favoritos)).perform(click());
 
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.item_event_title)).check(matches(withText(TITLE)));
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.item_event_date)).check(matches(withText(DATE)));
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.item_event_categoria)).check(matches(withText(CATEGORY)));
 
-        onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(1).onChildView(withId(R.id.item_event_title)).check(matches(withText(TITLE_2)));
-        onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(1).onChildView(withId(R.id.item_event_date)).check(matches(withText(DATE_2)));
-        onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(1).onChildView(withId(R.id.item_event_categoria)).check(matches(withText(CATEGORY_2)));
+
+
 
     }
 

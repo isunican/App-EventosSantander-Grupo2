@@ -1,4 +1,4 @@
-package com.isunican.eventossantander;
+package com.isunican.eventossantander.presenter.events;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -15,7 +15,6 @@ import com.isunican.eventossantander.view.events.EventsActivity;
 import com.isunican.eventossantander.view.events.IEventsContract;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -42,7 +41,6 @@ public class ApplyOrderFilterTest {
     public void setup() {
         Event e1, e2, e3;
         Map<String,Boolean> categories, categoriesOnline;
-
 
         presenter = new EventsPresenter(view);
         events = new ArrayList<>();
