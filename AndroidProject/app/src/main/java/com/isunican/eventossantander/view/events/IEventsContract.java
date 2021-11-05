@@ -17,7 +17,7 @@ public interface IEventsContract {
 
         void onInfoClicked();
 
-        void onFavouritesClicked();
+         void onFavouritesClicked();
 
         void onFilterMenuClicked(boolean isFilterMenuVisible);
 
@@ -46,17 +46,17 @@ public interface IEventsContract {
 
         void openInfoView();
 
-        void openFavouritesView();
+         void openFavouritesView();
 
         void openFilterMenuView();
 
         void closeFilterMenuView();
 
-        IGestionarFavoritos getSharedPref();
+         IGestionarFavoritos getSharedPref();
 
-        boolean isConectionAvailable();
+         boolean isConectionAvailable();
 
-        void onConnectionError();
+         void onConnectionError();
 
     }
 }
