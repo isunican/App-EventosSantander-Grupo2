@@ -43,8 +43,7 @@ public class EventsPresenterITest {
         assertEquals(345, eventos.getValue().size());
 
     }
-
-    @Test
+    
     public void loadEventsNoCorret() throws InterruptedException {
         ArgumentCaptor<List<Event>> eventos = ArgumentCaptor.forClass(List.class) ;
         EventsRepository.setFakeSource();
