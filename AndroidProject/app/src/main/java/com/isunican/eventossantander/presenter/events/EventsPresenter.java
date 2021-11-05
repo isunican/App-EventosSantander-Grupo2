@@ -33,7 +33,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
             @Override
             public void onSuccess(List<Event> data) {
                 // Orders events with default options:
-                //   Dates closer to further & events without dates last.
+                //  Dates closer to further & events without dates last.
                 onApplyOrder(data, OrderType.DATE_ASC, false);
 
                 view.onEventsLoaded(data);
