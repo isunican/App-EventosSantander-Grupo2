@@ -17,6 +17,8 @@ public interface IEventsContract {
 
         void onInfoClicked();
 
+         void onFavouritesClicked();
+
         void onFilterMenuClicked(boolean isFilterMenuVisible);
 
         void onApplyOptions(Options options);
@@ -28,6 +30,8 @@ public interface IEventsContract {
         List<Event> getList();
 
         List<Event> onApplyFilter(Map<String, Boolean> categorias);
+
+        void setFavEventsList(List<Event> favEvents);
     }
 
     interface View {
@@ -42,11 +46,17 @@ public interface IEventsContract {
 
         void openInfoView();
 
+         void openFavouritesView();
+
         void openFilterMenuView();
 
         void closeFilterMenuView();
 
-        void onConnectionError();
+         IGestionarFavoritos getSharedPref();
+
+         boolean isConectionAvailable();
+
+         void onConnectionError();
 
     }
 }
