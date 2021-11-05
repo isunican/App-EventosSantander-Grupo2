@@ -46,7 +46,7 @@
 
             @Rule
             public MockitoRule rule = MockitoJUnit.rule();
-            private IEventsContract.Presenter presenter;
+            private EventsPresenter presenter;
 
             @Before
             public void setup() {
