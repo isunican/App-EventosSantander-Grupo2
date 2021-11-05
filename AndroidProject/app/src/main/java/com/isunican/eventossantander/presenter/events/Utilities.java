@@ -9,8 +9,11 @@ import android.net.NetworkInfo;
 
 public class Utilities {
 
-    public static final String CONNECTION_ERROR_MESSAGE = "Error de conexión a Internet. Verifique su configuración de red.";
+    public enum OrderType { DATE_ASC, DATE_DESC }
 
+    public static final String CONNECTION_ERROR_MESSAGE = "Error de conexión a Internet. Verifique su configuración de red.";
+    public static final String EMPTY_FAVOURITE_MESSAGE = "No hay eventos favoritos.";
+    private static Dialog dialogo;
 
     /**
      * Crea un nuevo cuadro de dialogo segun los parametros especificados
@@ -47,9 +50,15 @@ public class Utilities {
                 });
         }
         // Create the AlertDialog object and return it
+        dialogo = builder.create();
         return builder.create();
     }
 
+    /**
+     * Only for test purposes
+     * @param context
+     * @return the dialog created
+     */
     public static boolean isConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
@@ -58,5 +67,9 @@ public class Utilities {
             return true;
         }
         return false;
+    }
+
+    public static Dialog getDialog() {
+        return dialogo;
     }
 }

@@ -2,14 +2,16 @@ package com.isunican.eventossantander.presenter.events;
 
 import java.util.Map;
 
+import okhttp3.internal.Util;
+
 public class Options {
     private boolean orderChecked = false;
     private boolean filtersChecked = false;
     private final Map<String, Boolean> categoriesSelected;
-    private final EventsPresenter.OrderType orderTypeSelected;
+    private final Utilities.OrderType orderTypeSelected;
     private final boolean dateFirst;
 
-    public Options(Map<String, Boolean> categoriesSelected, EventsPresenter.OrderType orderTypeSelected, boolean isDateFirst) {
+    public Options(Map<String, Boolean> categoriesSelected, Utilities.OrderType orderTypeSelected, boolean isDateFirst) {
         this.categoriesSelected = categoriesSelected;
         this.orderTypeSelected = orderTypeSelected;
         this.dateFirst = isDateFirst;
@@ -25,7 +27,7 @@ public class Options {
         return categoriesSelected;
     }
 
-    public EventsPresenter.OrderType getOrderTypeOptions() {
+    public Utilities.OrderType getOrderTypeOptions() {
         return orderTypeSelected;
     }
 

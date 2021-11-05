@@ -21,7 +21,7 @@
         android:theme="@style/Theme.EventosSantander"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".view.events.FavoriteEventsActivity"
+            android:name=".view.favourites.FavoriteEventsActivity"
             android:exported="true" />
         <activity
             android:name=".view.info.InfoActivity"

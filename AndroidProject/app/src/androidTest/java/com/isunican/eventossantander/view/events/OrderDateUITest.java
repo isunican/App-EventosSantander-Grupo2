@@ -1,4 +1,4 @@
-package com.isunican.eventossantander;
+package com.isunican.eventossantander.view.events;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
@@ -11,8 +11,10 @@ import static org.hamcrest.Matchers.anything;
 import static java.lang.Thread.sleep;
 
 import androidx.test.espresso.IdlingRegistry;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
+import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.view.events.EventsActivity;
 
@@ -40,7 +42,7 @@ public class OrderDateUITest {
 
     @Test
     public void orderAscTest() throws InterruptedException {
-        onView(withId(R.id.eventsListView)).perform(swipeRight());
+        onView(ViewMatchers.withId(R.id.eventsListView)).perform(swipeRight());
         onView(withId(R.id.rbOrdenarProxima)).perform(click()); //Checked by default in this version, so not really needed but this might change in the future
         sleep(2000);
 		onView(withId(R.id.btnAplicarFiltroOrden)).perform(click());

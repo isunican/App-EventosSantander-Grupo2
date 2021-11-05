@@ -1,4 +1,4 @@
-package com.isunican.eventossantander;
+package com.isunican.eventossantander.presenter.events;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -10,6 +10,7 @@ import android.os.Build;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
 import com.isunican.eventossantander.presenter.events.Options;
+import com.isunican.eventossantander.presenter.events.Utilities;
 import com.isunican.eventossantander.view.events.EventsActivity;
 import com.isunican.eventossantander.view.events.IEventsContract;
 
@@ -74,8 +75,8 @@ public class ApplyOrderFilterTest {
 
         categoriesOnline.put("Online", true);
 
-        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
-        options2 = new Options(categoriesOnline, EventsPresenter.OrderType.DATE_DESC, false);
+        options = new Options(categories, Utilities.OrderType.DATE_ASC, false);
+        options2 = new Options(categoriesOnline, Utilities.OrderType.DATE_DESC, false);
     }
 
     @Test
