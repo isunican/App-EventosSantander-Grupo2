@@ -200,13 +200,15 @@ public class EventsPresenter implements IEventsContract.Presenter {
 
     @Override
     public void onFavouriteClicked(int eventIndex, Boolean isClicked, IGestionarFavoritos sharedPref) {
-        // isClicked = true -> Quitar evento de favoritos
-        // isClicked = false -> Anhadir evento a favoritos
-        if (isClicked) {
-            // TODO
-        } else {
-            sharedPref.setFavourite(eventIndex,cachedEvents);
-        }
+         if(eventIndex > 0 && eventIndex <= cachedEvents.size()) {
+             // isClicked = true -> Quitar evento de favoritos
+             // isClicked = false -> Anhadir evento a favoritos
+             if (isClicked) {
+                 // TODO
+             } else {
+                 sharedPref.setFavourite(eventIndex, cachedEvents);
+             }
+         }
     }
 
     /**

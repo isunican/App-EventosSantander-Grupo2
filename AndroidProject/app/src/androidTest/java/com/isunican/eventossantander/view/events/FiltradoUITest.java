@@ -13,7 +13,6 @@ import static org.hamcrest.core.IsAnything.anything;
 import static java.lang.Thread.sleep;
 
 import androidx.test.espresso.IdlingRegistry;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import com.isunican.eventossantander.R;
@@ -60,8 +59,8 @@ public class FiltradoUITest {
 
     @Test
     public void eventosCulturaCientifica () throws InterruptedException {
-        onView(ViewMatchers.withId(R.id.filter_menu)).perform(click());
-        onView(ViewMatchers.withId(R.id.eventsListView)).perform(swipeRight());
+        onView(withId(R.id.filter_menu)).perform(click());
+        //onView(withId(R.id.eventsListView)).perform(swipeRight());
         //Simulamos el gesto, recomendado por el profesor
         onView(withId(R.id.btnFiltroCategoriaDown)).perform(click());
 
