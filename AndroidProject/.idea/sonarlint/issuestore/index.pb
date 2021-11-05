@@ -7,8 +7,6 @@ p
 @app/src/main/java/com/isunican/eventossantander/model/Event.java,b\9\b9653550d8fa9808e2078f260a5ca14e8532f3ef
 ‚
 Rapp/src/main/java/com/isunican/eventossantander/view/events/EventArrayAdapter.java,7\5\755b7722086b1f54ec7b8ad4c164591c1e6087e8
-€
-Papp/src/main/java/com/isunican/eventossantander/view/events/IEventsContract.java,4\f\4f9c99a06d595f3f6da2794b3edc92f33c29248e
 t
 Dapp/src/test/java/com/isunican/eventossantander/OrderMethodTest.java,7\3\736ad386b8d64db6583b8d4d30911e1806280751
 s
