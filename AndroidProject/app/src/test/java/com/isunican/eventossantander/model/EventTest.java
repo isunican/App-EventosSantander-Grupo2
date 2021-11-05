@@ -1,4 +1,4 @@
-package com.isunican.eventossantander;
+package com.isunican.eventossantander.model;
 
 import static org.junit.Assert.assertEquals;
 

@@ -57,6 +57,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
      * @param categorias map with the categories that want to be filtered and not
      * @return list with the events which category is selected in the filters
      */
+    //Debe ser público debido a los tests
     public List<Event> onApplyFilter(Map<String, Boolean> categorias){
 
                 List<Event> filteredEvents = new ArrayList();

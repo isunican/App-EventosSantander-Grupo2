@@ -27,11 +27,6 @@ public interface IEventsContract {
 
         void setList(List<Event> events);
 
-        List<Event> getList();
-
-        List<Event> onApplyFilter(Map<String, Boolean> categorias);
-
-        void setFavEventsList(List<Event> favEvents);
     }
 
     interface View {

@@ -35,7 +35,7 @@ public class ApplyOrderFilterTest {
 
     private IEventsContract.View view = mock(EventsActivity.class);
 
-    private IEventsContract.Presenter presenter;
+    private EventsPresenter presenter;
 
     @Before
     public void setup() {
