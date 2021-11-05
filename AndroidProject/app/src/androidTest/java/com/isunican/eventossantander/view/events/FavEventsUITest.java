@@ -37,12 +37,9 @@ public class FavEventsUITest {
     private static final String TITLE = "Museo virtual \"Luis Quintanilla, arte y memoria\"";
     private static final String DATE = "Sábado 31/07/2021, todo el día. ";
     private  final String CATEGORY = "Online";
-    private static final String TITLE_2 = "Gabinete de estampas virtual de la UC";
-    private static final String DATE_2 = "Sábado 31/07/2021, todo el día. ";
-    private  final String CATEGORY_2 = "Artes plásticas";
 
-    private List<Event> favEvents, emptyEvents;
-    private Event e1, e2;
+    private List<Event> favEvents;
+    private Event e1;
 
     @BeforeClass
     public static void setUp() {
@@ -52,20 +49,13 @@ public class FavEventsUITest {
 
     @Before
     public void setup() {
-        emptyEvents = new ArrayList<>();
         favEvents = new ArrayList<>();
         e1 = new Event();
         e1.setNombre("En busca de vida en Marte: nuevas misiones y nuevos retos ");
         e1.setFecha("Miércoles 08/09/2021, a las 19:00h. ");
         e1.setCategoria("Online");
-        e2 = new Event();
-        e2.setNombre("\"Retratos de buques\", exposición temporal");
-        e2.setFecha("Sábado 31/07/2021, de 10:00 a 19:30h. ");
-        e2.setCategoria("Música");
 
         favEvents.add(e1);
-        favEvents.add(e2);
-
     }
 
     @AfterClass
@@ -77,8 +67,14 @@ public class FavEventsUITest {
     @Rule
     public ActivityScenarioRule<EventsActivity> activityRule = new ActivityScenarioRule(EventsActivity.class);
 
+
+    /**
+     * Historia de usuario: Añadir boton menu.
+     * Identificador: "UIT.1"
+     * Autor: Jesus Ortega Zorrilla
+     */
     @Test
-    public void eventosFavoritosNoVacia () throws InterruptedException {
+    public void eventosFavoritosNoVacia () {
 
         onData(anything()).inAdapterView(ViewMatchers.withId(R.id.eventsListView)).atPosition(1).onChildView(withId(R.id.btn_event_fav)).perform(click());
 
@@ -88,9 +84,6 @@ public class FavEventsUITest {
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.item_event_title)).check(matches(withText(TITLE)));
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.item_event_date)).check(matches(withText(DATE)));
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.item_event_categoria)).check(matches(withText(CATEGORY)));
-
-
-
 
     }
 
