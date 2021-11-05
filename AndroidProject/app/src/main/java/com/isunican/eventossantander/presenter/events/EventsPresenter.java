@@ -18,13 +18,11 @@ import java.util.Map;
 public class EventsPresenter implements IEventsContract.Presenter {
 
     private final IEventsContract.View view;
-    private IGestionarFavoritos sharedPref;
     private List<Event> cachedEvents;
     private List<Event> favEvents;
 
     public EventsPresenter(IEventsContract.View view) {
         this.view = view;
-        this.sharedPref = sharedPref;
         loadData();
     }
 

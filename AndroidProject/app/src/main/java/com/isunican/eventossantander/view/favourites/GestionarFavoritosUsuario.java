@@ -11,17 +11,18 @@ public class GestionarFavoritosUsuario implements IGestionarFavoritos {
 
     private SharedPreferences sharedPref;
     private String idFavouriteEvents;
+    private final String FAVORITOS = "favourites";
 
     // contexto y nombre
     public GestionarFavoritosUsuario(Context context) {
-        sharedPref = context.getSharedPreferences("favourites", Context.MODE_PRIVATE);
+        sharedPref = context.getApplicationContext().getSharedPreferences(FAVORITOS, Context.MODE_PRIVATE);
     }
 
     // Devuelve un string con el id de los eventos favoritos, sino devuelve nulo
     @Override
     public String getFavourites() {
         String defaultValue = "";
-        idFavouriteEvents = sharedPref.getString("favourites", defaultValue);
+        idFavouriteEvents = sharedPref.getString(FAVORITOS, defaultValue);
         return idFavouriteEvents;
     }
 
@@ -33,7 +34,7 @@ public class GestionarFavoritosUsuario implements IGestionarFavoritos {
 
         idFavouriteEvents = idFavouriteEvents.concat(cachedEvents.get(eventIndex).getIdentificador() + ",");
 
-        editor.putString("favourites", idFavouriteEvents);
+        editor.putString(FAVORITOS, idFavouriteEvents);
         editor.apply();
     }
 
