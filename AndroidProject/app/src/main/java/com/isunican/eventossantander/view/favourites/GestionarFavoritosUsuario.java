@@ -15,7 +15,7 @@ public class GestionarFavoritosUsuario implements IGestionarFavoritos {
 
     // contexto y nombre
     public GestionarFavoritosUsuario(Context context) {
-        sharedPref = context.getApplicationContext().getSharedPreferences(FAVORITOS, Context.MODE_PRIVATE);
+        sharedPref = context.getSharedPreferences(FAVORITOS, Context.MODE_PRIVATE);
     }
 
     // Devuelve un string con el id de los eventos favoritos, sino devuelve nulo
