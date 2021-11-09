@@ -17,6 +17,9 @@
         android:id="@+id/menu_info"
         android:title="@string/menu_info" />
     <item
+        android:id="@+id/crear_lista"
+        android:title="@string/crear_lista" />
+    <item
         android:id="@+id/listaFav"
         android:title="@string/favoritos" />
 </menu>

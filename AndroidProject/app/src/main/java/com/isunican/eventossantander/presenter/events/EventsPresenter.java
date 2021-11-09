@@ -3,6 +3,7 @@ package com.isunican.eventossantander.presenter.events;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.view.Listener;
+import com.isunican.eventossantander.view.events.EventsActivity;
 import com.isunican.eventossantander.view.events.IEventsContract;
 import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
 
@@ -209,6 +210,11 @@ public class EventsPresenter implements IEventsContract.Presenter {
                  sharedPref.setFavourite(eventIndex, cachedEvents);
              }
          }
+    }
+
+    @Override
+    public void onCreateListClicked(EventsActivity eventsActivity) {
+        Utilities.createInputPopUp(eventsActivity, "Introduzca el título de la lista a crear", 2).show();
     }
 
     /**
