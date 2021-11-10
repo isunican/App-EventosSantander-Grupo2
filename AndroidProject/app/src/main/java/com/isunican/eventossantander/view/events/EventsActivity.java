@@ -228,6 +228,9 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             case R.id.menu_info:
                 presenter.onInfoClicked();
                 return true;
+            case R.id.crear_lista:
+                presenter.onCreateListClicked(this);
+                return true;
             case R.id.listaFav:
                 presenter.onFavouritesClicked();
                 return true;

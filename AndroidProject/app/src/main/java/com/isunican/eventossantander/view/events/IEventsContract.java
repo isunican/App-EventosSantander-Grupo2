@@ -5,7 +5,6 @@ import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
 
 import java.util.List;
-import java.util.Map;
 
 public interface IEventsContract {
 
@@ -17,7 +16,7 @@ public interface IEventsContract {
 
         void onInfoClicked();
 
-         void onFavouritesClicked();
+        void onFavouritesClicked();
 
         void onFilterMenuClicked(boolean isFilterMenuVisible);
 
@@ -26,6 +25,8 @@ public interface IEventsContract {
         void onFavouriteClicked(int eventIndex, Boolean isClicked, IGestionarFavoritos sharedPref);
 
         void onAddEventClicked(int i, IGestionarFavoritos sharedPref, String listaEscogida);
+
+        void onCreateListClicked(EventsActivity eventsActivity);
     }
 
     interface View {
@@ -40,17 +41,17 @@ public interface IEventsContract {
 
         void openInfoView();
 
-         void openFavouritesView();
+        void openFavouritesView();
 
         void openFilterMenuView();
 
         void closeFilterMenuView();
 
-         IGestionarFavoritos getSharedPref();
+        IGestionarFavoritos getSharedPref();
 
-         boolean isConectionAvailable();
+        boolean isConectionAvailable();
 
-         void onConnectionError();
+        void onConnectionError();
 
         void errorAddEventList();
     }
