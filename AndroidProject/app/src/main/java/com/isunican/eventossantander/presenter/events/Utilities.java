@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Utilities {
 
@@ -78,7 +79,7 @@ public class Utilities {
             case 2:
                 builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Utilities.createPopUp(context, "Se ha creado la lista " + input.getText() + " con éxito.", 1).show();
+                        Toast.makeText(context,"Se ha creado la lista " + input.getText() + " con éxito",Toast.LENGTH_LONG).show();
                     }
                 });
                 builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
