@@ -25,6 +25,7 @@ public interface IEventsContract {
 
         void onFavouriteClicked(int eventIndex, Boolean isClicked, IGestionarFavoritos sharedPref);
 
+        void onAddEventClicked(int i, IGestionarFavoritos sharedPref, String listaEscogida);
     }
 
     interface View {
@@ -51,5 +52,6 @@ public interface IEventsContract {
 
          void onConnectionError();
 
+        void errorAddEventList();
     }
 }

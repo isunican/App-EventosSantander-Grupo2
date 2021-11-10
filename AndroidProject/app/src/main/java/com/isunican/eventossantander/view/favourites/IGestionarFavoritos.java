@@ -3,6 +3,7 @@ package com.isunican.eventossantander.view.favourites;
 
 import com.isunican.eventossantander.model.Event;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface IGestionarFavoritos {
@@ -15,4 +16,7 @@ public interface IGestionarFavoritos {
 
     boolean isFavourite(int eventId);
 
+    ArrayList<String> getLists();
+
+    boolean addEvent(int eventIndex, List<Event> cachedEvents, String listaEscogida);
 }

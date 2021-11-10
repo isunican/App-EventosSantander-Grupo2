@@ -1,7 +1,11 @@
     package com.isunican.eventossantander.view.events;
 
     import android.annotation.SuppressLint;
+    import android.app.AlertDialog;
+    import android.app.Dialog;
     import android.content.Context;
+    import android.content.DialogInterface;
+    import android.os.Bundle;
     import android.view.LayoutInflater;
     import android.view.View;
     import android.view.ViewGroup;
@@ -10,6 +14,7 @@
     import android.widget.ImageView;
     import android.widget.LinearLayout;
     import android.widget.TextView;
+    import android.widget.Toast;
 
     import androidx.annotation.NonNull;
     import androidx.annotation.Nullable;
@@ -22,6 +27,7 @@
 
     import org.apache.commons.lang3.StringUtils;
 
+    import java.util.ArrayList;
     import java.util.List;
 
     public class EventArrayAdapter extends ArrayAdapter<Event> {
@@ -55,6 +61,7 @@
             ImageView iconTxt = view.findViewById(R.id.item_event_icon);
             ImageView imageTxt = view.findViewById(R.id.item_event_image);
             ImageButton btnEventFav = view.findViewById(R.id.btn_event_fav);
+            ImageButton btnAddList = view.findViewById(R.id.btn_add_list_event);
             LinearLayout container = view.findViewById(R.id.list_item_container);
 
             container.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +100,40 @@
                 iconTxt.setVisibility(View.GONE);
                 Picasso.get().load(event.getImagen()).into(imageTxt);
             }
+
+            //Handler to control the addList button
+            btnAddList.setOnClickListener(new View.OnClickListener() {
+                private android.os.Bundle savedInstanceState;
+
+                @Override
+                public void onClick(View view) {
+                    int eventId = position;
+
+                    //Obtengo listas de favoritos creadas
+                    CharSequence[] listas = sharedPref.getLists().toArray(new CharSequence[0]);
+
+
+                    //Creo popup con las listas obtenidas
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("Escoge una lista para añadir el evento");
+                    builder.setItems(listas, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            String listaEscogida = listas[i].toString();
+                            presenter.onAddEventClicked(i,sharedPref,listaEscogida);
+                            Toast.makeText(getContext(),"Se ha añadido un evento a la lista" + listaEscogida,Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+                    Dialog dialog = builder.create();
+                    dialog.show();
+                }
+            });
 
             // Handler to control the favourite button
             btnEventFav.setOnClickListener(new View.OnClickListener() {
