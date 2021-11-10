@@ -15,6 +15,7 @@ public class GestionarFavoritosUsuario implements IGestionarFavoritos {
     private String idFavouriteEvents;
     private final String FAVORITOS = "favourites";
 
+
     // contexto y nombre
     public GestionarFavoritosUsuario(Context context) {
         sharedPref = context.getSharedPreferences(FAVORITOS, Context.MODE_PRIVATE);
@@ -55,9 +56,9 @@ public class GestionarFavoritosUsuario implements IGestionarFavoritos {
 
         for (Map.Entry<String, ?> pair : sharedPref.getAll().entrySet()) {
             //Despues del merge con la opcion de crear listas descomentar
-           // if (!pair.getKey().equals(FAVORITOS)){
+            if (!pair.getKey().equals(FAVORITOS)){
                 listas.add(pair.getKey());
-           // }
+            }
         }
         return listas;
     }

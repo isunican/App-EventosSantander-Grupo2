@@ -215,13 +215,12 @@ public class EventsPresenter implements IEventsContract.Presenter {
     public void onAddEventClicked(int eventIndex, IGestionarFavoritos sharedPref, String listaEscogida) {
         if(eventIndex > 0 && eventIndex<= cachedEvents.size()){
             boolean result = sharedPref.addEvent(eventIndex,cachedEvents,listaEscogida);
-            if(result){
-                // TODO
-            }else{
-                // TODO
+            if(!result){
+                view.errorAddEventList();
             }
         } else {
-            // TODO
+            view.errorAddEventList();
+
         }
     }
 

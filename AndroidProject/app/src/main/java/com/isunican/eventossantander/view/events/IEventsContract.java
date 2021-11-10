@@ -52,5 +52,6 @@ public interface IEventsContract {
 
          void onConnectionError();
 
+        void errorAddEventList();
     }
 }

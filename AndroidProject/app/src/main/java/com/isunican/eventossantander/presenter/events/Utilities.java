@@ -9,10 +9,13 @@ import android.net.NetworkInfo;
 
 public class Utilities {
 
+
+
     public enum OrderType { DATE_ASC, DATE_DESC }
 
     public static final String CONNECTION_ERROR_MESSAGE = "Error de conexión a Internet. Verifique su configuración de red.";
     public static final String EMPTY_FAVOURITE_MESSAGE = "No hay eventos favoritos.";
+    public static final String ERROR_ADD_EVENT_LIST = "Ha ocurrido un error al introducir el evento a la lista";
     private static Dialog dialogo;
 
     /**

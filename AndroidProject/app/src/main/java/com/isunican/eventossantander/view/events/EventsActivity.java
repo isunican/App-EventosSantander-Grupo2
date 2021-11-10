@@ -261,4 +261,10 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     public void onConnectionError() {
          Utilities.createPopUp(this, Utilities.CONNECTION_ERROR_MESSAGE, 1).show();
     }
+
+    @Override
+    public void errorAddEventList() {
+        Utilities.createPopUp(this, Utilities.ERROR_ADD_EVENT_LIST, 1).show();
+
+    }
 }
