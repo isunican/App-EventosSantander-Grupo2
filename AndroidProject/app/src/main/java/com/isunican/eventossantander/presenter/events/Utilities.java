@@ -9,6 +9,8 @@ import android.net.NetworkInfo;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.isunican.eventossantander.view.events.GestionarListas;
+
 public class Utilities {
 
     public enum OrderType { DATE_ASC, DATE_DESC }
@@ -67,23 +69,33 @@ public class Utilities {
     public static Dialog createInputPopUp(Context context, String title, Integer numButtons) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         EditText input = new EditText(context);
+        GestionarListas gestionarListas = new GestionarListas(context);
         builder.setTitle(title);
         builder.setView(input);
         switch (numButtons) {
             case 1:
                 builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+
                     }
                 });
                 break;
             case 2:
                 builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(context,"Se ha creado la lista " + input.getText() + " con éxito",Toast.LENGTH_LONG).show();
+                        if (gestionarListas.createList(input.getText().toString()) == true) {
+                            Toast.makeText(context, "Se ha creado la lista " + input.getText() + " con éxito", Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
                 builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        /*if(gestionarListas.checkListExists(input.getText().toString()) == true) { //PARA PRUEBAS
+                            Toast.makeText(context, "La lista " + input.getText() + " existe", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Toast.makeText(context, "La lista " + input.getText() + " NO existe", Toast.LENGTH_LONG).show();
+                        }*/
                     }
                 });
                 break;

@@ -212,10 +212,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
          }
     }
 
-    @Override
-    public void onCreateListClicked(EventsActivity eventsActivity) {
-        Utilities.createInputPopUp(eventsActivity, "Introduzca el título de la lista a crear", 2).show();
-    }
+
 
     /**
      * Takes the string date from an Event and converts it to data type Date.

@@ -11,6 +11,8 @@
 /.idea/compiler.xml
 /.idea/jarRepositories.xml
 
+**/sonarlint
+
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml

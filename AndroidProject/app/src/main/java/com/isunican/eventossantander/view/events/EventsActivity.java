@@ -229,7 +229,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
                 presenter.onInfoClicked();
                 return true;
             case R.id.crear_lista:
-                presenter.onCreateListClicked(this);
+                Utilities.createInputPopUp(this, "Introduzca el título de la lista a crear", 2).show();
                 return true;
             case R.id.listaFav:
                 presenter.onFavouritesClicked();
