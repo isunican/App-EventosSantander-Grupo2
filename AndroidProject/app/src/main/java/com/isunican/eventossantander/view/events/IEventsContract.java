@@ -27,6 +27,7 @@ public interface IEventsContract {
         void onAddEventClicked(int i, IGestionarFavoritos sharedPref, String listaEscogida);
 
         void onCreateListClicked(EventsActivity eventsActivity);
+
     }
 
     interface View {

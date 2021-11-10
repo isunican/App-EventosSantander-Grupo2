@@ -234,6 +234,19 @@ public class EventsPresenter implements IEventsContract.Presenter {
         Utilities.createInputPopUp(eventsActivity, "Introduzca el título de la lista a crear", 2).show();
     }
 
+    @Override
+    public void onAddEventClicked(int eventIndex, IGestionarFavoritos sharedPref, String listaEscogida) {
+        if(eventIndex > 0 && eventIndex<= cachedEvents.size()){
+            boolean result = sharedPref.addEvent(eventIndex,cachedEvents,listaEscogida);
+            if(!result){
+                view.errorAddEventList();
+            }
+        } else {
+            view.errorAddEventList();
+
+        }
+    }
+
     /**
      * Takes the string date from an Event and converts it to data type Date.
      * @param strDate An Events date in data type String.
