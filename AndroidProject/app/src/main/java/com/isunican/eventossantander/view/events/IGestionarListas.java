@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IGestionarListas {
 
-    boolean createList(String listName);
+    String createList(String listName);
 
     boolean checkListExists(String listName);
 

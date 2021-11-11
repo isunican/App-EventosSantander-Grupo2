@@ -83,19 +83,11 @@ public class Utilities {
             case 2:
                 builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        if (gestionarListas.createList(input.getText().toString()) == true) {
-                            Toast.makeText(context, "Se ha creado la lista " + input.getText() + " con éxito", Toast.LENGTH_LONG).show();
-                        }
+                        Toast.makeText(context, "Se ha creado la lista " + gestionarListas.createList(input.getText().toString()) + " con éxito", Toast.LENGTH_LONG).show();
                     }
                 });
                 builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        /*if(gestionarListas.checkListExists(input.getText().toString()) == true) { //PARA PRUEBAS
-                            Toast.makeText(context, "La lista " + input.getText() + " existe", Toast.LENGTH_LONG).show();
-                        }
-                        else {
-                            Toast.makeText(context, "La lista " + input.getText() + " NO existe", Toast.LENGTH_LONG).show();
-                        }*/
                     }
                 });
                 break;
