@@ -67,6 +67,5 @@
 
             // Identificador: "UT.2c"
             nombreLista = gestionarListas.createList("");
-            // "No se ha creado la lista, introduzca un nombre válido."
         }
     }

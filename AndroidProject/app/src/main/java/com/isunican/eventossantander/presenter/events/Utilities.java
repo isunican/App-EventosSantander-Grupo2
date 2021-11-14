@@ -69,6 +69,7 @@ public class Utilities {
     public static Dialog createInputPopUp(Context context, String title, Integer numButtons) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         EditText input = new EditText(context);
+        input.setTag("InputDialog");
         GestionarListas gestionarListas = new GestionarListas(context);
         builder.setTitle(title);
         builder.setView(input);

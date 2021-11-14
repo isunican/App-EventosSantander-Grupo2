@@ -42,8 +42,17 @@
          */
         @Test
         public void testCreateInputPopUp() {
+            /*
+
+            alternativamente, a ese editText que creas, al que llamas "input"
+            le puedes asignar desde el propio código un tag
+            (setTag)
+            y luego en el test usar un matcher por tag
+            (withTag creo que es)
+             */
             // Identificador: "UT.1a"
             dialog = utilities.createInputPopUp(context, "Introduzca el título de la lista a crear", 2);
+
             // Assert.assertTrue(dialog.get
             //Assert.assertEquals(dialog.);
         }
