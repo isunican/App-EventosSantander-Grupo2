@@ -6,7 +6,7 @@ import com.isunican.eventossantander.model.Event;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface IGestionarFavoritos {
+public interface IGestionarListasUsuario {
 
     String getFavourites();
 

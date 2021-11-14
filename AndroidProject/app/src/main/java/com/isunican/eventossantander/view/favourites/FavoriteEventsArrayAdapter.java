@@ -16,7 +16,6 @@ import androidx.core.text.HtmlCompat;
 
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
-import com.isunican.eventossantander.view.events.IEventsContract;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringUtils;
@@ -27,7 +26,7 @@ public class FavoriteEventsArrayAdapter extends ArrayAdapter<Event> {
 
     private final List<Event> events;
     IFavoriteEventsContract.Presenter presenter;
-    private IGestionarFavoritos sharedPref;
+    private IGestionarListasUsuario sharedPref;
 
     public FavoriteEventsArrayAdapter(@NonNull FavoriteEventsActivity activity, int resource, @NonNull List<Event> objects) {
         super(activity, resource, objects);

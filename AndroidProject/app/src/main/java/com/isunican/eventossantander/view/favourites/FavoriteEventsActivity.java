@@ -40,7 +40,7 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
     private ImageButton btnFiltroCategoriaDown;
     private ImageButton btnFiltroCategoriaUp;
     private LinearLayout layoutFiltroCategoria;
-    private IGestionarFavoritos sharedPref;
+    private IGestionarListasUsuario sharedPref;
     private boolean isFilterMenuVisible;
 
     @Override
@@ -251,7 +251,7 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
     }
 
     @Override
-    public IGestionarFavoritos getSharedPref(){
+    public IGestionarListasUsuario getSharedPref(){
         return sharedPref;
     }
 

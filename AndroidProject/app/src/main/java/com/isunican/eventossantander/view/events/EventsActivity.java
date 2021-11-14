@@ -25,7 +25,7 @@ import com.isunican.eventossantander.presenter.events.Utilities;
 import com.isunican.eventossantander.view.eventsdetail.EventsDetailActivity;
 import com.isunican.eventossantander.view.favourites.FavoriteEventsActivity;
 import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
-import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
+import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
 import com.isunican.eventossantander.view.info.InfoActivity;
 
 import java.util.HashMap;
@@ -38,7 +38,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     private ImageButton btnFiltroCategoriaDown;
     private ImageButton btnFiltroCategoriaUp;
     private LinearLayout layoutFiltroCategoria;
-    private IGestionarFavoritos sharedPref;
+    private IGestionarListasUsuario sharedPref;
     private boolean isFilterMenuVisible;
 
     @Override
@@ -245,7 +245,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     }
 
     @Override
-    public IGestionarFavoritos getSharedPref(){
+    public IGestionarListasUsuario getSharedPref(){
         return sharedPref;
     }
 

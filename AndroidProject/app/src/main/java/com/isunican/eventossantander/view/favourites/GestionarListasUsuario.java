@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GestionarListasUsuario implements IGestionarFavoritos {
+public class GestionarListasUsuario implements IGestionarListasUsuario {
 
     private SharedPreferences sharedPref;
     private String idFavouriteEvents;

@@ -43,12 +43,27 @@ public class EventsPresenterITest {
         assertEquals(345, eventos.getValue().size());
 
     }
-    
+
     public void loadEventsNoCorret() throws InterruptedException {
         ArgumentCaptor<List<Event>> eventos = ArgumentCaptor.forClass(List.class) ;
         EventsRepository.setFakeSource();
         presenter = new EventsPresenter(view);
         sleep(5000);
         verify(view).onLoadError();
+    }
+
+    /**
+     * Historia de usuario: Anhadir evento a lista
+     * Identificador: "IT.1"
+     * Autor: Sara Grela Carrera
+     */
+    @Test
+    public void onAddEventClickedTest() {
+        ArgumentCaptor<List<Event>> eventos = ArgumentCaptor.forClass(List.class) ;
+        EventsRepository.setLocalSource();
+        presenter = new EventsPresenter(view);
+
+        // presenter.onAddEventClicked(1, , );
+
     }
 }

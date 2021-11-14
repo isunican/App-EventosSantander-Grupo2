@@ -5,7 +5,6 @@
     import android.app.Dialog;
     import android.content.Context;
     import android.content.DialogInterface;
-    import android.os.Bundle;
     import android.view.LayoutInflater;
     import android.view.View;
     import android.view.ViewGroup;
@@ -22,17 +21,16 @@
 
     import com.isunican.eventossantander.R;
     import com.isunican.eventossantander.model.Event;
-    import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
+    import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
     import com.squareup.picasso.Picasso;
 
     import org.apache.commons.lang3.StringUtils;
 
-    import java.util.ArrayList;
     import java.util.List;
 
     public class EventArrayAdapter extends ArrayAdapter<Event> {
 
-        private IGestionarFavoritos sharedPref;
+        private IGestionarListasUsuario sharedPref;
         IEventsContract.Presenter presenter;
         private final List<Event> events;
 
