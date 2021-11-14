@@ -5,6 +5,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -69,9 +70,8 @@ public class CrearListaUITest {
         // Introducir el nombre en el campo de texto
         // Clickar en el boton de aceptar
         // Comprobar que se muestra un mensaje con la lista creada
-        // onView(withText(mensaje))
-        //      .inRoot(withDecorView(not(getActivity().getWindow().getDecorView())))
-        //      .check(matches(isDisplayed()));
+        // onView(ViewMatchers.withId(R.id.message)).inRoot(isDialog()).perform(typeText("XXXX"));
+
 
         // Identificador: "UIT.1b"
         // Identificador: "UIT.1c"

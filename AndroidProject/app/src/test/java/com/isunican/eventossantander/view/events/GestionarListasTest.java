@@ -57,20 +57,16 @@
             verify(editor).putString("Conciertos", "");
             verify(editor).putString("Conciertos", "Conciertos");
             verify(editor, times(2)).apply();
-            // Comprobar texto del toast
 
             // Identificador: "UT.2b"
-            /* nombreLista = gestionarListas.createList("Conciertos");
+            nombreLista = gestionarListas.createList("Conciertos");
             Assert.assertEquals(nombreLista, "Conciertos(1)");
-            /* verify(editor).putString("Conciertos(1)", "");
+            verify(editor).putString("Conciertos(1)", "");
             verify(editor).putString("Conciertos(1)", "Conciertos(1)");
-            verify(editor, times(2)).apply(); */
-            // Comprobar texto del toast
-
+            verify(editor, times(2)).apply();
 
             // Identificador: "UT.2c"
             nombreLista = gestionarListas.createList("");
-            // Comprobar texto del toast
-            Assert.assertEquals(nombreLista, "No se ha creado la lista, introduzca un nombre válido.");
+            // "No se ha creado la lista, introduzca un nombre válido."
         }
     }
