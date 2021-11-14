@@ -1,5 +1,8 @@
 package com.isunican.eventossantander.view.events;
 
+import android.app.Dialog;
+import android.view.MenuInflater;
+
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
@@ -44,6 +47,10 @@ public interface IEventsContract {
         void closeFilterMenuView();
 
         IGestionarFavoritos getSharedPref();
+
+        MenuInflater getMenuInflater();
+
+        Dialog getLastDialog();
 
         boolean isConectionAvailable();
 
