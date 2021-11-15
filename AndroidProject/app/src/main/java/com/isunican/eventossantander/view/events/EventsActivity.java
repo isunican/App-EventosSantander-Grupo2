@@ -218,7 +218,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menuInflater = getMenuInflater();
+        MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu, menu);
         return true;
     }
@@ -258,7 +258,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     }
 
     @Override
-    public MenuInflater getMenuInflater(){
+    public MenuInflater getMenuInflaterLocal(){
         return menuInflater;
     }
 
