@@ -52,8 +52,10 @@ public class FavoriteEventsArrayAdapter extends ArrayAdapter<Event> {
         ImageView iconTxt = view.findViewById(R.id.item_event_icon);
         ImageView imageTxt = view.findViewById(R.id.item_event_image);
         ImageButton btnEventFav = view.findViewById(R.id.btn_event_fav);
+        ImageButton btnAddEventList = view.findViewById(R.id.btn_add_list_event);
         LinearLayout container = view.findViewById(R.id.list_item_container);
 
+        btnAddEventList.setVisibility(View.GONE);
         container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
