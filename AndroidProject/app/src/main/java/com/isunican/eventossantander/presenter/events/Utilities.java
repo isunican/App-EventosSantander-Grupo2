@@ -59,14 +59,14 @@ public class Utilities {
     }
 
     /**
-     * Crea un nuevo cuadro de dialogo segun los parametros especificados
+     * Crea un nuevo cuadro de dialogo para crear una lista
      * @param context el contexto de la actividad
      * @param title el titulo del dialogo
      * @param numButtons si es uno, sera el de Aceptar; si son 2, sera el de Cancelar; en otro
      *                   caso, solo tendra el de Cancelar.
      * @return
      */
-    public static Dialog createInputPopUp(Context context, String title, Integer numButtons) {
+    public static Dialog createListPopUp(Context context, String title, Integer numButtons) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         EditText input = new EditText(context);
         input.setTag("InputDialog");

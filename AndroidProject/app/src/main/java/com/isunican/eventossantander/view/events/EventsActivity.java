@@ -233,7 +233,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
                 presenter.onInfoClicked();
                 return true;
             case R.id.crear_lista:
-                lastDialog = Utilities.createInputPopUp(this, "Introduzca el título de la lista a crear", 2);
+                lastDialog = Utilities.createListPopUp(this, "Introduzca el título de la lista a crear", 2);
                 lastDialog.show();
                 return true;
             case R.id.listaFav:

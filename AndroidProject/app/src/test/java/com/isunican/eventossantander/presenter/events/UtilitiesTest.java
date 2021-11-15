@@ -41,7 +41,7 @@
          * Autora: Marta Obregon Ruiz.
          */
         @Test
-        public void testCreateInputPopUp() {
+        public void testCreateListPopUp() {
             /*
 
             alternativamente, a ese editText que creas, al que llamas "input"
@@ -51,7 +51,7 @@
             (withTag creo que es)
              */
             // Identificador: "UT.1a"
-            dialog = utilities.createInputPopUp(context, "Introduzca el título de la lista a crear", 2);
+            dialog = utilities.createListPopUp(context, "Introduzca el título de la lista a crear", 2);
 
             // Assert.assertTrue(dialog.get
             //Assert.assertEquals(dialog.);
