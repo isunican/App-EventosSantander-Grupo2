@@ -39,8 +39,11 @@ import androidx.test.rule.ActivityTestRule;
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
+import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 
+import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matcher;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -52,6 +55,7 @@ public class CrearListaUITest {
     @Rule
     public ActivityScenarioRule<EventsActivity> activityRule = new ActivityScenarioRule(EventsActivity.class);
 
+    private Context context;
     private View decorView;
     private String mensaje;
 
@@ -64,16 +68,24 @@ public class CrearListaUITest {
         EventsRepository.setLocalSource();
         IdlingRegistry.getInstance().register(EventsRepository.getIdlingResource());
         activityRule.getScenario().onActivity(
-                activity -> decorView = activity.getWindow().getDecorView()
-        );
+                activity -> {
+                    decorView = activity.getWindow().getDecorView();
+                    context = activity;
+                });
     }
+
     @AfterClass
     public static void clean() {
         EventsRepository.setOnlineSource();
         IdlingRegistry.getInstance().unregister(EventsRepository.getIdlingResource());
-        // llamar al metodo que hace clean del SharedPreferences
     }
 
+    @After
+    public void cleanBasic() {
+        EventsRepository.setOnlineSource();
+        IdlingRegistry.getInstance().unregister(EventsRepository.getIdlingResource());
+        GestionarListasUsuario.cleanSetPreferences(context);
+    }
 
     /**
      * Historia de usuario: Crear lista
@@ -82,7 +94,6 @@ public class CrearListaUITest {
      */
     @Test
     public void crearListaUITest () {
-
         // Identificador: "UIT.1a"
         mensaje = "Se ha creado la lista Conciertos con éxito";
         // Abrir el menu
@@ -94,7 +105,7 @@ public class CrearListaUITest {
         // Clicar en el boton de aceptar
         onView(withText("Aceptar")).perform(click());
         // Comprobar que se muestra un mensaje con la lista creada
-        // onView(withText(mensaje)).inRoot(RootMatchers.withDecorView((Matcher<View>) not((Validator) decorView))).check(matches(isDisplayed()));
+        onView(withText(mensaje)).inRoot(RootMatchers.withDecorView(CoreMatchers.not(decorView))).check(matches(isDisplayed()));
 
         // Identificador: "UIT.1b"
         mensaje = "Se ha creado la lista Conciertos(1) con éxito";
@@ -103,16 +114,16 @@ public class CrearListaUITest {
         onView(withTagValue(equalTo("InputDialog"))).perform(typeText("Conciertos"));
         onView(withText("Aceptar")).perform(click());
         // Comprobar que se muestra un mensaje con la lista creada
-        // onView(withText(mensaje)).inRoot(RootMatchers.withDecorView((Matcher<View>) not((Validator) decorView))).check(matches(isDisplayed()));
+        onView(withText(mensaje)).inRoot(RootMatchers.withDecorView(CoreMatchers.not(decorView))).check(matches(isDisplayed()));
 
         // Identificador: "UIT.1c"
-        mensaje = "No se ha creado la lista, introduzca un nombre válido";
+        mensaje = "No se ha creado la lista, introduzca un nombre válido.";
         openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         onView(withText(R.string.crear_lista)).perform(click());
         onView(withTagValue(equalTo("InputDialog"))).perform(typeText(""));
         onView(withText("Aceptar")).perform(click());
         // Comprobar que se muestra un mensaje mostrando el error
-        //onView(withText(mensaje)).inRoot(RootMatchers.withDecorView((Matcher<View>) not((Validator) decorView))).check(matches(isDisplayed()));
+        onView(withText(mensaje)).inRoot(RootMatchers.withDecorView(CoreMatchers.not(decorView))).check(matches(isDisplayed()));
 
         // Identificador: "UIT.1d"
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getContext());

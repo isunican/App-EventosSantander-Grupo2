@@ -12,7 +12,9 @@
     import androidx.test.espresso.IdlingRegistry;
 
     import com.isunican.eventossantander.model.EventsRepository;
+    import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 
+    import org.junit.After;
     import org.junit.AfterClass;
     import org.junit.Assert;
     import org.junit.Before;
@@ -39,14 +41,15 @@
 
         @Before
         public void setUp() {
-            // TODO llamar al metodo que hace clean del SharedPreferences
             // Creacion de la clase a probar
             gestionarListas = new GestionarListas(context);
+
+            GestionarListasUsuario.cleanSetPreferences(context);
         }
 
-        @AfterClass
-        public static void clean() {
-            // TODO llamar al metodo que hace clean del SharedPreferences
+        @After
+        public void clean() {
+            GestionarListasUsuario.cleanSetPreferences(context);
         }
 
         /**

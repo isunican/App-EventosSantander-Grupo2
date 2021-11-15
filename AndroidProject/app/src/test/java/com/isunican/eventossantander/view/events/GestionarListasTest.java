@@ -10,6 +10,9 @@
     import android.content.Context;
     import android.content.SharedPreferences;
 
+    import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
+
+    import org.junit.After;
     import org.junit.AfterClass;
     import org.junit.Assert;
     import org.junit.Before;
@@ -39,22 +42,27 @@
 
         @Before
         public void setUp() {
-            // TODO llamar al metodo que hace clean del SharedPreferences
             // Programacion del comportamiento de los mocks
             when(context.getSharedPreferences("LISTS", Context.MODE_PRIVATE)).thenReturn(sharedPref);
-            when(sharedPref.contains("Conciertos")).thenReturn(false);
+            when(sharedPref.contains(anyString())).thenReturn(false);
             when(context.getSharedPreferences("Conciertos", Context.MODE_PRIVATE)).thenReturn(sharedPref);
+            when(sharedPref.edit()).thenReturn(editor);
+
+            when(context.getSharedPreferences("LISTS", Context.MODE_PRIVATE)).thenReturn(sharedPref);
+            when(sharedPref.contains(anyString())).thenReturn(true);
+            when(sharedPref.getInt(anyString(), anyInt())).thenReturn(0);
             when(context.getSharedPreferences("Conciertos(1)", Context.MODE_PRIVATE)).thenReturn(sharedPref);
             when(sharedPref.edit()).thenReturn(editor);
-            //when(sharedPref.contains("Conciertos")).thenReturn(true);
-            when(sharedPref.getInt(anyString(), anyInt())).thenReturn(0);
+
             // Creacion de la clase a probar
             gestionarListas = new GestionarListas(context);
+
+            GestionarListasUsuario.cleanSetPreferences(context);
         }
 
-        @AfterClass
-        public static void clean() {
-            // TODO llamar al metodo que hace clean del SharedPreferences
+        @After
+        public void clean() {
+            GestionarListasUsuario.cleanSetPreferences(context);
         }
 
         /**
