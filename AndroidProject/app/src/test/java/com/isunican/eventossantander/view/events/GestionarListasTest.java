@@ -1,5 +1,7 @@
     package com.isunican.eventossantander.view.events;
 
+    import static org.mockito.ArgumentMatchers.anyObject;
+    import static org.mockito.ArgumentMatchers.anyString;
     import static org.mockito.Mockito.times;
     import static org.mockito.Mockito.verify;
     import static org.mockito.Mockito.when;
@@ -36,9 +38,10 @@
         @Before
         public void setup() {
             // Programacion del comportamiento de los mocks
+            when (context.getSharedPreferences("Conciertos", Context.MODE_PRIVATE)).thenReturn(sharedPref);
+            when (context.getSharedPreferences("Conciertos", Context.MODE_PRIVATE).edit()).thenReturn(editor);
             when (context.getSharedPreferences("LISTS", Context.MODE_PRIVATE)).thenReturn(sharedPref);
-            when (context.getSharedPreferences("LISTS", Context.MODE_PRIVATE).edit()).thenReturn(editor);
-            when (sharedPref.contains("Conciertos")).thenReturn(false);
+            when(sharedPref.contains(anyString())).thenReturn(false);
             when (sharedPref.edit()).thenReturn(editor);
             // Creacion de la clase a probar
             gestionarListas = new GestionarListas(context);
@@ -53,14 +56,13 @@
         public void testCreateList() {
             // Identificador: "UT.2a"
             nombreLista = gestionarListas.createList("Conciertos");
-            Assert.assertEquals(nombreLista, "Conciertos");
-            verify(editor).putString("Conciertos", "");
-            verify(editor).putString("Conciertos", "Conciertos");
+            Assert.assertEquals("Conciertos", nombreLista);
+            verify(editor, times(1)).putString("Conciertos", "");
             verify(editor, times(2)).apply();
 
             // Identificador: "UT.2b"
             nombreLista = gestionarListas.createList("Conciertos");
-            Assert.assertEquals(nombreLista, "Conciertos(1)");
+            Assert.assertEquals("Conciertos(1)", nombreLista);
             verify(editor).putString("Conciertos(1)", "");
             verify(editor).putString("Conciertos(1)", "Conciertos(1)");
             verify(editor, times(2)).apply();

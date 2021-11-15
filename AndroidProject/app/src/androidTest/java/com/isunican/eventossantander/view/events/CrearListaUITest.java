@@ -27,6 +27,7 @@ import android.service.autofill.Validator;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -85,12 +86,7 @@ public class CrearListaUITest {
         // Identificador: "UIT.1a"
         mensaje = "Se ha creado la lista Conciertos con éxito";
         // Abrir el menu
-        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getContext());
-        try {
-            sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Abrir la opcion "Crear lista"
         onView(withText(R.string.crear_lista)).perform(click());
         // Introducir el nombre en el campo de texto
@@ -102,12 +98,7 @@ public class CrearListaUITest {
 
         // Identificador: "UIT.1b"
         mensaje = "Se ha creado la lista Conciertos(1) con éxito";
-        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getContext());
-        try {
-            sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         onView(withText(R.string.crear_lista)).perform(click());
         onView(withTagValue(equalTo("InputDialog"))).perform(typeText("Conciertos"));
         onView(withText("Aceptar")).perform(click());
@@ -116,12 +107,7 @@ public class CrearListaUITest {
 
         // Identificador: "UIT.1c"
         mensaje = "No se ha creado la lista, introduzca un nombre válido";
-        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getContext());
-        try {
-            sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         onView(withText(R.string.crear_lista)).perform(click());
         onView(withTagValue(equalTo("InputDialog"))).perform(typeText(""));
         onView(withText("Aceptar")).perform(click());
@@ -130,11 +116,6 @@ public class CrearListaUITest {
 
         // Identificador: "UIT.1d"
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getContext());
-        try {
-            sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         onView(withText(R.string.crear_lista)).perform(click());
         onView(withText("Cancelar")).perform(click());
     }
