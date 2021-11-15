@@ -2,6 +2,8 @@ package com.isunican.eventossantander.view.events;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -40,6 +42,8 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     private LinearLayout layoutFiltroCategoria;
     private IGestionarFavoritos sharedPref;
     private boolean isFilterMenuVisible;
+    private MenuInflater menuInflater;
+    private Dialog lastDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -214,7 +218,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
+        menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu, menu);
         return true;
     }
@@ -229,7 +233,8 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
                 presenter.onInfoClicked();
                 return true;
             case R.id.crear_lista:
-                presenter.onCreateListClicked(this);
+                lastDialog = Utilities.createListPopUp(this, "Introduzca el título de la lista a crear", 2);
+                lastDialog.show();
                 return true;
             case R.id.listaFav:
                 presenter.onFavouritesClicked();
@@ -250,6 +255,16 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     @Override
     public IGestionarFavoritos getSharedPref(){
         return sharedPref;
+    }
+
+    @Override
+    public MenuInflater getMenuInflater(){
+        return menuInflater;
+    }
+
+    @Override
+    public Dialog getLastDialog(){
+        return lastDialog;
     }
 
     @Override
