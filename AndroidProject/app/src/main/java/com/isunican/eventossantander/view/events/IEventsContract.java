@@ -48,10 +48,6 @@ public interface IEventsContract {
 
         IGestionarFavoritos getSharedPref();
 
-        MenuInflater getMenuInflaterLocal();
-
-        Dialog getLastDialog();
-
         boolean isConectionAvailable();
 
         void onConnectionError();
