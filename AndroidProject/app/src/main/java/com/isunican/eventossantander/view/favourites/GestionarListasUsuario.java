@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 
 import com.isunican.eventossantander.model.Event;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -102,20 +104,19 @@ public class GestionarListasUsuario implements IGestionarListasUsuario {
         String defaultValue = "";
         sharedPref = context.getSharedPreferences(listaEscogida, Context.MODE_PRIVATE);
         String eventosLista = sharedPref.getString(listaEscogida, defaultValue);
-        
-        if (eventosLista != null) {
-            estaEnLista = eventosLista.contains(String.valueOf(eventIndex));
-            if(estaEnLista){
-                SharedPreferences.Editor editor = sharedPref.edit();
-                eventosLista = eventosLista.concat(cachedEvents.get(eventIndex).getIdentificador() + ",");
-                editor.putString(listaEscogida, eventosLista);
-                editor.apply();
-                return true;
-            }else{
-                return false;
-            }
+
+
+        estaEnLista = eventosLista.contains(String.valueOf(cachedEvents.get(eventIndex).getIdentificador()));
+        if(!estaEnLista || StringUtils.isBlank(eventosLista)){
+            SharedPreferences.Editor editor = sharedPref.edit();
+            eventosLista = eventosLista.concat(cachedEvents.get(eventIndex).getIdentificador() + ",");
+            editor.putString(listaEscogida, eventosLista);
+            editor.apply();
+            return true;
+        }else{
+            return false;
         }
-        return false;
+
     }
 
     @Override

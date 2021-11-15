@@ -27,7 +27,7 @@ public interface IEventsContract {
 
         void onFavouriteClicked(int eventIndex, Boolean isClicked, IGestionarListasUsuario sharedPref);
 
-        void onAddEventClicked(int i, IGestionarListasUsuario sharedPref, String listaEscogida);
+        boolean onAddEventClicked(int i, IGestionarListasUsuario sharedPref, String listaEscogida);
     }
 
     interface View {
