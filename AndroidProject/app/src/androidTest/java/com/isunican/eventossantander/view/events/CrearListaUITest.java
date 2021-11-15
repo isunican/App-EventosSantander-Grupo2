@@ -2,6 +2,7 @@ package com.isunican.eventossantander.view.events;
 
 import static android.service.autofill.Validators.not;
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -15,6 +16,7 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.equalTo;
 
 import android.app.Dialog;
 import android.app.Instrumentation;
@@ -27,6 +29,7 @@ import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 
@@ -36,6 +39,7 @@ import com.isunican.eventossantander.model.EventsRepository;
 
 import org.hamcrest.Matcher;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -43,16 +47,16 @@ import org.junit.Test;
 public class CrearListaUITest {
 
     @Rule
-    public static ActivityScenarioRule<EventsActivity> activityRule = new ActivityScenarioRule(EventsActivity.class);
+    public ActivityScenarioRule<EventsActivity> activityRule = new ActivityScenarioRule(EventsActivity.class);
 
-    private static View decorView;
+    private View decorView;
 
     /**
      * Load known events json
      * https://personales.unican.es/rivasjm/resources/agenda_cultural.json
      */
-    @BeforeClass
-    public static void setUp() {
+    @Before
+    public void setUp() {
         EventsRepository.setLocalSource();
         IdlingRegistry.getInstance().register(EventsRepository.getIdlingResource());
         activityRule.getScenario().onActivity(
@@ -75,10 +79,10 @@ public class CrearListaUITest {
     public void crearListaUITest () {
         String mensaje = "Se ha creado la lista Conciertos con éxito";
         // Identificador: "UIT.1a"
-
-        onView(withId(R.id.crear_lista)).perform(click());
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getContext());
+        onView(withText(R.string.crear_lista)).perform(click());
         // Introducir el nombre en el campo de texto
-        // Dialog dialog = onView(withTagValue("InputDialog"));
+        onView(withTagValue(equalTo("InputDialog")));
         // Clickar en el boton de aceptar
         // Comprobar que se muestra un mensaje con la lista creada
         onView(withText(mensaje)).inRoot(RootMatchers.withDecorView((Matcher<View>) not((Validator) decorView))).check(matches(isDisplayed()));

@@ -42,8 +42,8 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     private LinearLayout layoutFiltroCategoria;
     private IGestionarFavoritos sharedPref;
     private boolean isFilterMenuVisible;
-    private MenuInflater menuInflater;
     private Dialog lastDialog;
+    private MenuInflater menuInflaterGlobal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,6 +219,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
+        menuInflaterGlobal = menuInflater;
         menuInflater.inflate(R.menu.menu, menu);
         return true;
     }
@@ -259,7 +260,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
 
     @Override
     public MenuInflater getMenuInflaterLocal(){
-        return menuInflater;
+        return menuInflaterGlobal;
     }
 
     @Override
