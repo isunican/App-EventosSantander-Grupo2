@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GestionarFavoritosUsuario implements IGestionarFavoritos {
+public class GestionarListasUsuario implements IGestionarFavoritos {
 
     private SharedPreferences sharedPref;
     private String idFavouriteEvents;
@@ -17,7 +17,7 @@ public class GestionarFavoritosUsuario implements IGestionarFavoritos {
 
 
     // contexto y nombre
-    public GestionarFavoritosUsuario(Context context) {
+    public GestionarListasUsuario(Context context) {
         sharedPref = context.getSharedPreferences(FAVORITOS, Context.MODE_PRIVATE);
     }
 
