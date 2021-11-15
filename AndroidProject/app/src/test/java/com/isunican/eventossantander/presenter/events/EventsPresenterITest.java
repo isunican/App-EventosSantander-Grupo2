@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 
 import static java.lang.Thread.sleep;
+import static org.mockito.Mockito.when;
 
 import android.os.Build;
 
@@ -52,6 +53,7 @@ public class EventsPresenterITest {
 
     @Test
     public void loadEventsNoCorret() throws InterruptedException {
+        when(view.isConectionAvailable()).thenReturn(true);
         ArgumentCaptor<List<Event>> eventos = ArgumentCaptor.forClass(List.class) ;
         EventsRepository.setFakeSource();
         presenter = new EventsPresenter(view);
