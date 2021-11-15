@@ -48,7 +48,7 @@ public interface IEventsContract {
 
         IGestionarFavoritos getSharedPref();
 
-        MenuInflater getMenuInflater();
+        MenuInflater getMenuInflaterLocal();
 
         Dialog getLastDialog();
 
