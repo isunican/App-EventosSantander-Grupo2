@@ -3,42 +3,43 @@ package com.isunican.eventossantander.view.events;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.isunican.eventossantander.model.Event;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
-
 public class GestionarListas implements IGestionarListas {
 
     private SharedPreferences sharedPref;
     private Context context;
-    private Map<String, String> nombresListas;
 
     // contexto y nombre
     public GestionarListas(Context context) {
         this.context = context;
-        nombresListas = new HashMap<>();
     }
 
     // Devuelve un string con el id de los eventos favoritos, sino devuelve nulo
     @Override
     public String createList(String listName) {
-        //Crear un patrón para buscar (/d) donde /d cualquier digito o serie de digitos
         String name = listName;
-        sharedPref = context.getSharedPreferences("LISTS", Context.MODE_PRIVATE);
-        if(sharedPref.contains(listName)) {
-            name = nombresListas.get(listName);
-            //Si el nombre cumple el patrón, se le suma uno al número de dentro
+        String[] noParenthesis = new String[50];
+        noParenthesis[0] = listName;
+        int numberLists = -1;
+
+        if(name.contains("(")) {
+            noParenthesis = listName.split("\\(");
         }
+        sharedPref = context.getSharedPreferences("LISTS", Context.MODE_PRIVATE);
+        //Si la lista cumpla un patrón (paréntesis con número) ese patrón se quita.
+        if(sharedPref.contains(noParenthesis[0])) { //Se comprueba si el nombre sin nada está en el mapa
+            numberLists = sharedPref.getInt(noParenthesis[0], -1);
+            name = noParenthesis[0] + "(" + (numberLists + 1) + ")";
+        }
+        //Se mete el nombre en los sharedPref y se añade o suma una instancia en el mapa
+        sharedPref = context.getSharedPreferences(name, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(name, "");
         editor.apply();
-        editor = context.getSharedPreferences("LISTS", Context.MODE_PRIVATE).edit();
-        editor.putString(name, name);
+        sharedPref = context.getSharedPreferences("LISTS", Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+        editor.putInt(name, -1);
+        editor.putInt(noParenthesis[0], numberLists + 1);
         editor.apply();
-        nombresListas.put(listName, name);
         return name;
     }
 

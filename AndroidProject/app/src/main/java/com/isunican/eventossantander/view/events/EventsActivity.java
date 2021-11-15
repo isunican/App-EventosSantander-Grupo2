@@ -1,8 +1,5 @@
 package com.isunican.eventossantander.view.events;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.isunican.eventossantander.R;
@@ -38,7 +39,6 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     private IEventsContract.Presenter presenter;
     private IGestionarFavoritos sharedPref;
     private boolean isFilterMenuVisible;
-    private MenuInflater menuInflaterGlobal;
     private Dialog lastDialog;
 
     @Override
@@ -215,7 +215,6 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflaterGlobal = menuInflater;
         menuInflater.inflate(R.menu.menu, menu);
         return true;
     }
@@ -252,16 +251,6 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     @Override
     public IGestionarFavoritos getSharedPref(){
         return sharedPref;
-    }
-
-    @Override
-    public MenuInflater getMenuInflaterLocal(){
-        return menuInflaterGlobal;
-    }
-
-    @Override
-    public Dialog getLastDialog(){
-        return lastDialog;
     }
 
     @Override
