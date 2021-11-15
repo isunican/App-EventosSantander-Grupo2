@@ -36,13 +36,8 @@ import java.util.Map;
 
 public class EventsActivity extends AppCompatActivity implements IEventsContract.View {
     private IEventsContract.Presenter presenter;
-    private Button btnAplicarFiltroOrden;
-    private ImageButton btnFiltroCategoriaDown;
-    private ImageButton btnFiltroCategoriaUp;
-    private LinearLayout layoutFiltroCategoria;
     private IGestionarListasUsuario sharedPref;
     private boolean isFilterMenuVisible;
-    private MenuInflater menuInflater;
     private Dialog lastDialog;
 
     @Override
@@ -218,7 +213,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menuInflater = getMenuInflater();
+        MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu, menu);
         return true;
     }
@@ -255,11 +250,6 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     @Override
     public IGestionarListasUsuario getSharedPref(){
         return sharedPref;
-    }
-
-    @Override
-    public MenuInflater getMenuInflater(){
-        return menuInflater;
     }
 
     @Override

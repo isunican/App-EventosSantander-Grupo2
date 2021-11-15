@@ -11,6 +11,7 @@ import android.os.Build;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
+import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 import com.isunican.eventossantander.view.events.IEventsContract;
 
 import org.junit.Rule;
@@ -39,6 +40,10 @@ public class EventsPresenterITest {
 
     public static Phaser lock = EventsRepository.getPhaser();
 
+    // Necesario para tener una lista creada para probar
+    private GestionarListasUsuario GestionarListasUsuario;
+    private final String NOMBRE_LISTA_EXISTE = "Lista1";
+
     @Test
     public void loadEventsCorrect() throws InterruptedException {
         ArgumentCaptor<List<Event>> eventos = ArgumentCaptor.forClass(List.class) ;
@@ -66,6 +71,9 @@ public class EventsPresenterITest {
      */
     @Test
     public void onAddEventClickedTest() {
+        // Se crea la Lista1
+        GestionarListasUsuario.createList(NOMBRE_LISTA_EXISTE);
+
         ArgumentCaptor<List<Event>> eventos = ArgumentCaptor.forClass(List.class) ;
         EventsRepository.setLocalSource();
         presenter = new EventsPresenter(view);

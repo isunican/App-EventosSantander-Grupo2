@@ -8,8 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.isunican.eventossantander.view.events.GestionarListas;
+import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 
 public class Utilities {
 
@@ -73,7 +72,7 @@ public class Utilities {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         EditText input = new EditText(context);
         input.setTag("InputDialog");
-        GestionarListas gestionarListas = new GestionarListas(context);
+        GestionarListasUsuario GestionarListasUsuario = new GestionarListasUsuario(context);
         builder.setTitle(title);
         builder.setView(input);
         switch (numButtons) {
@@ -91,7 +90,7 @@ public class Utilities {
                             Toast.makeText(context, "No se ha creado la lista, introduzca un nombre válido.", Toast.LENGTH_LONG).show();
                         }
                         else {
-                            Toast.makeText(context, "Se ha creado la lista " + gestionarListas.createList(input.getText().toString()) + " con éxito", Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, "Se ha creado la lista " + GestionarListasUsuario.createList(input.getText().toString()) + " con éxito", Toast.LENGTH_LONG).show();
                         }
                     }
                 });

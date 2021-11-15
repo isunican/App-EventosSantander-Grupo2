@@ -119,7 +119,7 @@
                         public void onClick(DialogInterface dialogInterface, int i) {
                             String listaEscogida = listas[i].toString();
                             presenter.onAddEventClicked(i,sharedPref,listaEscogida);
-                            Toast.makeText(getContext(),"Se ha añadido un evento a la lista" + listaEscogida,Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(),"Se ha añadido un evento a la lista " + listaEscogida,Toast.LENGTH_LONG).show();
                         }
                     });
                     builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {

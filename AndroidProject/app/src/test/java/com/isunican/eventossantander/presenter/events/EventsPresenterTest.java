@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 import android.os.Build;
 
 import com.isunican.eventossantander.model.Event;
+import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 import com.isunican.eventossantander.view.events.IEventsContract;
 import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
 
@@ -189,7 +190,7 @@ public class EventsPresenterTest {
     public void testOnAddEventClicked() {
 
         String nombreListaExiste = "Lista1";
-        String nombreListaNoExiste = "Lista1";
+        String nombreListaNoExiste = "Lista2";
 
         // Identificador: "UT.1a"
         presenter.setList(events);

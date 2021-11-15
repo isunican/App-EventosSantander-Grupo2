@@ -214,7 +214,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
 
     @Override
     public void onAddEventClicked(int eventIndex, IGestionarListasUsuario sharedPref, String listaEscogida) {
-        if(eventIndex > 0 && eventIndex<= cachedEvents.size()){
+        if(eventIndex >= 0 && eventIndex< cachedEvents.size()){
             boolean result = sharedPref.addEvent(eventIndex,cachedEvents,listaEscogida);
             if(!result){
                 view.errorAddEventList();
