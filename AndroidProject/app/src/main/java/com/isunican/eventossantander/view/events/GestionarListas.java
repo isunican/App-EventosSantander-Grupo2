@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 public class GestionarListas implements IGestionarListas {
 
     private SharedPreferences sharedPref;
+    public static final String LISTS = "LISTS";
+
     private Context context;
 
     // contexto y nombre
@@ -24,7 +26,7 @@ public class GestionarListas implements IGestionarListas {
         if(name.contains("(")) {
             noParenthesis = listName.split("\\(");
         }
-        sharedPref = context.getSharedPreferences("LISTS", Context.MODE_PRIVATE);
+        sharedPref = context.getSharedPreferences(LISTS, Context.MODE_PRIVATE);
         //Si la lista cumpla un patrón (paréntesis con número) ese patrón se quita.
         if(sharedPref.contains(noParenthesis[0])) { //Se comprueba si el nombre sin nada está en el mapa
             numberLists = sharedPref.getInt(noParenthesis[0], -1);
@@ -35,7 +37,7 @@ public class GestionarListas implements IGestionarListas {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(name, "");
         editor.apply();
-        sharedPref = context.getSharedPreferences("LISTS", Context.MODE_PRIVATE);
+        sharedPref = context.getSharedPreferences(LISTS, Context.MODE_PRIVATE);
         editor = sharedPref.edit();
         editor.putInt(name, -1);
         editor.putInt(noParenthesis[0], numberLists + 1);
@@ -45,7 +47,7 @@ public class GestionarListas implements IGestionarListas {
 
     @Override
     public boolean checkListExists(String listName) {
-        sharedPref = context.getSharedPreferences("LISTS", Context.MODE_PRIVATE);
+        sharedPref = context.getSharedPreferences(LISTS, Context.MODE_PRIVATE);
         return sharedPref.contains(listName);
     }
 
