@@ -61,7 +61,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
     //Debe ser público debido a los tests
     public List<Event> onApplyFilter(Map<String, Boolean> categorias){
 
-                List<Event> filteredEvents = new ArrayList();
+                List<Event> filteredEvents = new ArrayList<>();
 
                 List<Event> listaEntera = cachedEvents;
                 //If no filter is selected it finishes

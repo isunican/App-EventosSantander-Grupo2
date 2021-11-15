@@ -17,6 +17,8 @@ public class Utilities {
 
     public static final String CONNECTION_ERROR_MESSAGE = "Error de conexión a Internet. Verifique su configuración de red.";
     public static final String EMPTY_FAVOURITE_MESSAGE = "No hay eventos favoritos.";
+    public static final String ACEPTAR = "Aceptar";
+    public static final String CANCELAR = "Cancelar";
     private static Dialog dialogo;
 
     /**
@@ -32,25 +34,21 @@ public class Utilities {
         builder.setMessage(message);
         switch (numButtons) {
             case 1:
-                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
+                builder.setPositiveButton(ACEPTAR, (dialog, id) -> {
+                    //Not implemented
                 });
                 break;
             case 2:
-                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
+                builder.setPositiveButton(ACEPTAR, (dialog, id) -> {
+                    //Not implemented
                 });
-                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
+                builder.setNegativeButton(CANCELAR, (dialog, id) -> {
+                    //Not implemented
                 });
                 break;
             default:
-                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
+                builder.setNegativeButton(CANCELAR, (dialog, id) -> {
+                    //Not implemented
                 });
         }
         // Create the AlertDialog object and return it
@@ -75,32 +73,26 @@ public class Utilities {
         builder.setView(input);
         switch (numButtons) {
             case 1:
-                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    }
+                builder.setPositiveButton(ACEPTAR, (dialog, id) -> {
+                    //Not implemented
                 });
                 break;
             case 2:
-                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        if(input.getText().toString().isEmpty()) {
-                            Toast.makeText(context, "No se ha creado la lista, introduzca un nombre válido.", Toast.LENGTH_LONG).show();
-                        }
-                        else {
-                            Toast.makeText(context, "Se ha creado la lista " + gestionarListas.createList(input.getText().toString()) + " con éxito", Toast.LENGTH_LONG).show();
-                        }
+                builder.setPositiveButton(ACEPTAR, (dialog, id) -> {
+                    if(input.getText().toString().isEmpty()) {
+                        Toast.makeText(context, "No se ha creado la lista, introduzca un nombre válido.", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Toast.makeText(context, "Se ha creado la lista " + gestionarListas.createList(input.getText().toString()) + " con éxito", Toast.LENGTH_LONG).show();
                     }
                 });
-                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
+                builder.setNegativeButton(CANCELAR, (dialog, id) -> {
+                    //Not implemented
                 });
                 break;
             default:
-                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
+                builder.setNegativeButton(CANCELAR, (dialog, id) -> {
+                    //Not implemented
                 });
         }
         // Create the AlertDialog object and return it
