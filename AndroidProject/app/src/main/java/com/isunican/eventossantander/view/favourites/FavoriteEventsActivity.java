@@ -37,10 +37,6 @@ import java.util.Map;
 public class FavoriteEventsActivity extends AppCompatActivity implements IFavoriteEventsContract.View {
 
     private IFavoriteEventsContract.Presenter presenter;
-    private Button btnAplicarFiltroOrden;
-    private ImageButton btnFiltroCategoriaDown;
-    private ImageButton btnFiltroCategoriaUp;
-    private LinearLayout layoutFiltroCategoria;
     private IGestionarFavoritos sharedPref;
     private boolean isFilterMenuVisible;
 

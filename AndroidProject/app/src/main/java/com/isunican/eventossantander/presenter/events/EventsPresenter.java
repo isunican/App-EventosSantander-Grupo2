@@ -3,7 +3,6 @@ package com.isunican.eventossantander.presenter.events;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.view.Listener;
-import com.isunican.eventossantander.view.events.EventsActivity;
 import com.isunican.eventossantander.view.events.IEventsContract;
 import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
 
@@ -24,7 +23,6 @@ public class EventsPresenter implements IEventsContract.Presenter {
 
     public EventsPresenter(IEventsContract.View view) {
         this.view = view;
-
         loadData();
     }
 
@@ -61,7 +59,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
     //Debe ser público debido a los tests
     public List<Event> onApplyFilter(Map<String, Boolean> categorias){
 
-                List<Event> filteredEvents = new ArrayList();
+                List<Event> filteredEvents = new ArrayList<>();
 
                 List<Event> listaEntera = cachedEvents;
                 //If no filter is selected it finishes

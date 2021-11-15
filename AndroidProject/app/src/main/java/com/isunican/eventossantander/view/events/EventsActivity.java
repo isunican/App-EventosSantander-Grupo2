@@ -1,8 +1,5 @@
 package com.isunican.eventossantander.view.events;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.isunican.eventossantander.R;
@@ -36,10 +37,6 @@ import java.util.Map;
 
 public class EventsActivity extends AppCompatActivity implements IEventsContract.View {
     private IEventsContract.Presenter presenter;
-    private Button btnAplicarFiltroOrden;
-    private ImageButton btnFiltroCategoriaDown;
-    private ImageButton btnFiltroCategoriaUp;
-    private LinearLayout layoutFiltroCategoria;
     private IGestionarFavoritos sharedPref;
     private boolean isFilterMenuVisible;
     private Dialog lastDialog;

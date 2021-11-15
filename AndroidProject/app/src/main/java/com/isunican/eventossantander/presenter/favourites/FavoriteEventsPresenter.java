@@ -85,7 +85,7 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
      */
     public List<Event> onApplyFilter(Map<String, Boolean> categorias){
 
-        List<Event> filteredEvents = new ArrayList();
+        List<Event> filteredEvents = new ArrayList<>();
 
         List<Event> listaEntera = cachedEvents;
         //If no filter is selected it finishes

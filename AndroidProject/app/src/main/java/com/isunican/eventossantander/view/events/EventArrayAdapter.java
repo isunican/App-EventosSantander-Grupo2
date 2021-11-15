@@ -57,12 +57,7 @@
             ImageButton btnEventFav = view.findViewById(R.id.btn_event_fav);
             LinearLayout container = view.findViewById(R.id.list_item_container);
 
-            container.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    presenter.onEventClicked(position);
-                }
-            });
+            container.setOnClickListener(view12 -> presenter.onEventClicked(position));
 
             // Coloco la imagen correspondiente dependiendo de si el evento estaba marcado como favorito o no
             boolean favorito = sharedPref.isFavourite(id);
@@ -95,19 +90,15 @@
             }
 
             // Handler to control the favourite button
-            btnEventFav.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int eventId = position;
+            btnEventFav.setOnClickListener(view1 -> {
 
-                    if (!favorito) {
-                        presenter.onFavouriteClicked(eventId, favorito, sharedPref);
-                        btnEventFav.setImageResource(R.drawable.ic_baseline_star_24);
-                        btnEventFav.setTag(R.drawable.ic_baseline_star_24);
+                if (!favorito) {
+                    presenter.onFavouriteClicked(position, favorito, sharedPref);
+                    btnEventFav.setImageResource(R.drawable.ic_baseline_star_24);
+                    btnEventFav.setTag(R.drawable.ic_baseline_star_24);
 
-                    } else {
-                        // TODO
-                    }
+                } else {
+                    // TODO
                 }
             });
 
