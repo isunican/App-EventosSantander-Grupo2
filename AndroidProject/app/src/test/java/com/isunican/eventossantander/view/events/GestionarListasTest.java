@@ -1,5 +1,6 @@
     package com.isunican.eventossantander.view.events;
 
+    import static org.mockito.ArgumentMatchers.anyInt;
     import static org.mockito.ArgumentMatchers.anyObject;
     import static org.mockito.ArgumentMatchers.anyString;
     import static org.mockito.Mockito.times;
@@ -9,6 +10,7 @@
     import android.content.Context;
     import android.content.SharedPreferences;
 
+    import org.junit.AfterClass;
     import org.junit.Assert;
     import org.junit.Before;
     import org.junit.Rule;
@@ -36,15 +38,23 @@
         public MockitoRule rule = MockitoJUnit.rule();
 
         @Before
-        public void setup() {
+        public void setUp() {
+            // TODO llamar al metodo que hace clean del SharedPreferences
             // Programacion del comportamiento de los mocks
-            when (context.getSharedPreferences("Conciertos", Context.MODE_PRIVATE)).thenReturn(sharedPref);
-            when (context.getSharedPreferences("Conciertos", Context.MODE_PRIVATE).edit()).thenReturn(editor);
-            when (context.getSharedPreferences("LISTS", Context.MODE_PRIVATE)).thenReturn(sharedPref);
-            when(sharedPref.contains(anyString())).thenReturn(false);
-            when (sharedPref.edit()).thenReturn(editor);
+            when(context.getSharedPreferences("LISTS", Context.MODE_PRIVATE)).thenReturn(sharedPref);
+            when(sharedPref.contains("Conciertos")).thenReturn(false);
+            when(context.getSharedPreferences("Conciertos", Context.MODE_PRIVATE)).thenReturn(sharedPref);
+            when(context.getSharedPreferences("Conciertos(1)", Context.MODE_PRIVATE)).thenReturn(sharedPref);
+            when(sharedPref.edit()).thenReturn(editor);
+            //when(sharedPref.contains("Conciertos")).thenReturn(true);
+            when(sharedPref.getInt(anyString(), anyInt())).thenReturn(0);
             // Creacion de la clase a probar
             gestionarListas = new GestionarListas(context);
+        }
+
+        @AfterClass
+        public static void clean() {
+            // TODO llamar al metodo que hace clean del SharedPreferences
         }
 
         /**

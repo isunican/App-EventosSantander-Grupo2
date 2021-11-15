@@ -9,7 +9,11 @@
     import android.os.Build;
 
     import androidx.test.core.app.ApplicationProvider;
+    import androidx.test.espresso.IdlingRegistry;
 
+    import com.isunican.eventossantander.model.EventsRepository;
+
+    import org.junit.AfterClass;
     import org.junit.Assert;
     import org.junit.Before;
     import org.junit.Rule;
@@ -34,9 +38,15 @@
         public MockitoRule rule = MockitoJUnit.rule();
 
         @Before
-        public void setup() {
+        public void setUp() {
+            // TODO llamar al metodo que hace clean del SharedPreferences
             // Creacion de la clase a probar
             gestionarListas = new GestionarListas(context);
+        }
+
+        @AfterClass
+        public static void clean() {
+            // TODO llamar al metodo que hace clean del SharedPreferences
         }
 
         /**

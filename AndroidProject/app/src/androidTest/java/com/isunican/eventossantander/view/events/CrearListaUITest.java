@@ -71,7 +71,7 @@ public class CrearListaUITest {
     public static void clean() {
         EventsRepository.setOnlineSource();
         IdlingRegistry.getInstance().unregister(EventsRepository.getIdlingResource());
-        //this.getSharedPreferences("LISTS", Context.MODE_PRIVATE).edit();
+        // llamar al metodo que hace clean del SharedPreferences
     }
 
 
