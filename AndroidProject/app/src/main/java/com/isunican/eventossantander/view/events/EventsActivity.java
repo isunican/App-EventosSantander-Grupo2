@@ -1,8 +1,5 @@
 package com.isunican.eventossantander.view.events;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.isunican.eventossantander.R;
@@ -26,7 +27,7 @@ import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.presenter.events.Utilities;
 import com.isunican.eventossantander.view.eventsdetail.EventsDetailActivity;
 import com.isunican.eventossantander.view.favourites.FavoriteEventsActivity;
-import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
+import com.isunican.eventossantander.view.favourites.GestionarFavoritosUsuario;
 import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
 import com.isunican.eventossantander.view.info.InfoActivity;
 
@@ -36,13 +37,8 @@ import java.util.Map;
 
 public class EventsActivity extends AppCompatActivity implements IEventsContract.View {
     private IEventsContract.Presenter presenter;
-    private Button btnAplicarFiltroOrden;
-    private ImageButton btnFiltroCategoriaDown;
-    private ImageButton btnFiltroCategoriaUp;
-    private LinearLayout layoutFiltroCategoria;
     private IGestionarFavoritos sharedPref;
     private boolean isFilterMenuVisible;
-    private MenuInflater menuInflater;
     private Dialog lastDialog;
 
     @Override
@@ -50,7 +46,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPref = new GestionarListasUsuario(this);
+        sharedPref = new GestionarFavoritosUsuario(this);
         presenter = new EventsPresenter(this);
 
         NavigationView menuFiltros = findViewById(R.id.menu_filtros);
@@ -218,7 +214,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menuInflater = getMenuInflater();
+        MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu, menu);
         return true;
     }
@@ -258,16 +254,6 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     }
 
     @Override
-    public MenuInflater getMenuInflater(){
-        return menuInflater;
-    }
-
-    @Override
-    public Dialog getLastDialog(){
-        return lastDialog;
-    }
-
-    @Override
     public boolean isConectionAvailable() {
         if (Utilities.isConnected(this)) {
             return true;
@@ -278,11 +264,5 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     @Override
     public void onConnectionError() {
          Utilities.createPopUp(this, Utilities.CONNECTION_ERROR_MESSAGE, 1).show();
-    }
-
-    @Override
-    public void errorAddEventList() {
-        Utilities.createPopUp(this, Utilities.ERROR_ADD_EVENT_LIST, 1).show();
-
     }
 }
