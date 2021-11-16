@@ -67,6 +67,7 @@ public class Utilities {
     public static Dialog createListPopUp(Context context, String title, Integer numButtons) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         EditText input = new EditText(context);
+        final String[] result = new String[1];
         input.setTag("InputDialog");
         GestionarListas gestionarListas = new GestionarListas(context);
         builder.setTitle(title);
@@ -79,11 +80,12 @@ public class Utilities {
                 break;
             case 2:
                 builder.setPositiveButton(ACEPTAR, (dialog, id) -> {
-                    if(input.getText().toString().isEmpty()) {
+                    result[0] = gestionarListas.createList(input.getText().toString());
+                    if(result[0].isEmpty()) {
                         Toast.makeText(context, "No se ha creado la lista, introduzca un nombre válido.", Toast.LENGTH_LONG).show();
                     }
                     else {
-                        Toast.makeText(context, "Se ha creado la lista " + gestionarListas.createList(input.getText().toString()) + " con éxito", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Se ha creado la lista " + result[0] + " con éxito", Toast.LENGTH_LONG).show();
                     }
                 });
                 builder.setNegativeButton(CANCELAR, (dialog, id) -> {
