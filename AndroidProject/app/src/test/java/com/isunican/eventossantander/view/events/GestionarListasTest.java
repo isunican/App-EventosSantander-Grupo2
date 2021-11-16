@@ -44,15 +44,11 @@
         public void setUp() {
             // Programacion del comportamiento de los mocks
             when(context.getSharedPreferences("LISTS", Context.MODE_PRIVATE)).thenReturn(sharedPref);
-            when(sharedPref.contains(anyString())).thenReturn(false);
+            when(sharedPref.contains(anyString())).thenReturn(false).thenReturn(true);
             when(context.getSharedPreferences("Conciertos", Context.MODE_PRIVATE)).thenReturn(sharedPref);
             when(sharedPref.edit()).thenReturn(editor);
-
-            when(context.getSharedPreferences("LISTS", Context.MODE_PRIVATE)).thenReturn(sharedPref);
-            when(sharedPref.contains(anyString())).thenReturn(true);
             when(sharedPref.getInt(anyString(), anyInt())).thenReturn(0);
             when(context.getSharedPreferences("Conciertos(1)", Context.MODE_PRIVATE)).thenReturn(sharedPref);
-            when(sharedPref.edit()).thenReturn(editor);
 
             // Creacion de la clase a probar
             gestionarListas = new GestionarListas(context);
@@ -75,17 +71,22 @@
             // Identificador: "UT.2a"
             nombreLista = gestionarListas.createList("Conciertos");
             Assert.assertEquals("Conciertos", nombreLista);
-            verify(editor, times(1)).putString("Conciertos", "");
+
+            verify(editor).putString("Conciertos", "");
+            verify(editor).putInt("Conciertos", -1);
+            verify(editor).putInt("Conciertos", 0);
             verify(editor, times(2)).apply();
 
             // Identificador: "UT.2b"
             nombreLista = gestionarListas.createList("Conciertos");
             Assert.assertEquals("Conciertos(1)", nombreLista);
+
             verify(editor).putString("Conciertos(1)", "");
-            verify(editor).putString("Conciertos(1)", "Conciertos(1)");
-            verify(editor, times(2)).apply();
+            verify(editor).putInt("Conciertos(1)", -1);
+            // verify(editor).putInt("Conciertos(1)", 1);
 
             // Identificador: "UT.2c"
-            nombreLista = gestionarListas.createList("");
+            // TODO
+            //nombreLista = gestionarListas.createList("");
         }
     }

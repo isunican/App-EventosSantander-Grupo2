@@ -126,7 +126,7 @@ public class CrearListaUITest {
         onView(withText(mensaje)).inRoot(RootMatchers.withDecorView(CoreMatchers.not(decorView))).check(matches(isDisplayed()));
 
         // Identificador: "UIT.1d"
-        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getContext());
+        openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         onView(withText(R.string.crear_lista)).perform(click());
         onView(withText("Cancelar")).perform(click());
     }
