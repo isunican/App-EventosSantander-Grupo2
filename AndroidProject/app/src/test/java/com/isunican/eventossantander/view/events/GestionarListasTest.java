@@ -83,10 +83,10 @@
 
             verify(editor).putString("Conciertos(1)", "");
             verify(editor).putInt("Conciertos(1)", -1);
-            // verify(editor).putInt("Conciertos(1)", 1);
+            //verify(editor).putInt("Conciertos(1)", 1);
 
             // Identificador: "UT.2c"
-            // TODO
-            //nombreLista = gestionarListas.createList("");
+            nombreLista = gestionarListas.createList("");
+            Assert.assertEquals("", nombreLista);
         }
     }

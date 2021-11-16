@@ -61,13 +61,14 @@
         public void testCreateList() {
             // Identificador: "UT.2a"
             nombreLista = gestionarListas.createList("Conciertos");
-            Assert.assertEquals(nombreLista, "Conciertos");
+            Assert.assertEquals("Conciertos", nombreLista);
 
             // Identificador: "UT.2b"
             nombreLista = gestionarListas.createList("Conciertos");
-            Assert.assertEquals(nombreLista, "Conciertos(1)");
+            Assert.assertEquals("Conciertos(1)", nombreLista);
 
             // Identificador: "UT.2c"
             nombreLista = gestionarListas.createList("");
+            Assert.assertEquals("", nombreLista);
         }
     }
