@@ -63,15 +63,12 @@ public class FiltradoUITest {
         //onView(withId(R.id.eventsListView)).perform(swipeRight());
         //Simulamos el gesto, recomendado por el profesor
         onView(withId(R.id.btnFiltroCategoriaDown)).perform(click());
-
-        onView(withId(R.id.checkBoxCulturaCientifica)).perform(click());
         onView(withId(R.id.menu_filtros)).perform(swipeUp());
-        sleep(2000);
+        onView(withId(R.id.checkBoxCulturaCientifica)).perform(click());
         onView(withId(R.id.rbOrdenarLejana)).perform(click());
         onView(withId(R.id.btnAplicarFiltroOrden)).perform(click());
-
         onView(withId(R.id.eventsListView)).perform(swipeLeft());
-        sleep(2000);
+
         //Check the events
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.item_event_title)).check(matches(withText(TITLE)));
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.item_event_date)).check(matches(withText(DATE)));
@@ -92,9 +89,6 @@ public class FiltradoUITest {
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(4).onChildView(withId(R.id.item_event_title)).check(matches(withText(TITLE_5)));
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(4).onChildView(withId(R.id.item_event_date)).check(matches(withText(DATE_5)));
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(4).onChildView(withId(R.id.item_event_categoria)).check(matches(withText(CATEGORY)));
-
-
-
 
     }
 
