@@ -36,7 +36,7 @@ import java.util.Map;
 public class FavoriteEventsActivity extends AppCompatActivity implements IFavoriteEventsContract.View {
 
     private IFavoriteEventsContract.Presenter presenter;
-    private IGestionarFavoritos sharedPref;
+    private IGestionarListasUsuario sharedPref;
     private boolean isFilterMenuVisible;
 
     @Override
@@ -247,7 +247,7 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
     }
 
     @Override
-    public IGestionarFavoritos getSharedPref(){
+    public IGestionarListasUsuario getSharedPref(){
         return sharedPref;
     }
 

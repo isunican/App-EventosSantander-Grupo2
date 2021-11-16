@@ -22,7 +22,7 @@
 
     import com.isunican.eventossantander.R;
     import com.isunican.eventossantander.model.Event;
-    import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
+    import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
     import com.squareup.picasso.Picasso;
 
     import org.apache.commons.lang3.StringUtils;
@@ -32,7 +32,7 @@
 
     public class EventArrayAdapter extends ArrayAdapter<Event> {
 
-        private IGestionarFavoritos sharedPref;
+        private IGestionarListasUsuario sharedPref;
         IEventsContract.Presenter presenter;
         private final List<Event> events;
 

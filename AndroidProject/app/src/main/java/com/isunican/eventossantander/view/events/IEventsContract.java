@@ -2,7 +2,7 @@ package com.isunican.eventossantander.view.events;
 
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.Options;
-import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
+import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public interface IEventsContract {
 
         void onApplyOptions(Options options);
 
-        void onFavouriteClicked(int eventIndex, Boolean isClicked, IGestionarFavoritos sharedPref);
+        void onFavouriteClicked(int eventIndex, Boolean isClicked, IGestionarListasUsuario sharedPref);
     }
 
     interface View {
@@ -43,7 +43,7 @@ public interface IEventsContract {
 
         void closeFilterMenuView();
 
-        IGestionarFavoritos getSharedPref();
+        IGestionarListasUsuario getSharedPref();
 
         boolean isConectionAvailable();
 

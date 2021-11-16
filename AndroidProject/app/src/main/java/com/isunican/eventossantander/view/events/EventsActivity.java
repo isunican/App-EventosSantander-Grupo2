@@ -27,8 +27,8 @@ import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.presenter.events.Utilities;
 import com.isunican.eventossantander.view.eventsdetail.EventsDetailActivity;
 import com.isunican.eventossantander.view.favourites.FavoriteEventsActivity;
-import com.isunican.eventossantander.view.favourites.GestionarFavoritosUsuario;
-import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
+import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
+import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
 import com.isunican.eventossantander.view.info.InfoActivity;
 
 import java.util.HashMap;
@@ -37,7 +37,7 @@ import java.util.Map;
 
 public class EventsActivity extends AppCompatActivity implements IEventsContract.View {
     private IEventsContract.Presenter presenter;
-    private IGestionarFavoritos sharedPref;
+    private IGestionarListasUsuario sharedPref;
     private boolean isFilterMenuVisible;
     private Dialog lastDialog;
 
@@ -46,7 +46,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPref = new GestionarFavoritosUsuario(this);
+        sharedPref = new GestionarListasUsuario(this);
         presenter = new EventsPresenter(this);
 
         NavigationView menuFiltros = findViewById(R.id.menu_filtros);
@@ -249,7 +249,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     }
 
     @Override
-    public IGestionarFavoritos getSharedPref(){
+    public IGestionarListasUsuario getSharedPref(){
         return sharedPref;
     }
 
