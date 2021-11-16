@@ -23,6 +23,8 @@ public interface IEventsContract {
         void onApplyOptions(Options options);
 
         void onFavouriteClicked(int eventIndex, Boolean isClicked, IGestionarListasUsuario sharedPref);
+
+        boolean onAddEventClicked(int i, IGestionarListasUsuario sharedPref, String listaEscogida);
     }
 
     interface View {
