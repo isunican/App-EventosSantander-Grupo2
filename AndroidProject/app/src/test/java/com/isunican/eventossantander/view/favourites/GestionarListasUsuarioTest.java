@@ -19,7 +19,7 @@
     import java.util.ArrayList;
     import java.util.List;
 
-    public class GestionarFavoritosUsuarioTest {
+    public class GestionarListasUsuarioTest {
         private GestionarListasUsuario gestionFavs;
         private List<Event> events;
 
