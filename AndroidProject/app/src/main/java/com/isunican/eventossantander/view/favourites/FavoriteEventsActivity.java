@@ -37,7 +37,7 @@ import java.util.Map;
 public class FavoriteEventsActivity extends AppCompatActivity implements IFavoriteEventsContract.View {
 
     private IFavoriteEventsContract.Presenter presenter;
-    private IGestionarFavoritos sharedPref;
+    private IGestionarListasUsuario sharedPref;
     private boolean isFilterMenuVisible;
 
     @Override
@@ -45,7 +45,7 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPref = new GestionarFavoritosUsuario(this);
+        sharedPref = new GestionarListasUsuario(this);
         presenter = new FavoriteEventsPresenter(this);
 
         NavigationView menuFiltros = findViewById(R.id.menu_filtros);
@@ -248,7 +248,7 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
     }
 
     @Override
-    public IGestionarFavoritos getSharedPref(){
+    public IGestionarListasUsuario getSharedPref(){
         return sharedPref;
     }
 

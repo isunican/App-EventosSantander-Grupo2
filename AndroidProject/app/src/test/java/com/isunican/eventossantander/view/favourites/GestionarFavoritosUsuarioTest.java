@@ -20,7 +20,7 @@
     import java.util.List;
 
     public class GestionarFavoritosUsuarioTest {
-        private GestionarFavoritosUsuario gestionFavs;
+        private GestionarListasUsuario gestionFavs;
         private List<Event> events;
 
         @Mock
@@ -42,7 +42,7 @@
             when (sharedPref.getString("favourites", "")).thenReturn("");
             when (sharedPref.edit()).thenReturn(editor);
             // Crea la clase a probar.
-            gestionFavs = new GestionarFavoritosUsuario(context);
+            gestionFavs = new GestionarListasUsuario(context);
 
             // Lista de eventos con la que se van a hacer las pruebas.
             events = new ArrayList<>();

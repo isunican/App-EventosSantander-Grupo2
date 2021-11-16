@@ -4,7 +4,7 @@ import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.view.Listener;
 import com.isunican.eventossantander.view.events.IEventsContract;
-import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
+import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -198,7 +198,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
     }
 
     @Override
-    public void onFavouriteClicked(int eventIndex, Boolean isClicked, IGestionarFavoritos sharedPref) {
+    public void onFavouriteClicked(int eventIndex, Boolean isClicked, IGestionarListasUsuario sharedPref) {
          if(eventIndex > 0 && eventIndex <= cachedEvents.size()) {
              // isClicked = true -> Quitar evento de favoritos
              // isClicked = false -> Anhadir evento a favoritos

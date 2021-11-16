@@ -10,7 +10,7 @@
 
         import com.isunican.eventossantander.model.Event;
         import com.isunican.eventossantander.view.events.IEventsContract;
-        import com.isunican.eventossantander.view.favourites.IGestionarFavoritos;
+        import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
 
         import org.junit.runner.RunWith;
         import org.mockito.ArgumentCaptor;
@@ -42,7 +42,7 @@
             private IEventsContract.View view;
 
             @Mock
-            private IGestionarFavoritos sharedPref;
+            private IGestionarListasUsuario sharedPref;
 
             @Rule
             public MockitoRule rule = MockitoJUnit.rule();

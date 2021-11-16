@@ -27,7 +27,7 @@ public class FavoriteEventsArrayAdapter extends ArrayAdapter<Event> {
 
     private final List<Event> events;
     IFavoriteEventsContract.Presenter presenter;
-    private IGestionarFavoritos sharedPref;
+    private IGestionarListasUsuario sharedPref;
 
     public FavoriteEventsArrayAdapter(@NonNull FavoriteEventsActivity activity, int resource, @NonNull List<Event> objects) {
         super(activity, resource, objects);

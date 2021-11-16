@@ -59,6 +59,7 @@ public class GestionarListasUsuario implements IGestionarListasUsuario {
     // Devuelve un string con el id de los eventos favoritos, sino devuelve nulo
     @Override
     public String getFavourites() {
+        sharedPref = context.getSharedPreferences(FAVORITOS, Context.MODE_PRIVATE);
         String defaultValue = "";
         idFavouriteEvents = sharedPref.getString(FAVORITOS, defaultValue);
         return idFavouriteEvents;
@@ -67,6 +68,7 @@ public class GestionarListasUsuario implements IGestionarListasUsuario {
     // Coloca un evento en la lista de favoritos
     @Override
     public void setFavourite(int eventIndex, List<Event> cachedEvents) {
+        sharedPref = context.getSharedPreferences(FAVORITOS, Context.MODE_PRIVATE);
         idFavouriteEvents = getFavourites();
         SharedPreferences.Editor editor = sharedPref.edit();
 
@@ -78,6 +80,7 @@ public class GestionarListasUsuario implements IGestionarListasUsuario {
 
     @Override
     public boolean isFavourite(int eventId) {
+        sharedPref = context.getSharedPreferences(FAVORITOS, Context.MODE_PRIVATE);
         boolean result = false;
         if (idFavouriteEvents != null) {
             result = idFavouriteEvents.contains(String.valueOf(eventId));
