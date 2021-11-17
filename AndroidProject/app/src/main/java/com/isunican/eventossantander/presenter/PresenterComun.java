@@ -1,12 +1,9 @@
 package com.isunican.eventossantander.presenter;
 
-import android.view.View;
-
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.presenter.events.Utilities;
 import com.isunican.eventossantander.view.events.IEventsContract;
-import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -17,8 +14,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public abstract class Presenter implements IEventsContract.Presenter{
+public abstract class PresenterComun implements IEventsContract.Presenter{
 
+
+    private PresenterComun(){
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * Filter the events by the selected categories
@@ -72,7 +73,7 @@ public abstract class Presenter implements IEventsContract.Presenter{
 
         // Creates a filtered list if filters were selected
         if (options.isFilterChecked()) {
-            eventList = Presenter.onApplyFilter(options.getFilterOptions(), cachedEvents);
+            eventList = PresenterComun.onApplyFilter(options.getFilterOptions(), cachedEvents);
         }
 
         // Orders the list if an order type was selected

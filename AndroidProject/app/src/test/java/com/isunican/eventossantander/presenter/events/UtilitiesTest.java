@@ -39,49 +39,48 @@ public class UtilitiesTest {
         utilities = new Utilities();
     }
 
-    /**
-     * Historia de Usuario: Crear lista.
-     * Identificador: "UT.1".
-     * Autora: Marta Obregon Ruiz.
-     */
-    @Test
-    public void testCreateListPopUp() {
-        // Identificador: "UT.1a"
-        // Compruebo que el dialogo se crea correctamente sin generar ninguna excepcion
-        try {
-            dialog = utilities.createListPopUp(context, "Introduzca el título de la lista a crear", 2);
-            Assert.assertTrue(true);
-        } catch (Exception e) {
-            Assert.fail();
-        }
-        // Compruebo que no es nulo
-        Assert.assertTrue(dialog != null);
+        /**
+         * Historia de Usuario: Crear lista.
+         * Identificador: "UT.1".
+         * Autora: Marta Obregon Ruiz.
+         */
+        @Test
+        public void testCreateListPopUp() {
+            // Identificador: "UT.1a"
+            // Compruebo que el dialogo se crea correctamente sin generar ninguna excepcion
+            try {
+                dialog = utilities.createListPopUp(context, "Introduzca el título de la lista a crear", 2);
+                Assert.assertTrue(true);
+            } catch (Exception e) {
+                Assert.fail();
+            }
+            // Compruebo que no es nulo
+            Assert.assertNotNull(dialog);
 
-        // Identificador: "UT.1b"
-        try {
-            dialog = utilities.createListPopUp(context, "", 2);
-            Assert.assertTrue(true);
-        } catch (Exception e) {
-            Assert.fail();
+            // Identificador: "UT.1b"
+            try {
+                dialog = utilities.createListPopUp(context, "", 2);
+                Assert.assertTrue(true);
+            } catch (Exception e) {
+                Assert.fail();
+            }
+            Assert.assertNotNull(dialog);
+            // Identificador: "UT.1c"
+            try {
+                dialog = utilities.createListPopUp(context, "Introduzca el título de la lista a crear", 2);
+                Assert.assertTrue(true);
+            } catch (Exception e) {
+                Assert.fail();
+            }
+            Assert.assertNotNull(dialog);
+            // Identificador: "UT.1d"
+            try {
+                dialog = utilities.createListPopUp(context, "Introduzca el título de la lista a crear", 3);
+                Assert.assertTrue(true);
+            } catch (Exception e) {
+                Assert.fail();
+            }
+            Assert.assertNotNull(dialog);
         }
-        Assert.assertTrue(dialog != null);
 
-        // Identificador: "UT.1c"
-        try {
-            dialog = utilities.createListPopUp(context, "Introduzca el título de la lista a crear", 2);
-            Assert.assertTrue(true);
-        } catch (Exception e) {
-            Assert.fail();
-        }
-        Assert.assertTrue(dialog != null);
-
-        // Identificador: "UT.1d"
-        try {
-            dialog = utilities.createListPopUp(context, "Introduzca el título de la lista a crear", 3);
-            Assert.assertTrue(true);
-        } catch (Exception e) {
-            Assert.fail();
-        }
-        Assert.assertTrue(dialog != null);
-    }
 }

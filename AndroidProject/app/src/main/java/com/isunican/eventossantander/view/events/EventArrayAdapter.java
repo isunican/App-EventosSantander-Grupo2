@@ -143,9 +143,9 @@ public class EventArrayAdapter extends ArrayAdapter<Event> {
                 // TODO
             }
         });
-
         return view;
     }
+
 
     /**
      * Determines the image resource id that must be used as the icon for a given event.

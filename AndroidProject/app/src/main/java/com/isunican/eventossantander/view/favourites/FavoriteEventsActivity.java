@@ -108,11 +108,7 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IEvents
             for (int i = 0; i < posi; i++) {
                 View viewAux = layoutFiltroCategoria.getChildAt(i);
                 if (viewAux instanceof CheckBox) {
-                    if (((CheckBox) viewAux).isChecked()) {
-                        categorias.put(((CheckBox) viewAux).getText().toString(), true);
-                    } else {
-                        categorias.put(((CheckBox) viewAux).getText().toString(), false);
-                    }
+                    categorias.put(((CheckBox) viewAux).getText().toString(), ((CheckBox) viewAux).isChecked());
                 }
             }
 
@@ -190,15 +186,12 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IEvents
 
     @Override
     public void openFavouritesView() {
-
+        //No se ha realizado esta implementacion todavia
     }
 
     @Override
     public boolean isConectionAvailable() {
-        if (Utilities.isConnected(this)) {
-            return true;
-        }
-        return false;
+        return Utilities.isConnected(this);
     }
 
     @Override
