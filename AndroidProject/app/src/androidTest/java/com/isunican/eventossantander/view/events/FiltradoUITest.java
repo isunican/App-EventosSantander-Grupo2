@@ -1,4 +1,4 @@
-package com.isunican.eventossantander;
+package com.isunican.eventossantander.view.events;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
@@ -17,9 +17,11 @@ import static java.lang.Thread.sleep;
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import com.google.android.material.navigation.NavigationView;
+import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.view.events.EventsActivity;
 
@@ -63,7 +65,7 @@ public class FiltradoUITest {
 
     @Test
     public void eventosCulturaCientifica () throws InterruptedException {
-        onView(withId(R.id.eventsListView)).perform(swipeRight());
+        onView(ViewMatchers.withId(R.id.eventsListView)).perform(swipeRight());
         //Simulamos el gesto, recomendado por el profesor
         onView(withId(R.id.btnFiltroCategoriaDown)).perform(click());
 
