@@ -18,7 +18,7 @@ public class GestionarListasUsuario implements IGestionarListasUsuario {
     private Context context;
     private Map<String, String> nombresListas;
     private String idFavouriteEvents;
-    private final String FAVORITOS = "favourites";
+    private static final String FAVORITOS = "favourites";
     private static final String LISTAS = "LISTS";
 
 
@@ -67,6 +67,7 @@ public class GestionarListasUsuario implements IGestionarListasUsuario {
     // Coloca un evento en la lista de favoritos
     @Override
     public void setFavourite(int eventIndex, List<Event> cachedEvents) {
+        sharedPref = context.getSharedPreferences(FAVORITOS, Context.MODE_PRIVATE);
         idFavouriteEvents = getFavourites();
         SharedPreferences.Editor editor = sharedPref.edit();
 

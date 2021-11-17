@@ -135,7 +135,7 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
         });
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener((item) -> {
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
 
                 case R.id.inicioActivity:

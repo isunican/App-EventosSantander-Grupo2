@@ -1,10 +1,7 @@
 package com.isunican.eventossantander.view.events;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -14,7 +11,6 @@ import android.content.SharedPreferences;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,7 +24,7 @@ import java.util.List;
 
 public class GestionarListasUsuarioTest {
 
-    private GestionarListasUsuario GestionarListasUsuario;
+    private GestionarListasUsuario gestionarListasUsuario;
     private String nombreLista1;
     private final String NOMBRE_LISTA_EXISTE = "Lista1";
     private List<Event> events;
@@ -67,7 +63,7 @@ public class GestionarListasUsuarioTest {
         events.add(e3);
 
         // Creacion de la clase a probar
-        GestionarListasUsuario = new GestionarListasUsuario(context);
+        gestionarListasUsuario = new GestionarListasUsuario(context);
     }
 
     /**
@@ -85,31 +81,26 @@ public class GestionarListasUsuarioTest {
         // Identificador: "UT.2a"
         when(context.getSharedPreferences(NOMBRE_LISTA_EXISTE, Context.MODE_PRIVATE)).thenReturn(sharedPref);
         when(sharedPref.getString(NOMBRE_LISTA_EXISTE, "")).thenReturn("");
-        assertEquals(GestionarListasUsuario.addEvent(1, events, NOMBRE_LISTA_EXISTE), true);
+        assertEquals(gestionarListasUsuario.addEvent(1, events, NOMBRE_LISTA_EXISTE), true);
         verify(editor).putString(NOMBRE_LISTA_EXISTE, "1,");
 
         // Identificador: "UT.2b"
-        when(context.getSharedPreferences(NOMBRE_LISTA_EXISTE, Context.MODE_PRIVATE)).thenReturn(sharedPref);
         when(sharedPref.getString(NOMBRE_LISTA_EXISTE, "")).thenReturn("1,");
-        assertEquals(GestionarListasUsuario.addEvent(1, events, NOMBRE_LISTA_EXISTE), false);
+        assertEquals(gestionarListasUsuario.addEvent(1, events, NOMBRE_LISTA_EXISTE), false);
         verify(editor, never()).putString(NOMBRE_LISTA_EXISTE, "1,1,");
 
         // Identificador: "UT.2c"
-        when(context.getSharedPreferences(NOMBRE_LISTA_EXISTE, Context.MODE_PRIVATE)).thenReturn(sharedPref);
-        when(sharedPref.getString(NOMBRE_LISTA_EXISTE, "")).thenReturn("1,");
-        assertEquals(GestionarListasUsuario.addEvent(2, events, NOMBRE_LISTA_EXISTE), true);
+        assertEquals(gestionarListasUsuario.addEvent(2, events, NOMBRE_LISTA_EXISTE), true);
         verify(editor).putString(NOMBRE_LISTA_EXISTE, "1,2,");
 
         // Identificador: "UT.2d"
-        when(context.getSharedPreferences(NOMBRE_LISTA_EXISTE, Context.MODE_PRIVATE)).thenReturn(sharedPref);
         when(sharedPref.getString(NOMBRE_LISTA_EXISTE, "")).thenReturn("1,2,");
-        assertEquals(GestionarListasUsuario.addEvent(0, events, NOMBRE_LISTA_EXISTE), true);
+        assertEquals(gestionarListasUsuario.addEvent(0, events, NOMBRE_LISTA_EXISTE), true);
         verify(editor).putString(NOMBRE_LISTA_EXISTE, "1,2,0,");
 
         // Identificador: "UT.2e"
-        when(context.getSharedPreferences(NOMBRE_LISTA_EXISTE, Context.MODE_PRIVATE)).thenReturn(sharedPref);
         when(sharedPref.getString(NOMBRE_LISTA_EXISTE, "")).thenReturn("1,2,0,");
-        assertEquals(GestionarListasUsuario.addEvent(events.size()-1, events, NOMBRE_LISTA_EXISTE), true);
+        assertEquals(gestionarListasUsuario.addEvent(events.size()-1, events, NOMBRE_LISTA_EXISTE), true);
         String id = String.valueOf(events.size()-1) + ",";
         verify(editor).putString(NOMBRE_LISTA_EXISTE, "1,2,0," + id);
 
