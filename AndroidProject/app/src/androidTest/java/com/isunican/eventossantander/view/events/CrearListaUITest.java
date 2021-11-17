@@ -61,7 +61,7 @@ public class CrearListaUITest {
 
 
     @BeforeClass
-    public void setUp2() {
+    public static void setUp2() {
         EventsRepository.setLocalSource();
         IdlingRegistry.getInstance().register(EventsRepository.getIdlingResource());
     }
