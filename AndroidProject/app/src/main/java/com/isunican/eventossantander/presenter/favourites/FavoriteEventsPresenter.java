@@ -38,7 +38,7 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
                 String ids = view.getSharedPref().getFavourites();
                 List<Event> filtered = filterFavourites(data, ids);
 
-                if (filtered.isEmpty() == true) {
+                if (filtered.isEmpty()) {
                     view.showEmptyListMessage();
                 }
 

@@ -1,5 +1,7 @@
 package com.isunican.eventossantander.presenter.events;
 
+import static org.junit.Assert.assertTrue;
+
 import android.os.Build;
 
 import org.junit.BeforeClass;
@@ -30,11 +32,11 @@ public class FilterMethodTest {
 
     @Test
     public void getFilterCategoriesTest() {
-        assert(options.getFilterOptions().get("Infantil"));
+        assertTrue(options.getFilterOptions().get("Infantil"));
     }
 
     @Test
     public void getEmptyFilterCategoriesTest() {
-        assert(options2.getFilterOptions().isEmpty());
+        assertTrue(options2.getFilterOptions().isEmpty());
     }
 }
