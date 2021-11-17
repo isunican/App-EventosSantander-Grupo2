@@ -52,5 +52,5 @@ public class EventsDetailUITest {
         onView(withId(R.id.event_detail_description)).check(matches(withText(containsString(DESC))));; //Check description shown contains first part of the event desc
         onView(withId(R.id.event_detail_categoria)).check(matches(withText(CATEGORIA))); //Check event category
         onView(withId(R.id.event_detail_link)).check(matches(withText(LINK))); //Check event link
-    }
+     }
 }
