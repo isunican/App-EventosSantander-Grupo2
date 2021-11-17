@@ -112,26 +112,26 @@ public class GestionarListasUsuarioTest {
         // Identificador: "UT.2a"
         when(context.getSharedPreferences(NOMBRE_LISTA_EXISTE, Context.MODE_PRIVATE)).thenReturn(sharedPref);
         when(sharedPref.getString(NOMBRE_LISTA_EXISTE, "")).thenReturn("");
-        assertEquals(gestionarListasUsuario.addEvent(1, events, NOMBRE_LISTA_EXISTE), true);
+        assertEquals(true,gestionarListasUsuario.addEvent(1, events, NOMBRE_LISTA_EXISTE));
         verify(editor).putString(NOMBRE_LISTA_EXISTE, "1,");
 
         // Identificador: "UT.2b"
         when(sharedPref.getString(NOMBRE_LISTA_EXISTE, "")).thenReturn("1,");
-        assertEquals(gestionarListasUsuario.addEvent(1, events, NOMBRE_LISTA_EXISTE), false);
+        assertEquals(false, gestionarListasUsuario.addEvent(1, events, NOMBRE_LISTA_EXISTE));
         verify(editor, never()).putString(NOMBRE_LISTA_EXISTE, "1,1,");
 
         // Identificador: "UT.2c"
-        assertEquals(gestionarListasUsuario.addEvent(2, events, NOMBRE_LISTA_EXISTE), true);
+        assertEquals(true, gestionarListasUsuario.addEvent(2, events, NOMBRE_LISTA_EXISTE));
         verify(editor).putString(NOMBRE_LISTA_EXISTE, "1,2,");
 
         // Identificador: "UT.2d"
         when(sharedPref.getString(NOMBRE_LISTA_EXISTE, "")).thenReturn("1,2,");
-        assertEquals(gestionarListasUsuario.addEvent(0, events, NOMBRE_LISTA_EXISTE), true);
+        assertEquals(true, gestionarListasUsuario.addEvent(0, events, NOMBRE_LISTA_EXISTE));
         verify(editor).putString(NOMBRE_LISTA_EXISTE, "1,2,0,");
 
         // Identificador: "UT.2e"
         when(sharedPref.getString(NOMBRE_LISTA_EXISTE, "")).thenReturn("1,2,0,");
-        assertEquals(gestionarListasUsuario.addEvent(events.size()-1, events, NOMBRE_LISTA_EXISTE), true);
+        assertEquals(true, gestionarListasUsuario.addEvent(events.size()-1, events, NOMBRE_LISTA_EXISTE));
         String id = String.valueOf(events.size()-1) + ",";
         verify(editor).putString(NOMBRE_LISTA_EXISTE, "1,2,0," + id);
 
