@@ -5,10 +5,6 @@ import static org.junit.Assert.assertNull;
 
 import android.os.Build;
 
-import com.isunican.eventossantander.presenter.events.EventsPresenter;
-import com.isunican.eventossantander.presenter.events.Options;
-import com.isunican.eventossantander.presenter.events.Utilities;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,8 +1,5 @@
 package com.isunican.eventossantander.view.events;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.isunican.eventossantander.R;
@@ -271,8 +272,13 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     }
 
     @Override
-    public void errorAddEventList() {
-        Utilities.createPopUp(this, Utilities.ERROR_ADD_EVENT_LIST, 1).show();
+    public void errorEventAlreadyExists() {
+        Utilities.createPopUp(this, Utilities.ERROR_EVENT_ALREADY_EXISTS, 1).show();
 
+    }
+
+    @Override
+    public void errorEventIndexOutOfBounds() {
+        Utilities.createPopUp(this, Utilities.ERROR_EVENT_INDEX_OUT_OF_BOUNDS, 1).show();
     }
 }

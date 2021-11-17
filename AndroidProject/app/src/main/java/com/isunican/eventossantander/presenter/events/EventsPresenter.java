@@ -1,11 +1,8 @@
 package com.isunican.eventossantander.presenter.events;
 
-import android.widget.Toast;
-
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.view.Listener;
-import com.isunican.eventossantander.view.events.EventsActivity;
 import com.isunican.eventossantander.view.events.IEventsContract;
 import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
 
@@ -218,13 +215,12 @@ public class EventsPresenter implements IEventsContract.Presenter {
     public boolean onAddEventClicked(int eventIndex, IGestionarListasUsuario sharedPref, String listaEscogida) {
         if(eventIndex >= 0 && eventIndex< cachedEvents.size()){
             boolean result = sharedPref.addEvent(eventIndex,cachedEvents,listaEscogida);
-
             if(!result){
-                view.errorAddEventList();
+                view.errorEventAlreadyExists();
             }
             return result;
         } else {
-            view.errorAddEventList();
+            view.errorEventIndexOutOfBounds();
             return false;
         }
     }

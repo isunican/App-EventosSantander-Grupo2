@@ -1,13 +1,18 @@
 package com.isunican.eventossantander.view.events;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.isunican.eventossantander.model.Event;
+import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,15 +21,17 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class GestionarListasUsuarioTest {
 
     private GestionarListasUsuario GestionarListasUsuario;
     private String nombreLista1;
-    private String nombreLista2;
-    private final String NOMBRE_LISTA_1 = "Lista1";
+    private final String NOMBRE_LISTA_EXISTE = "Lista1";
+    private List<Event> events;
 
     @Mock
     private Context context;
@@ -40,57 +47,72 @@ public class GestionarListasUsuarioTest {
 
     @Before
     public void setup() {
-        // Programacion del comportamiento de los mocks
-        when (context.getSharedPreferences("LISTS", Context.MODE_PRIVATE)).thenReturn(sharedPref);
-        when (context.getSharedPreferences("LISTS", Context.MODE_PRIVATE).edit()).thenReturn(editor);
-        when (sharedPref.contains("Conciertos")).thenReturn(false);
-        when (sharedPref.edit()).thenReturn(editor);
+        // Lista de eventos
+        events = new ArrayList<>();
+
+        Event e0 = new Event();
+        e0.setCategoria("Cultura científica");
+        e0.setIdentificador(0);
+        Event e1 = new Event();
+        e1.setIdentificador(1);
+        Event e2 = new Event();
+        e2.setCategoria("Cultura científica");
+        e2.setIdentificador(2);
+        Event e3 = new Event();
+        e3.setIdentificador(3);
+
+        events.add(e0);
+        events.add(e1);
+        events.add(e2);
+        events.add(e3);
+
         // Creacion de la clase a probar
         GestionarListasUsuario = new GestionarListasUsuario(context);
     }
 
     /**
-     * Historia de Usuario: Crear lista.
-     * Identificador: "UT.2".
-     * Autora: Marta Obregon Ruiz.
-     */
-    @Test
-    public void testCreateList() {
-        // Identificador: "UT.2a"
-        nombreLista1 = GestionarListasUsuario.createList("Conciertos");
-        Assert.assertEquals(nombreLista1, "Conciertos");
-        verify(editor).putString("Conciertos", "");
-        verify(editor).putString("Conciertos", "Conciertos");
-        verify(editor, times(2)).apply();
-
-        // Identificador: "UT.2b"
-        nombreLista1 = GestionarListasUsuario.createList("Conciertos");
-        Assert.assertEquals(nombreLista1, "Conciertos(1)");
-        verify(editor).putString("Conciertos(1)", "");
-        verify(editor).putString("Conciertos(1)", "Conciertos(1)");
-        verify(editor, times(2)).apply();
-
-        // Identificador: "UT.2c"
-        nombreLista1 = GestionarListasUsuario.createList("");
-    }
-
-    /**
      * Historia de Usuario: Anhadir evento a lista.
      * Identificador: "UT.2".
-     * Autora: Sara Grela Carrera
+     * Autor: Sara Grela Carrera.
      */
     @Test
-    public void AddEventTest() {
-        // Creamos la lista
-        nombreLista2 = GestionarListasUsuario.createList(NOMBRE_LISTA_1);
+    public void testAddEvent() {
+
+        String nombreListaNoExiste = "Lista2";
+
+        when(sharedPref.edit()).thenReturn(editor);
 
         // Identificador: "UT.2a"
-        GestionarListasUsuario.addEvent(1, any(), NOMBRE_LISTA_1);
-        verify(editor).putString(NOMBRE_LISTA_1, "1,");
+        when(context.getSharedPreferences(NOMBRE_LISTA_EXISTE, Context.MODE_PRIVATE)).thenReturn(sharedPref);
+        when(sharedPref.getString(NOMBRE_LISTA_EXISTE, "")).thenReturn("");
+        assertEquals(GestionarListasUsuario.addEvent(1, events, NOMBRE_LISTA_EXISTE), true);
+        verify(editor).putString(NOMBRE_LISTA_EXISTE, "1,");
 
         // Identificador: "UT.2b"
+        when(context.getSharedPreferences(NOMBRE_LISTA_EXISTE, Context.MODE_PRIVATE)).thenReturn(sharedPref);
+        when(sharedPref.getString(NOMBRE_LISTA_EXISTE, "")).thenReturn("1,");
+        assertEquals(GestionarListasUsuario.addEvent(1, events, NOMBRE_LISTA_EXISTE), false);
+        verify(editor, never()).putString(NOMBRE_LISTA_EXISTE, "1,1,");
 
         // Identificador: "UT.2c"
-        nombreLista1 = GestionarListasUsuario.createList("");
+        when(context.getSharedPreferences(NOMBRE_LISTA_EXISTE, Context.MODE_PRIVATE)).thenReturn(sharedPref);
+        when(sharedPref.getString(NOMBRE_LISTA_EXISTE, "")).thenReturn("1,");
+        assertEquals(GestionarListasUsuario.addEvent(2, events, NOMBRE_LISTA_EXISTE), true);
+        verify(editor).putString(NOMBRE_LISTA_EXISTE, "1,2,");
+
+        // Identificador: "UT.2d"
+        when(context.getSharedPreferences(NOMBRE_LISTA_EXISTE, Context.MODE_PRIVATE)).thenReturn(sharedPref);
+        when(sharedPref.getString(NOMBRE_LISTA_EXISTE, "")).thenReturn("1,2,");
+        assertEquals(GestionarListasUsuario.addEvent(0, events, NOMBRE_LISTA_EXISTE), true);
+        verify(editor).putString(NOMBRE_LISTA_EXISTE, "1,2,0,");
+
+        // Identificador: "UT.2e"
+        when(context.getSharedPreferences(NOMBRE_LISTA_EXISTE, Context.MODE_PRIVATE)).thenReturn(sharedPref);
+        when(sharedPref.getString(NOMBRE_LISTA_EXISTE, "")).thenReturn("1,2,0,");
+        assertEquals(GestionarListasUsuario.addEvent(events.size()-1, events, NOMBRE_LISTA_EXISTE), true);
+        String id = String.valueOf(events.size()-1) + ",";
+        verify(editor).putString(NOMBRE_LISTA_EXISTE, "1,2,0," + id);
+
     }
+
 }

@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 
 public class Utilities {
@@ -18,7 +19,8 @@ public class Utilities {
 
     public static final String CONNECTION_ERROR_MESSAGE = "Error de conexión a Internet. Verifique su configuración de red.";
     public static final String EMPTY_FAVOURITE_MESSAGE = "No hay eventos favoritos.";
-    public static final String ERROR_ADD_EVENT_LIST = "Ha ocurrido un error al introducir el evento a la lista";
+    public static final String ERROR_EVENT_ALREADY_EXISTS = "El evento seleccionado ya está en la lista";
+    public static final String ERROR_EVENT_INDEX_OUT_OF_BOUNDS = "El evento seleccionado ya está en la lista";
     private static Dialog dialogo;
 
     /**

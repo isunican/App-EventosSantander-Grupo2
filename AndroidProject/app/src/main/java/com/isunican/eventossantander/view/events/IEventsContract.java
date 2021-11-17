@@ -58,6 +58,8 @@ public interface IEventsContract {
 
         void onConnectionError();
 
-        void errorAddEventList();
+        void errorEventAlreadyExists();
+
+        void errorEventIndexOutOfBounds();
     }
 }

@@ -1,29 +1,22 @@
 package com.isunican.eventossantander.view.events;
 
-import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.matcher.ViewMatchers.isNotClickable;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-
-import androidx.test.espresso.matcher.ViewMatchers;
-import androidx.test.ext.junit.rules.ActivityScenarioRule;
-
-import org.junit.Rule;
-import org.junit.Test;
-
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import androidx.test.espresso.IdlingRegistry;
+import androidx.test.espresso.matcher.ViewMatchers;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.EventsRepository;
-import com.isunican.eventossantander.view.events.EventsActivity;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.Test;
 
 public class BotonMenuUITest {
 

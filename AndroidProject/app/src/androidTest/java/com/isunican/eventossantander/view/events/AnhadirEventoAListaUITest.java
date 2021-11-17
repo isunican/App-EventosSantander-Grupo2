@@ -12,13 +12,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.withTagValue;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.equalTo;
-
 import static java.lang.Thread.sleep;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.service.autofill.Validator;
 import android.view.View;
 
 import androidx.test.espresso.IdlingRegistry;
@@ -37,8 +33,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
-
-import java.util.concurrent.atomic.AtomicReference;
 
 public class AnhadirEventoAListaUITest {
 
@@ -81,13 +75,14 @@ public class AnhadirEventoAListaUITest {
 
     /**
      * Historia de Usuario: Anhadir Evento a Lista.
-     * Identificador: "UIT1.a".
+     * Identificador: "UIT1".
      * Autor: Sara Grela Carrera.
      */
     @Test
     public void anhadirEventoAListaTest () throws InterruptedException {
         GestionarListasUsuario.cleanSetPreferences(context);
 
+        // Identificador: "UIT.1a"
         // Se crea una lista
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getContext());
         onView(withText(R.string.crear_lista)).perform(click());
@@ -102,5 +97,13 @@ public class AnhadirEventoAListaUITest {
         // Comprobar que se muestra el mensaje al usuario
         onView(withText("Se ha añadido un evento a la lista Lista1")).inRoot(RootMatchers.withDecorView(CoreMatchers.not(decorView))).check(matches(isDisplayed()));
 
+        // Identificador: "UIT.1b"
+        // Anhadir el primer evento a la Lista 1
+        onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.btn_add_list_event)).perform(click());
+        // Seleccionar la primera lista que exista
+        onView(withText("Lista1")).perform(click());
+        sleep(1000);
+        // Comprobar que se muestra el mensaje al usuario
+        onView(withText("El evento seleccionado ya está en la lista")).inRoot(RootMatchers.withDecorView(CoreMatchers.not(decorView))).check(matches(isDisplayed()));
     }
 }

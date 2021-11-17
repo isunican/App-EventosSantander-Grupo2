@@ -4,7 +4,6 @@ import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.swipeLeft;
-import static androidx.test.espresso.action.ViewActions.swipeRight;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -17,7 +16,6 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.EventsRepository;
-import com.isunican.eventossantander.view.events.EventsActivity;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
