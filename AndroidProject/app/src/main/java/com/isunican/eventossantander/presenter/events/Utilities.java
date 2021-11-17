@@ -112,10 +112,7 @@ public class Utilities {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
-        if (networkInfo != null && networkInfo.isConnected()) {
-            return true;
-        }
-        return false;
+        return (networkInfo != null && networkInfo.isConnected());
     }
 
     public static Dialog getDialog() {

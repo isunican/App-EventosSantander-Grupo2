@@ -105,7 +105,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
      *                    == false-> Show events without dates last in the list.
      */
       private void onApplyOrder() {
-
+        //No hace nada pq lo hace la comun
     }
 
     /**
@@ -140,10 +140,8 @@ public class EventsPresenter implements IEventsContract.Presenter {
 
     @Override
     public void onFavouriteClicked(int eventIndex, Boolean isClicked, IGestionarListasUsuario sharedPref) {
-         if(eventIndex > 0 && eventIndex <= cachedEvents.size()) {
-             if (!isClicked) {
+         if(eventIndex > 0 && eventIndex <= cachedEvents.size() && !isClicked) {
                  sharedPref.setFavourite(eventIndex, cachedEvents);
-             }
          }
     }
 

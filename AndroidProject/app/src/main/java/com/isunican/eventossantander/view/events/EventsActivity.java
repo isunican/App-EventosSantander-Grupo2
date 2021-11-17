@@ -129,7 +129,6 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         });
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
-
         bottomNavigationView.setOnNavigationItemSelectedListener((item) -> {
             if(item.getItemId() == R.id.inicioActivity){
                 Intent intent1 = new Intent(this, EventsActivity.class);
@@ -137,7 +136,6 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             }else if (item.getItemId() == R.id.favoritosActivity){
                 Intent intent2 = new Intent(this, FavoriteEventsActivity.class);
                 startActivity(intent2);
-
             }
             return false;
 
@@ -257,9 +255,9 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     }
 
     @Override
+
     public void errorEventAlreadyExists() {
         Utilities.createPopUp(this, Utilities.ERROR_EVENT_ALREADY_EXISTS, 1).show();
-
     }
 
     @Override
