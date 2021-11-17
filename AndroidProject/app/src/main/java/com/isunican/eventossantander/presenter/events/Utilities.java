@@ -3,13 +3,12 @@ package com.isunican.eventossantander.presenter.events;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.isunican.eventossantander.view.events.GestionarListas;
+import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 
 public class Utilities {
 
@@ -69,7 +68,7 @@ public class Utilities {
         EditText input = new EditText(context);
         final String[] result = new String[1];
         input.setTag("InputDialog");
-        GestionarListas gestionarListas = new GestionarListas(context);
+        GestionarListasUsuario gestionarListas = new GestionarListasUsuario(context);
         builder.setTitle(title);
         builder.setView(input);
         switch (numButtons) {

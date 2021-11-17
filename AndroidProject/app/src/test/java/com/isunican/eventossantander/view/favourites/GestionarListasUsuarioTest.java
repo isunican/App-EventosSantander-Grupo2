@@ -1,5 +1,8 @@
     package com.isunican.eventossantander.view.favourites;
 
+    import static org.mockito.ArgumentMatchers.anyInt;
+    import static org.mockito.ArgumentMatchers.anyString;
+    import static org.mockito.Mockito.times;
     import static org.mockito.Mockito.verify;
     import static org.mockito.Mockito.when;
 
@@ -20,8 +23,10 @@
     import java.util.List;
 
     public class GestionarListasUsuarioTest {
-        private GestionarListasUsuario gestionFavs;
+
         private List<Event> events;
+        private GestionarListasUsuario gestionarListas;
+        private String nombreLista;
 
         @Mock
         private Context context;
@@ -41,8 +46,6 @@
             when (context.getSharedPreferences("favourites", Context.MODE_PRIVATE)).thenReturn(sharedPref);
             when (sharedPref.getString("favourites", "")).thenReturn("");
             when (sharedPref.edit()).thenReturn(editor);
-            // Crea la clase a probar.
-            gestionFavs = new GestionarListasUsuario(context);
 
             // Lista de eventos con la que se van a hacer las pruebas.
             events = new ArrayList<>();
@@ -60,6 +63,17 @@
             events.add(e2);
             events.add(e3);
             events.add(e4);
+
+            // Programacion del comportamiento de los mocks
+            when(context.getSharedPreferences("LISTS", Context.MODE_PRIVATE)).thenReturn(sharedPref);
+            when(sharedPref.contains(anyString())).thenReturn(false).thenReturn(true);
+            when(context.getSharedPreferences("Conciertos", Context.MODE_PRIVATE)).thenReturn(sharedPref);
+            when(sharedPref.edit()).thenReturn(editor);
+            when(sharedPref.getInt(anyString(), anyInt())).thenReturn(0);
+            when(context.getSharedPreferences("Conciertos(1)", Context.MODE_PRIVATE)).thenReturn(sharedPref);
+
+            // Creacion de la clase a probar
+            gestionarListas = new GestionarListasUsuario(context);
         }
 
         /**
@@ -70,16 +84,16 @@
         @Test
         public void testSetFavourite() {
             // Identificador: "UT.2a"
-            gestionFavs.setFavourite(3, events);
+            gestionarListas.setFavourite(3, events);
             verify(editor).putString("favourites", "3,");
 
             // Identificador: "UT.2b"
-            gestionFavs.setFavourite(0, events);
+            gestionarListas.setFavourite(0, events);
             verify(editor).putString("favourites", "0,");
 
             // Identificador: "UT.2c"
             try {
-                gestionFavs.setFavourite(-1, events);
+                gestionarListas.setFavourite(-1, events);
                 Assert.fail();
             } catch (IndexOutOfBoundsException e) {
                 Assert.assertTrue(true);    // Succes
@@ -87,10 +101,40 @@
 
             // Identificador: "UT.2d"
             try {
-                gestionFavs.setFavourite(9999999, events);
+                gestionarListas.setFavourite(9999999, events);
                 Assert.fail();
             } catch (IndexOutOfBoundsException e) {
                 Assert.assertTrue(true);    // Succes
             }
+        }
+
+        /**
+         * Historia de Usuario: Crear lista.
+         * Identificador: "UT.2".
+         * Autora: Marta Obregon Ruiz.
+         */
+        @Test
+        public void testCreateList() {
+            // Identificador: "UT.2a"
+            nombreLista = gestionarListas.createList("Conciertos");
+            Assert.assertEquals("Conciertos", nombreLista);
+
+            verify(editor).putString("Conciertos", "");
+            verify(editor).putInt("Conciertos", -1);
+            verify(editor).putInt("Conciertos", 0);
+            verify(editor, times(2)).apply();
+
+            // Identificador: "UT.2b"
+            nombreLista = gestionarListas.createList("Conciertos");
+            Assert.assertEquals("Conciertos(1)", nombreLista);
+
+            verify(editor).putString("Conciertos(1)", "");
+            verify(editor).putInt("Conciertos(1)", -1);
+            verify(editor).putInt("Conciertos", 1);
+            verify(editor, times(4)).apply();
+
+            // Identificador: "UT.2c"
+            nombreLista = gestionarListas.createList("");
+            Assert.assertEquals("", nombreLista);
         }
     }

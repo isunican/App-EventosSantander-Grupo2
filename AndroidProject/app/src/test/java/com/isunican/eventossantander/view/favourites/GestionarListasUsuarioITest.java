@@ -1,27 +1,20 @@
-    package com.isunican.eventossantander.view.events;
+    package com.isunican.eventossantander.view.favourites;
 
-    import static org.mockito.Mockito.times;
     import static org.mockito.Mockito.verify;
-    import static org.mockito.Mockito.when;
 
     import android.content.Context;
-    import android.content.SharedPreferences;
     import android.os.Build;
 
     import androidx.test.core.app.ApplicationProvider;
-    import androidx.test.espresso.IdlingRegistry;
 
-    import com.isunican.eventossantander.model.EventsRepository;
     import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 
     import org.junit.After;
-    import org.junit.AfterClass;
     import org.junit.Assert;
     import org.junit.Before;
     import org.junit.Rule;
     import org.junit.Test;
     import org.junit.runner.RunWith;
-    import org.mockito.Mock;
     import org.mockito.junit.MockitoJUnit;
     import org.mockito.junit.MockitoRule;
     import org.robolectric.RobolectricTestRunner;
@@ -29,9 +22,9 @@
 
     @RunWith(RobolectricTestRunner.class)
     @Config(sdk = {Build.VERSION_CODES.O_MR1})
-    public class GestionarListasITest {
+    public class GestionarListasUsuarioITest {
 
-        private GestionarListas gestionarListas;
+        private GestionarListasUsuario gestionarListas;
         private String nombreLista;
 
         private Context context = ApplicationProvider.getApplicationContext();
@@ -42,14 +35,14 @@
         @Before
         public void setUp() {
             // Creacion de la clase a probar
-            gestionarListas = new GestionarListas(context);
+            gestionarListas = new GestionarListasUsuario(context);
 
-            GestionarListasUsuario.cleanSetPreferences(context);
+            gestionarListas.cleanSetPreferences(context);
         }
 
         @After
         public void clean() {
-            GestionarListasUsuario.cleanSetPreferences(context);
+            gestionarListas.cleanSetPreferences(context);
         }
 
         /**
