@@ -144,6 +144,8 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IEvents
                     Intent intent2 = new Intent(this, FavoriteEventsActivity.class);
                     startActivity(intent2);
                     break;
+                default:
+                    break;
             }
 
             return false;
