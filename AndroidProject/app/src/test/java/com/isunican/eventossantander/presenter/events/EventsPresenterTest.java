@@ -42,7 +42,7 @@ public class EventsPresenterTest {
 
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
-    private IEventsContract.Presenter presenter;
+    private EventsPresenter presenter;
 
 
     @Before
@@ -151,8 +151,8 @@ public class EventsPresenterTest {
 
         categoriesOnline.put("Online", true);
 
-        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
-        options2 = new Options(categoriesOnline, EventsPresenter.OrderType.DATE_DESC, false);
+        options = new Options(categories, Utilities.OrderType.DATE_ASC, false);
+        options2 = new Options(categoriesOnline, Utilities.OrderType.DATE_DESC, false);
 
         ArgumentCaptor<List<Event>> listCaptor = ArgumentCaptor.forClass(List.class);
         presenter.setList(events);
@@ -203,8 +203,8 @@ public class EventsPresenterTest {
 
         categoriesOnline.put("Online", true);
 
-        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
-        options2 = new Options(categoriesOnline, EventsPresenter.OrderType.DATE_DESC, false);
+        options = new Options(categories, Utilities.OrderType.DATE_ASC, false);
+        options2 = new Options(categoriesOnline, Utilities.OrderType.DATE_DESC, false);
 
         ArgumentCaptor<List<Event>> listCaptor = ArgumentCaptor.forClass(List.class);
         presenter.setList(events);
@@ -274,9 +274,9 @@ public class EventsPresenterTest {
         eventsExpectedNoDateT.add(e2);
         eventsExpectedNoDateT.add(e1);
 
-        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
-        options2 = new Options(categories, EventsPresenter.OrderType.DATE_DESC, false);
-        options3 = new Options(categories, EventsPresenter.OrderType.DATE_ASC, true);
+        options = new Options(categories, Utilities.OrderType.DATE_ASC, false);
+        options2 = new Options(categories, Utilities.OrderType.DATE_DESC, false);
+        options3 = new Options(categories, Utilities.OrderType.DATE_ASC, true);
 
         presenter.setList(events);
         presenter.onApplyOptions(options);
@@ -344,9 +344,9 @@ public class EventsPresenterTest {
         eventsExpectedNoDateT.add(e2);
         eventsExpectedNoDateT.add(e1);
 
-        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
-        options2 = new Options(categories, EventsPresenter.OrderType.DATE_DESC, false);
-        options3 = new Options(categories, EventsPresenter.OrderType.DATE_ASC, true);
+        options = new Options(categories, Utilities.OrderType.DATE_ASC, false);
+        options2 = new Options(categories, Utilities.OrderType.DATE_DESC, false);
+        options3 = new Options(categories, Utilities.OrderType.DATE_ASC, true);
 
         presenter.setList(events);
         presenter.onApplyOptions(options2);
@@ -414,9 +414,9 @@ public class EventsPresenterTest {
         eventsExpectedNoDateT.add(e2);
         eventsExpectedNoDateT.add(e1);
 
-        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
-        options2 = new Options(categories, EventsPresenter.OrderType.DATE_DESC, false);
-        options3 = new Options(categories, EventsPresenter.OrderType.DATE_ASC, true);
+        options = new Options(categories, Utilities.OrderType.DATE_ASC, false);
+        options2 = new Options(categories, Utilities.OrderType.DATE_DESC, false);
+        options3 = new Options(categories, Utilities.OrderType.DATE_ASC, true);
 
         presenter.setList(emptyEvents);
         presenter.onApplyOptions(options2);
@@ -484,9 +484,9 @@ public class EventsPresenterTest {
         eventsExpectedNoDateT.add(e2);
         eventsExpectedNoDateT.add(e1);
 
-        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
-        options2 = new Options(categories, EventsPresenter.OrderType.DATE_DESC, false);
-        options3 = new Options(categories, EventsPresenter.OrderType.DATE_ASC, true);
+        options = new Options(categories, Utilities.OrderType.DATE_ASC, false);
+        options2 = new Options(categories, Utilities.OrderType.DATE_DESC, false);
+        options3 = new Options(categories, Utilities.OrderType.DATE_ASC, true);
 
         presenter.setList(oneEvent);
         presenter.onApplyOptions(options2);
@@ -554,9 +554,9 @@ public class EventsPresenterTest {
         eventsExpectedNoDateT.add(e2);
         eventsExpectedNoDateT.add(e1);
 
-        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
-        options2 = new Options(categories, EventsPresenter.OrderType.DATE_DESC, false);
-        options3 = new Options(categories, EventsPresenter.OrderType.DATE_ASC, true);
+        options = new Options(categories, Utilities.OrderType.DATE_ASC, false);
+        options2 = new Options(categories, Utilities.OrderType.DATE_DESC, false);
+        options3 = new Options(categories, Utilities.OrderType.DATE_ASC, true);
 
         presenter.setList(eventsNoDate);
         presenter.onApplyOptions(options);
@@ -624,9 +624,9 @@ public class EventsPresenterTest {
         eventsExpectedNoDateT.add(e2);
         eventsExpectedNoDateT.add(e1);
 
-        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
-        options2 = new Options(categories, EventsPresenter.OrderType.DATE_DESC, false);
-        options3 = new Options(categories, EventsPresenter.OrderType.DATE_ASC, true);
+        options = new Options(categories, Utilities.OrderType.DATE_ASC, false);
+        options2 = new Options(categories, Utilities.OrderType.DATE_DESC, false);
+        options3 = new Options(categories, Utilities.OrderType.DATE_ASC, true);
 
         presenter.setList(eventsNoDate);
         presenter.onApplyOptions(options3);
@@ -638,10 +638,10 @@ public class EventsPresenterTest {
         Options options, options2;
         Map<String,Boolean> categories = new HashMap<>();
 
-        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
+        options = new Options(categories, Utilities.OrderType.DATE_ASC, false);
         options2 = new Options(categories, null, false);
 
-        assertEquals(EventsPresenter.OrderType.DATE_ASC, options.getOrderTypeOptions());
+        assertEquals(Utilities.OrderType.DATE_ASC, options.getOrderTypeOptions());
     }
 
     @Test
@@ -649,7 +649,7 @@ public class EventsPresenterTest {
         Options options, options2;
         Map<String,Boolean> categories = new HashMap<>();
 
-        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
+        options = new Options(categories, Utilities.OrderType.DATE_ASC, false);
         options2 = new Options(categories, null, false);
 
         assertNull(options2.getOrderTypeOptions());
