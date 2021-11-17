@@ -216,4 +216,10 @@ public class Event implements Parcelable {
 
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(identificador, nombre, nombreAlternativo, categoria, descripcion,
+                descripcionAlternativa, fecha, longitud, latitud, enlace, enlaceAlternativo, imagen);
+    }
+
 }
