@@ -39,13 +39,11 @@ public class FavEventsUITest {
 
     private List<Event> favEvents;
     private Event e1;
-    private static Context context;
 
     @BeforeClass
     public static void setUp() {
         EventsRepository.setLocalSource();
         IdlingRegistry.getInstance().register(EventsRepository.getIdlingResource());
-        GestionarListasUsuario.cleanSetPreferences(context);
     }
 
     @Before
@@ -57,11 +55,6 @@ public class FavEventsUITest {
         e1.setCategoria("Online");
 
         favEvents.add(e1);
-
-        activityRule.getScenario().onActivity(
-                activity -> {
-                    context = activity;
-                });
 
     }
 
