@@ -195,43 +195,43 @@ public class EventsPresenterTest {
         // Identificador: "UT.1a"
         presenter.setList(events);
         when(sharedPref.addEvent(eq(1), any(), eq(NOMBRE_LISTA_EXISTE))).thenReturn(true);
-        assertEquals(presenter.onAddEventClicked(1, sharedPref, NOMBRE_LISTA_EXISTE), true);
+        assertEquals(true, presenter.onAddEventClicked(1, sharedPref, NOMBRE_LISTA_EXISTE));
         verify(sharedPref).addEvent(eq(1), any(), eq(NOMBRE_LISTA_EXISTE));
 
         // Identificador: "UT.1b"
         when(sharedPref.addEvent(eq(1), any(), eq(NOMBRE_LISTA_EXISTE))).thenReturn(false);
-        assertEquals(presenter.onAddEventClicked(1, sharedPref, NOMBRE_LISTA_EXISTE), false);
+        assertEquals(false, presenter.onAddEventClicked(1, sharedPref, NOMBRE_LISTA_EXISTE));
         verify(sharedPref, times(2)).addEvent(eq(1), any(), eq(NOMBRE_LISTA_EXISTE));
 
         // Identificador: "UT.1c"
         when(sharedPref.addEvent(eq(2), any(), eq(NOMBRE_LISTA_EXISTE))).thenReturn(true);
-        assertEquals(presenter.onAddEventClicked(2, sharedPref, NOMBRE_LISTA_EXISTE), true);
+        assertEquals(true, presenter.onAddEventClicked(2, sharedPref, NOMBRE_LISTA_EXISTE));
         verify(sharedPref).addEvent(eq(2), any(), eq(NOMBRE_LISTA_EXISTE));
 
         // Identificador: "UT.1d"
-        assertEquals(presenter.onAddEventClicked(1, sharedPref, nombreListaNoExiste), false);
+        assertEquals(false,presenter.onAddEventClicked(1, sharedPref, nombreListaNoExiste));
         verify(sharedPref, times(2)).addEvent(eq(1), any(), eq(NOMBRE_LISTA_EXISTE));
 
         // Identificador: "UT.1e"
-        assertEquals(presenter.onAddEventClicked(999999, sharedPref, NOMBRE_LISTA_EXISTE), false);
+        assertEquals(false,presenter.onAddEventClicked(999999, sharedPref, NOMBRE_LISTA_EXISTE));
         verify(sharedPref, never()).addEvent(eq(999999), any(), eq(NOMBRE_LISTA_EXISTE));
 
         // Identificador: "UT.1f"
-        assertEquals(presenter.onAddEventClicked(-1, sharedPref, NOMBRE_LISTA_EXISTE), false);
+        assertEquals(false,presenter.onAddEventClicked(-1, sharedPref, NOMBRE_LISTA_EXISTE));
         verify(sharedPref, never()).addEvent(eq(-1), any(), eq(NOMBRE_LISTA_EXISTE));
 
         // Identificador: "UT.1g"
         when(sharedPref.addEvent(eq(0), any(), eq(NOMBRE_LISTA_EXISTE))).thenReturn(true);
-        assertEquals(presenter.onAddEventClicked(0, sharedPref, NOMBRE_LISTA_EXISTE), true);
+        assertEquals(true, presenter.onAddEventClicked(0, sharedPref, NOMBRE_LISTA_EXISTE));
         verify(sharedPref).addEvent(eq(0), any(), eq(NOMBRE_LISTA_EXISTE));
 
         // Identificador: "UT.1h"
         when(sharedPref.addEvent(eq(events.size()-1), any(), eq(NOMBRE_LISTA_EXISTE))).thenReturn(true);
-        assertEquals(presenter.onAddEventClicked(events.size()-1, sharedPref, NOMBRE_LISTA_EXISTE), true);
+        assertEquals(true,presenter.onAddEventClicked(events.size()-1, sharedPref, NOMBRE_LISTA_EXISTE));
         verify(sharedPref).addEvent(eq(events.size()-1), any(), eq(NOMBRE_LISTA_EXISTE));
 
         // Identificador: "UT.1i"
-        assertEquals(presenter.onAddEventClicked(events.size(), sharedPref, NOMBRE_LISTA_EXISTE), false);
+        assertEquals(false,presenter.onAddEventClicked(events.size(), sharedPref, NOMBRE_LISTA_EXISTE));
         verify(sharedPref, never()).addEvent(eq(events.size()), any(), eq(NOMBRE_LISTA_EXISTE));
     }
 }
