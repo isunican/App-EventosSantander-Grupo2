@@ -68,7 +68,6 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
             for (String id: ids) {
                 if (String.valueOf(e.getIdentificador()).equals(id)) {
                     filtered.add(e);
-                    continue;
                 }
             }
         }

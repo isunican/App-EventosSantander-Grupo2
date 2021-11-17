@@ -39,7 +39,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     private IEventsContract.Presenter presenter;
     private IGestionarListasUsuario sharedPref;
     private boolean isFilterMenuVisible;
-    private Dialog lastDialog;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,11 +108,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
             for (int i = 0; i < posi; i++) {
                 View viewAux = layoutFiltroCategoria.getChildAt(i);
                 if (viewAux instanceof CheckBox) {
-                    if (((CheckBox) viewAux).isChecked()) {
-                        categorias.put(((CheckBox) viewAux).getText().toString(), true);
-                    } else {
-                        categorias.put(((CheckBox) viewAux).getText().toString(), false);
-                    }
+                    categorias.put(((CheckBox) viewAux).getText().toString(), ((CheckBox) viewAux).isChecked());
                 }
             }
 
@@ -224,7 +220,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
                 presenter.onInfoClicked();
                 return true;
             case R.id.crear_lista:
-                lastDialog = Utilities.createListPopUp(this, "Introduzca el título de la lista a crear", 2);
+                Dialog lastDialog = Utilities.createListPopUp(this, "Introduzca el título de la lista a crear", 2);
                 lastDialog.show();
                 return true;
             case R.id.listaFav:
@@ -250,10 +246,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
 
     @Override
     public boolean isConectionAvailable() {
-        if (Utilities.isConnected(this)) {
-            return true;
-        }
-        return false;
+        return Utilities.isConnected(this);
     }
 
     @Override

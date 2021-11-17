@@ -8,7 +8,6 @@ import com.isunican.eventossantander.model.Event;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +15,6 @@ public class GestionarListasUsuario implements IGestionarListasUsuario {
 
     private SharedPreferences sharedPref;
     private Context context;
-    private Map<String, String> nombresListas;
     private String idFavouriteEvents;
     private final String FAVORITOS = "favourites";
     private static final String LISTAS = "LISTS";
@@ -26,7 +24,6 @@ public class GestionarListasUsuario implements IGestionarListasUsuario {
     public GestionarListasUsuario(Context context) {
         sharedPref = context.getSharedPreferences(LISTAS, Context.MODE_PRIVATE);
         this.context = context;
-        nombresListas = new HashMap<>();
     }
 
     // Devuelve un string con el id de los eventos favoritos, sino devuelve nulo
