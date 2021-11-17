@@ -1,13 +1,13 @@
 package com.isunican.eventossantander.presenter.events;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import android.os.Build;
 
 import com.isunican.eventossantander.model.Event;
-import com.isunican.eventossantander.presenter.events.EventsPresenter;
-import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.view.events.IEventsContract;
 
 import org.junit.runner.RunWith;
@@ -25,18 +25,15 @@ import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = {Build.VERSION_CODES.O_MR1})
 public class EventsPresenterTest {
 
-    private List<Event> events, emptyEvents, eventsCulturaCientifica, eventsNoCategory;
+    private List<Event> events;
     private List<Event> eventsExpectedCulturaCientifica, eventsExpectedNoCategory,eventsExpectedEmpty;
-    private Event e1, e2, e3, e4;
     private Options options, options2, options3;
     private Map<String, Boolean> categories1, categories2,categories3;
 
@@ -52,9 +49,9 @@ public class EventsPresenterTest {
     public void setup() {
         presenter = new EventsPresenter(view);
         events = new ArrayList<Event>();
-        emptyEvents = new ArrayList<Event>();
-        eventsCulturaCientifica = new ArrayList<Event>();
-        eventsNoCategory = new ArrayList<Event>();
+        List<Event> emptyEvents = new ArrayList<Event>();
+        List<Event> eventsCulturaCientifica = new ArrayList<Event>();
+        List<Event> eventsNoCategory = new ArrayList<Event>();
 
         eventsExpectedCulturaCientifica = new ArrayList<Event>();
         eventsExpectedEmpty = new ArrayList<Event>();
@@ -65,15 +62,15 @@ public class EventsPresenterTest {
         categories3 = new HashMap<String, Boolean>();
 
 
-        e1 = new Event();
+        Event e1 = new Event();
         e1.setCategoria("Cultura científica");
         e1.setIdentificador(1);
-        e2 = new Event();
+        Event e2 = new Event();
         e2.setIdentificador(2);
-        e3 = new Event();
+        Event e3 = new Event();
         e3.setCategoria("Cultura científica");
         e3.setIdentificador(3);
-        e4 = new Event();
+        Event e4 = new Event();
         e4.setIdentificador(4);
 
         events.add(e1);
@@ -110,6 +107,552 @@ public class EventsPresenterTest {
     @After
     public void clear() {
 
+    }
+
+    // Identificador: "UGIC.1g"
+    @Test
+    public void orderTest() {
+        List<Event> events, eventsExpectedAsc, eventsFilteredOrdered;
+        Options options, options2;
+        Event e1, e2, e3;
+        Map<String,Boolean> categories, categoriesOnline;
+
+
+        presenter = new EventsPresenter(view);
+        events = new ArrayList<>();
+        eventsExpectedAsc = new ArrayList<>();
+        eventsFilteredOrdered = new ArrayList<>();
+
+        categories = new HashMap<>();
+        categoriesOnline = new HashMap<>();
+
+        e1 = new Event();
+        e1.setFecha("Domingo 31/07/2021, todo el día");
+        e1.setIdentificador(1);
+        e1.setCategoria("Online");
+        e2 = new Event();
+        e2.setFecha("Sábado 30/07/2021, todo el día");
+        e2.setIdentificador(2);
+        e3 = new Event();
+        e3.setFecha("Viernes 29/07/2021, todo el día");
+        e3.setIdentificador(3);
+        e3.setCategoria("Online");
+
+        events.add(e2);
+        events.add(e1);
+        events.add(e3);
+
+        eventsExpectedAsc.add(e3);
+        eventsExpectedAsc.add(e2);
+        eventsExpectedAsc.add(e1);
+
+        eventsFilteredOrdered.add(e1);
+        eventsFilteredOrdered.add(e3);
+
+        categoriesOnline.put("Online", true);
+
+        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
+        options2 = new Options(categoriesOnline, EventsPresenter.OrderType.DATE_DESC, false);
+
+        ArgumentCaptor<List<Event>> listCaptor = ArgumentCaptor.forClass(List.class);
+        presenter.setList(events);
+        presenter.onApplyOptions(options);
+        verify(view, times(1)).onEventsLoaded(listCaptor.capture());
+        assertEquals(eventsExpectedAsc, presenter.getList());
+    }
+
+    // Identificador: "UIT.1h"
+    @Test
+    public void orderFilterTest() {
+        List<Event> events, eventsExpectedAsc, eventsFilteredOrdered;
+        Options options, options2;
+        Event e1, e2, e3;
+        Map<String,Boolean> categories, categoriesOnline;
+
+
+        presenter = new EventsPresenter(view);
+        events = new ArrayList<>();
+        eventsExpectedAsc = new ArrayList<>();
+        eventsFilteredOrdered = new ArrayList<>();
+
+        categories = new HashMap<>();
+        categoriesOnline = new HashMap<>();
+
+        e1 = new Event();
+        e1.setFecha("Domingo 31/07/2021, todo el día");
+        e1.setIdentificador(1);
+        e1.setCategoria("Online");
+        e2 = new Event();
+        e2.setFecha("Sábado 30/07/2021, todo el día");
+        e2.setIdentificador(2);
+        e3 = new Event();
+        e3.setFecha("Viernes 29/07/2021, todo el día");
+        e3.setIdentificador(3);
+        e3.setCategoria("Online");
+
+        events.add(e2);
+        events.add(e1);
+        events.add(e3);
+
+        eventsExpectedAsc.add(e3);
+        eventsExpectedAsc.add(e2);
+        eventsExpectedAsc.add(e1);
+
+        eventsFilteredOrdered.add(e1);
+        eventsFilteredOrdered.add(e3);
+
+        categoriesOnline.put("Online", true);
+
+        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
+        options2 = new Options(categoriesOnline, EventsPresenter.OrderType.DATE_DESC, false);
+
+        ArgumentCaptor<List<Event>> listCaptor = ArgumentCaptor.forClass(List.class);
+        presenter.setList(events);
+        presenter.onApplyOptions(options2);
+        verify(view, times(1)).onEventsLoaded(listCaptor.capture());
+        assertEquals(eventsFilteredOrdered, listCaptor.getValue());
+    }
+
+    // Identificador: "UGIC.1a"
+    @Test
+    public void applyOrderAsc() {
+        List<Event> events, emptyEvents, oneEvent, eventsNoDate;
+        List<Event> eventsExpectedAsc, eventsExpectedDesc, eventsExpectedEmpty, eventsExpectedOne, eventsExpectedNoDateF, eventsExpectedNoDateT;
+        Options options, options2, options3;
+        Event e1, e2, e3, e4;
+        Map<String,Boolean> categories;
+
+        presenter = new EventsPresenter(view);
+        events = new ArrayList<>();
+        emptyEvents = new ArrayList<>();
+        oneEvent = new ArrayList<>();
+        eventsNoDate = new ArrayList<>();
+
+        eventsExpectedAsc = new ArrayList<>();
+        eventsExpectedDesc = new ArrayList<>();
+        eventsExpectedEmpty = new ArrayList<>();
+        eventsExpectedOne = new ArrayList<>();
+        eventsExpectedNoDateF = new ArrayList<>();
+        eventsExpectedNoDateT = new ArrayList<>();
+
+        categories = new HashMap<>();
+
+        e1 = new Event();
+        e1.setFecha("Domingo 31/07/2021, todo el día");
+        e1.setIdentificador(1);
+        e2 = new Event();
+        e2.setFecha("Sábado 30/07/2021, todo el día");
+        e2.setIdentificador(2);
+        e3 = new Event();
+        e3.setFecha("Viernes 29/07/2021, todo el día");
+        e3.setIdentificador(3);
+        e4 = new Event();
+        e4.setIdentificador(4);
+
+        events.add(e2);
+        events.add(e1);
+        events.add(e3);
+        oneEvent.add(e2);
+        eventsNoDate.add(e1);
+        eventsNoDate.add(e2);
+        eventsNoDate.add(e4);
+        eventsNoDate.add(e3);
+
+        eventsExpectedAsc.add(e3);
+        eventsExpectedAsc.add(e2);
+        eventsExpectedAsc.add(e1);
+        eventsExpectedDesc.add(e1);
+        eventsExpectedDesc.add(e2);
+        eventsExpectedDesc.add(e3);
+        eventsExpectedOne.add(e2);
+        eventsExpectedNoDateF.add(e3);
+        eventsExpectedNoDateF.add(e2);
+        eventsExpectedNoDateF.add(e1);
+        eventsExpectedNoDateF.add(e4);
+        eventsExpectedNoDateT.add(e4);
+        eventsExpectedNoDateT.add(e3);
+        eventsExpectedNoDateT.add(e2);
+        eventsExpectedNoDateT.add(e1);
+
+        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
+        options2 = new Options(categories, EventsPresenter.OrderType.DATE_DESC, false);
+        options3 = new Options(categories, EventsPresenter.OrderType.DATE_ASC, true);
+
+        presenter.setList(events);
+        presenter.onApplyOptions(options);
+        assertEquals(eventsExpectedAsc, presenter.getList());
+    }
+
+    // Identificador: "UGIC.1b"
+    @Test
+    public void applyOrderDesc() {
+        List<Event> events, emptyEvents, oneEvent, eventsNoDate;
+        List<Event> eventsExpectedAsc, eventsExpectedDesc, eventsExpectedEmpty, eventsExpectedOne, eventsExpectedNoDateF, eventsExpectedNoDateT;
+        Options options, options2, options3;
+        Event e1, e2, e3, e4;
+        Map<String,Boolean> categories;
+
+        presenter = new EventsPresenter(view);
+        events = new ArrayList<>();
+        emptyEvents = new ArrayList<>();
+        oneEvent = new ArrayList<>();
+        eventsNoDate = new ArrayList<>();
+
+        eventsExpectedAsc = new ArrayList<>();
+        eventsExpectedDesc = new ArrayList<>();
+        eventsExpectedEmpty = new ArrayList<>();
+        eventsExpectedOne = new ArrayList<>();
+        eventsExpectedNoDateF = new ArrayList<>();
+        eventsExpectedNoDateT = new ArrayList<>();
+
+        categories = new HashMap<>();
+
+        e1 = new Event();
+        e1.setFecha("Domingo 31/07/2021, todo el día");
+        e1.setIdentificador(1);
+        e2 = new Event();
+        e2.setFecha("Sábado 30/07/2021, todo el día");
+        e2.setIdentificador(2);
+        e3 = new Event();
+        e3.setFecha("Viernes 29/07/2021, todo el día");
+        e3.setIdentificador(3);
+        e4 = new Event();
+        e4.setIdentificador(4);
+
+        events.add(e2);
+        events.add(e1);
+        events.add(e3);
+        oneEvent.add(e2);
+        eventsNoDate.add(e1);
+        eventsNoDate.add(e2);
+        eventsNoDate.add(e4);
+        eventsNoDate.add(e3);
+
+        eventsExpectedAsc.add(e3);
+        eventsExpectedAsc.add(e2);
+        eventsExpectedAsc.add(e1);
+        eventsExpectedDesc.add(e1);
+        eventsExpectedDesc.add(e2);
+        eventsExpectedDesc.add(e3);
+        eventsExpectedOne.add(e2);
+        eventsExpectedNoDateF.add(e3);
+        eventsExpectedNoDateF.add(e2);
+        eventsExpectedNoDateF.add(e1);
+        eventsExpectedNoDateF.add(e4);
+        eventsExpectedNoDateT.add(e4);
+        eventsExpectedNoDateT.add(e3);
+        eventsExpectedNoDateT.add(e2);
+        eventsExpectedNoDateT.add(e1);
+
+        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
+        options2 = new Options(categories, EventsPresenter.OrderType.DATE_DESC, false);
+        options3 = new Options(categories, EventsPresenter.OrderType.DATE_ASC, true);
+
+        presenter.setList(events);
+        presenter.onApplyOptions(options2);
+        assertEquals(eventsExpectedDesc, presenter.getList());
+    }
+
+    // Identificador: "UGIC.1c"
+    @Test
+    public void applyOrderEmpty() {
+        List<Event> events, emptyEvents, oneEvent, eventsNoDate;
+        List<Event> eventsExpectedAsc, eventsExpectedDesc, eventsExpectedEmpty, eventsExpectedOne, eventsExpectedNoDateF, eventsExpectedNoDateT;
+        Options options, options2, options3;
+        Event e1, e2, e3, e4;
+        Map<String,Boolean> categories;
+
+        presenter = new EventsPresenter(view);
+        events = new ArrayList<>();
+        emptyEvents = new ArrayList<>();
+        oneEvent = new ArrayList<>();
+        eventsNoDate = new ArrayList<>();
+
+        eventsExpectedAsc = new ArrayList<>();
+        eventsExpectedDesc = new ArrayList<>();
+        eventsExpectedEmpty = new ArrayList<>();
+        eventsExpectedOne = new ArrayList<>();
+        eventsExpectedNoDateF = new ArrayList<>();
+        eventsExpectedNoDateT = new ArrayList<>();
+
+        categories = new HashMap<>();
+
+        e1 = new Event();
+        e1.setFecha("Domingo 31/07/2021, todo el día");
+        e1.setIdentificador(1);
+        e2 = new Event();
+        e2.setFecha("Sábado 30/07/2021, todo el día");
+        e2.setIdentificador(2);
+        e3 = new Event();
+        e3.setFecha("Viernes 29/07/2021, todo el día");
+        e3.setIdentificador(3);
+        e4 = new Event();
+        e4.setIdentificador(4);
+
+        events.add(e2);
+        events.add(e1);
+        events.add(e3);
+        oneEvent.add(e2);
+        eventsNoDate.add(e1);
+        eventsNoDate.add(e2);
+        eventsNoDate.add(e4);
+        eventsNoDate.add(e3);
+
+        eventsExpectedAsc.add(e3);
+        eventsExpectedAsc.add(e2);
+        eventsExpectedAsc.add(e1);
+        eventsExpectedDesc.add(e1);
+        eventsExpectedDesc.add(e2);
+        eventsExpectedDesc.add(e3);
+        eventsExpectedOne.add(e2);
+        eventsExpectedNoDateF.add(e3);
+        eventsExpectedNoDateF.add(e2);
+        eventsExpectedNoDateF.add(e1);
+        eventsExpectedNoDateF.add(e4);
+        eventsExpectedNoDateT.add(e4);
+        eventsExpectedNoDateT.add(e3);
+        eventsExpectedNoDateT.add(e2);
+        eventsExpectedNoDateT.add(e1);
+
+        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
+        options2 = new Options(categories, EventsPresenter.OrderType.DATE_DESC, false);
+        options3 = new Options(categories, EventsPresenter.OrderType.DATE_ASC, true);
+
+        presenter.setList(emptyEvents);
+        presenter.onApplyOptions(options2);
+        assertEquals(eventsExpectedEmpty, presenter.getList());
+    }
+
+    // Identificador: "UGIC.1d"
+    @Test
+    public void applyOrderOne() {
+        List<Event> events, emptyEvents, oneEvent, eventsNoDate;
+        List<Event> eventsExpectedAsc, eventsExpectedDesc, eventsExpectedEmpty, eventsExpectedOne, eventsExpectedNoDateF, eventsExpectedNoDateT;
+        Options options, options2, options3;
+        Event e1, e2, e3, e4;
+        Map<String,Boolean> categories;
+
+        presenter = new EventsPresenter(view);
+        events = new ArrayList<>();
+        emptyEvents = new ArrayList<>();
+        oneEvent = new ArrayList<>();
+        eventsNoDate = new ArrayList<>();
+
+        eventsExpectedAsc = new ArrayList<>();
+        eventsExpectedDesc = new ArrayList<>();
+        eventsExpectedEmpty = new ArrayList<>();
+        eventsExpectedOne = new ArrayList<>();
+        eventsExpectedNoDateF = new ArrayList<>();
+        eventsExpectedNoDateT = new ArrayList<>();
+
+        categories = new HashMap<>();
+
+        e1 = new Event();
+        e1.setFecha("Domingo 31/07/2021, todo el día");
+        e1.setIdentificador(1);
+        e2 = new Event();
+        e2.setFecha("Sábado 30/07/2021, todo el día");
+        e2.setIdentificador(2);
+        e3 = new Event();
+        e3.setFecha("Viernes 29/07/2021, todo el día");
+        e3.setIdentificador(3);
+        e4 = new Event();
+        e4.setIdentificador(4);
+
+        events.add(e2);
+        events.add(e1);
+        events.add(e3);
+        oneEvent.add(e2);
+        eventsNoDate.add(e1);
+        eventsNoDate.add(e2);
+        eventsNoDate.add(e4);
+        eventsNoDate.add(e3);
+
+        eventsExpectedAsc.add(e3);
+        eventsExpectedAsc.add(e2);
+        eventsExpectedAsc.add(e1);
+        eventsExpectedDesc.add(e1);
+        eventsExpectedDesc.add(e2);
+        eventsExpectedDesc.add(e3);
+        eventsExpectedOne.add(e2);
+        eventsExpectedNoDateF.add(e3);
+        eventsExpectedNoDateF.add(e2);
+        eventsExpectedNoDateF.add(e1);
+        eventsExpectedNoDateF.add(e4);
+        eventsExpectedNoDateT.add(e4);
+        eventsExpectedNoDateT.add(e3);
+        eventsExpectedNoDateT.add(e2);
+        eventsExpectedNoDateT.add(e1);
+
+        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
+        options2 = new Options(categories, EventsPresenter.OrderType.DATE_DESC, false);
+        options3 = new Options(categories, EventsPresenter.OrderType.DATE_ASC, true);
+
+        presenter.setList(oneEvent);
+        presenter.onApplyOptions(options2);
+        assertEquals(eventsExpectedOne, presenter.getList());
+    }
+
+    // Identificador: "UGIC.1e"
+    @Test
+    public void applyOrderNoDate() {
+        List<Event> events, emptyEvents, oneEvent, eventsNoDate;
+        List<Event> eventsExpectedAsc, eventsExpectedDesc, eventsExpectedEmpty, eventsExpectedOne, eventsExpectedNoDateF, eventsExpectedNoDateT;
+        Options options, options2, options3;
+        Event e1, e2, e3, e4;
+        Map<String,Boolean> categories;
+
+        presenter = new EventsPresenter(view);
+        events = new ArrayList<>();
+        emptyEvents = new ArrayList<>();
+        oneEvent = new ArrayList<>();
+        eventsNoDate = new ArrayList<>();
+
+        eventsExpectedAsc = new ArrayList<>();
+        eventsExpectedDesc = new ArrayList<>();
+        eventsExpectedEmpty = new ArrayList<>();
+        eventsExpectedOne = new ArrayList<>();
+        eventsExpectedNoDateF = new ArrayList<>();
+        eventsExpectedNoDateT = new ArrayList<>();
+
+        categories = new HashMap<>();
+
+        e1 = new Event();
+        e1.setFecha("Domingo 31/07/2021, todo el día");
+        e1.setIdentificador(1);
+        e2 = new Event();
+        e2.setFecha("Sábado 30/07/2021, todo el día");
+        e2.setIdentificador(2);
+        e3 = new Event();
+        e3.setFecha("Viernes 29/07/2021, todo el día");
+        e3.setIdentificador(3);
+        e4 = new Event();
+        e4.setIdentificador(4);
+
+        events.add(e2);
+        events.add(e1);
+        events.add(e3);
+        oneEvent.add(e2);
+        eventsNoDate.add(e1);
+        eventsNoDate.add(e2);
+        eventsNoDate.add(e4);
+        eventsNoDate.add(e3);
+
+        eventsExpectedAsc.add(e3);
+        eventsExpectedAsc.add(e2);
+        eventsExpectedAsc.add(e1);
+        eventsExpectedDesc.add(e1);
+        eventsExpectedDesc.add(e2);
+        eventsExpectedDesc.add(e3);
+        eventsExpectedOne.add(e2);
+        eventsExpectedNoDateF.add(e3);
+        eventsExpectedNoDateF.add(e2);
+        eventsExpectedNoDateF.add(e1);
+        eventsExpectedNoDateF.add(e4);
+        eventsExpectedNoDateT.add(e4);
+        eventsExpectedNoDateT.add(e3);
+        eventsExpectedNoDateT.add(e2);
+        eventsExpectedNoDateT.add(e1);
+
+        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
+        options2 = new Options(categories, EventsPresenter.OrderType.DATE_DESC, false);
+        options3 = new Options(categories, EventsPresenter.OrderType.DATE_ASC, true);
+
+        presenter.setList(eventsNoDate);
+        presenter.onApplyOptions(options);
+        assertEquals(eventsExpectedNoDateF, presenter.getList());
+    }
+
+    // Identificador: "UGIC.1f"
+    @Test
+    public void applyOrderNoDateFirst() {
+        List<Event> events, emptyEvents, oneEvent, eventsNoDate;
+        List<Event> eventsExpectedAsc, eventsExpectedDesc, eventsExpectedEmpty, eventsExpectedOne, eventsExpectedNoDateF, eventsExpectedNoDateT;
+        Options options, options2, options3;
+        Event e1, e2, e3, e4;
+        Map<String,Boolean> categories;
+
+        presenter = new EventsPresenter(view);
+        events = new ArrayList<>();
+        emptyEvents = new ArrayList<>();
+        oneEvent = new ArrayList<>();
+        eventsNoDate = new ArrayList<>();
+
+        eventsExpectedAsc = new ArrayList<>();
+        eventsExpectedDesc = new ArrayList<>();
+        eventsExpectedEmpty = new ArrayList<>();
+        eventsExpectedOne = new ArrayList<>();
+        eventsExpectedNoDateF = new ArrayList<>();
+        eventsExpectedNoDateT = new ArrayList<>();
+
+        categories = new HashMap<>();
+
+        e1 = new Event();
+        e1.setFecha("Domingo 31/07/2021, todo el día");
+        e1.setIdentificador(1);
+        e2 = new Event();
+        e2.setFecha("Sábado 30/07/2021, todo el día");
+        e2.setIdentificador(2);
+        e3 = new Event();
+        e3.setFecha("Viernes 29/07/2021, todo el día");
+        e3.setIdentificador(3);
+        e4 = new Event();
+        e4.setIdentificador(4);
+
+        events.add(e2);
+        events.add(e1);
+        events.add(e3);
+        oneEvent.add(e2);
+        eventsNoDate.add(e1);
+        eventsNoDate.add(e2);
+        eventsNoDate.add(e4);
+        eventsNoDate.add(e3);
+
+        eventsExpectedAsc.add(e3);
+        eventsExpectedAsc.add(e2);
+        eventsExpectedAsc.add(e1);
+        eventsExpectedDesc.add(e1);
+        eventsExpectedDesc.add(e2);
+        eventsExpectedDesc.add(e3);
+        eventsExpectedOne.add(e2);
+        eventsExpectedNoDateF.add(e3);
+        eventsExpectedNoDateF.add(e2);
+        eventsExpectedNoDateF.add(e1);
+        eventsExpectedNoDateF.add(e4);
+        eventsExpectedNoDateT.add(e4);
+        eventsExpectedNoDateT.add(e3);
+        eventsExpectedNoDateT.add(e2);
+        eventsExpectedNoDateT.add(e1);
+
+        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
+        options2 = new Options(categories, EventsPresenter.OrderType.DATE_DESC, false);
+        options3 = new Options(categories, EventsPresenter.OrderType.DATE_ASC, true);
+
+        presenter.setList(eventsNoDate);
+        presenter.onApplyOptions(options3);
+        assertEquals(eventsExpectedNoDateT, presenter.getList());
+    }
+
+    @Test
+    public void getOrderCategoriesTest() {
+        Options options, options2;
+        Map<String,Boolean> categories = new HashMap<>();
+
+        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
+        options2 = new Options(categories, null, false);
+
+        assertEquals(EventsPresenter.OrderType.DATE_ASC, options.getOrderTypeOptions());
+    }
+
+    @Test
+    public void getNullOrderCategoriesTest() {
+        Options options, options2;
+        Map<String,Boolean> categories = new HashMap<>();
+
+        options = new Options(categories, EventsPresenter.OrderType.DATE_ASC, false);
+        options2 = new Options(categories, null, false);
+
+        assertNull(options2.getOrderTypeOptions());
     }
 
     @Test
