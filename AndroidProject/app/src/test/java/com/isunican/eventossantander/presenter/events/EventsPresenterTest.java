@@ -4,26 +4,25 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.os.Build;
 
 import com.isunican.eventossantander.model.Event;
-import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 import com.isunican.eventossantander.view.events.IEventsContract;
 import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
-
-import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -39,6 +38,7 @@ public class EventsPresenterTest {
     private List<Event> eventsExpectedCulturaCientifica, eventsExpectedNoCategory,eventsExpectedEmpty;
     private Options options, options2, options3;
     private Map<String, Boolean> categories1, categories2,categories3;
+    private final String NOMBRE_LISTA_EXISTE = "Lista1";
 
     @Mock
     private IEventsContract.View view;
@@ -54,6 +54,7 @@ public class EventsPresenterTest {
     public void setup() {
         presenter = new EventsPresenter(view);
         events = new ArrayList<>();
+
         List<Event> eventsCulturaCientifica = new ArrayList<>();
         List<Event> eventsNoCategory = new ArrayList<>();
 
@@ -102,11 +103,11 @@ public class EventsPresenterTest {
         options = new Options(categories1, null, true);
         options2 = new Options(categories2, null, true);
         options3 = new Options(categories3, null, true);
+
     }
 
     @After
     public void clear() {
-
     }
 
     @Test
@@ -189,35 +190,48 @@ public class EventsPresenterTest {
     @Test
     public void testOnAddEventClicked() {
 
-        String nombreListaExiste = "Lista1";
         String nombreListaNoExiste = "Lista2";
 
         // Identificador: "UT.1a"
         presenter.setList(events);
-        presenter.onAddEventClicked(1, sharedPref, nombreListaExiste);
-        verify(sharedPref).addEvent(eq(1), any(), eq(nombreListaExiste));
+        when(sharedPref.addEvent(eq(1), any(), eq(NOMBRE_LISTA_EXISTE))).thenReturn(true);
+        assertEquals(presenter.onAddEventClicked(1, sharedPref, NOMBRE_LISTA_EXISTE), true);
+        verify(sharedPref).addEvent(eq(1), any(), eq(NOMBRE_LISTA_EXISTE));
 
         // Identificador: "UT.1b"
-        presenter.onAddEventClicked(1, sharedPref, nombreListaExiste);
-        verify(sharedPref).addEvent(eq(1), any(), eq(nombreListaExiste));
+        when(sharedPref.addEvent(eq(1), any(), eq(NOMBRE_LISTA_EXISTE))).thenReturn(false);
+        assertEquals(presenter.onAddEventClicked(1, sharedPref, NOMBRE_LISTA_EXISTE), false);
+        verify(sharedPref, times(2)).addEvent(eq(1), any(), eq(NOMBRE_LISTA_EXISTE));
 
-        /// Vaciar lista y meterle los eventos 2, 3 y 4
         // Identificador: "UT.1c"
-        presenter.onAddEventClicked(1, sharedPref, nombreListaExiste);
-        verify(sharedPref).addEvent(eq(1), any(), eq(nombreListaExiste));
+        when(sharedPref.addEvent(eq(2), any(), eq(NOMBRE_LISTA_EXISTE))).thenReturn(true);
+        assertEquals(presenter.onAddEventClicked(2, sharedPref, NOMBRE_LISTA_EXISTE), true);
+        verify(sharedPref).addEvent(eq(2), any(), eq(NOMBRE_LISTA_EXISTE));
 
         // Identificador: "UT.1d"
-        presenter.onAddEventClicked(1, sharedPref, nombreListaNoExiste);
-        verify(sharedPref, never()).addEvent(eq(1), any(), eq(nombreListaNoExiste));
+        assertEquals(presenter.onAddEventClicked(1, sharedPref, nombreListaNoExiste), false);
+        verify(sharedPref, times(2)).addEvent(eq(1), any(), eq(NOMBRE_LISTA_EXISTE));
 
-        // Vaciar la Lista1
         // Identificador: "UT.1e"
-        presenter.onAddEventClicked(999999, sharedPref, nombreListaExiste);
-        verify(sharedPref).addEvent(eq(1), any(), eq(nombreListaExiste));
+        assertEquals(presenter.onAddEventClicked(999999, sharedPref, NOMBRE_LISTA_EXISTE), false);
+        verify(sharedPref, never()).addEvent(eq(999999), any(), eq(NOMBRE_LISTA_EXISTE));
 
-        // Vaciar la Lista1
         // Identificador: "UT.1f"
-        presenter.onAddEventClicked(-1, sharedPref, nombreListaExiste);
-        verify(sharedPref, never()).addEvent(eq(1), any(), eq(nombreListaExiste));
+        assertEquals(presenter.onAddEventClicked(-1, sharedPref, NOMBRE_LISTA_EXISTE), false);
+        verify(sharedPref, never()).addEvent(eq(-1), any(), eq(NOMBRE_LISTA_EXISTE));
+
+        // Identificador: "UT.1g"
+        when(sharedPref.addEvent(eq(0), any(), eq(NOMBRE_LISTA_EXISTE))).thenReturn(true);
+        assertEquals(presenter.onAddEventClicked(0, sharedPref, NOMBRE_LISTA_EXISTE), true);
+        verify(sharedPref).addEvent(eq(0), any(), eq(NOMBRE_LISTA_EXISTE));
+
+        // Identificador: "UT.1h"
+        when(sharedPref.addEvent(eq(events.size()-1), any(), eq(NOMBRE_LISTA_EXISTE))).thenReturn(true);
+        assertEquals(presenter.onAddEventClicked(events.size()-1, sharedPref, NOMBRE_LISTA_EXISTE), true);
+        verify(sharedPref).addEvent(eq(events.size()-1), any(), eq(NOMBRE_LISTA_EXISTE));
+
+        // Identificador: "UT.1i"
+        assertEquals(presenter.onAddEventClicked(events.size(), sharedPref, NOMBRE_LISTA_EXISTE), false);
+        verify(sharedPref, never()).addEvent(eq(events.size()), any(), eq(NOMBRE_LISTA_EXISTE));
     }
 }

@@ -203,7 +203,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
          if(eventIndex > 0 && eventIndex <= cachedEvents.size()) {
              // isClicked = true -> Quitar evento de favoritos
              // isClicked = false -> Anhadir evento a favoritos
-             if (isClicked) {
+             if (isClicked == true) {
                  // TODO
              } else {
                  sharedPref.setFavourite(eventIndex, cachedEvents);
