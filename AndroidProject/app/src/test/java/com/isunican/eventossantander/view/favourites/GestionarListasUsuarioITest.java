@@ -47,20 +47,20 @@
 
         /**
          * Historia de Usuario: Crear lista.
-         * Identificador: "UT.2".
+         * Identificador: "IT.2".
          * Autora: Marta Obregon Ruiz.
          */
         @Test
         public void testCreateList() {
-            // Identificador: "UT.2a"
+            // Identificador: "IT.2a"
             nombreLista = gestionarListas.createList("Conciertos");
             Assert.assertEquals("Conciertos", nombreLista);
 
-            // Identificador: "UT.2b"
+            // Identificador: "IT.2b"
             nombreLista = gestionarListas.createList("Conciertos");
             Assert.assertEquals("Conciertos(1)", nombreLista);
 
-            // Identificador: "UT.2c"
+            // Identificador: "IT.2c"
             nombreLista = gestionarListas.createList("");
             Assert.assertEquals("", nombreLista);
         }
