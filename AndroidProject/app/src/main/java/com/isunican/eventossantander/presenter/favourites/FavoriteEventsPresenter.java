@@ -2,21 +2,16 @@ package com.isunican.eventossantander.presenter.favourites;
 
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
-import com.isunican.eventossantander.presenter.Presenter;
+import com.isunican.eventossantander.presenter.PresenterComun;
 import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.presenter.events.Utilities;
 import com.isunican.eventossantander.view.Listener;
 import com.isunican.eventossantander.view.events.IEventsContract;
 import com.isunican.eventossantander.view.favourites.IFavoriteEventsContract;
 
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -37,7 +32,7 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
                 // Orders events with default options:
                 //   Dates closer to further & events without dates last.
 
-                Presenter.onApplyOrder(data, Utilities.OrderType.DATE_ASC, false);
+                PresenterComun.onApplyOrder(data, Utilities.OrderType.DATE_ASC, false);
 
                 // Los eventos cacheados los filtro con los ids que vengan
                 String ids = view.getSharedPref().getFavourites();
@@ -87,7 +82,7 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
      */
     public List<Event> onApplyFilter(Map<String, Boolean> categorias){
 
-        return Presenter.onApplyFilter(categorias, cachedEvents);
+        return PresenterComun.onApplyFilter(categorias, cachedEvents);
         /*
         List<Event> filteredEvents = new ArrayList<>();
 
@@ -112,7 +107,7 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
 
     @Override
     public void onEventClicked(int eventIndex) {
-        Presenter.onEventClicked(eventIndex, cachedEvents, view);
+        PresenterComun.onEventClicked(eventIndex, cachedEvents, view);
         /*if (cachedEvents != null && eventIndex < cachedEvents.size()) {
             Event event = cachedEvents.get(eventIndex);
             view.openEventDetails(event);
@@ -136,7 +131,7 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
         } else {
             view.openFilterMenuView();
         }*/
-        Presenter.onFilterMenuClicked(isFilterMenuVisible, view);
+        PresenterComun.onFilterMenuClicked(isFilterMenuVisible, view);
     }
 
     /**
@@ -163,7 +158,7 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
         // Reloads the events with the filters & order applied
         view.onEventsLoaded(eventList);
         view.onLoadSuccess(eventList.size());*/
-        Presenter.onApplyOptions(options, cachedEvents, view);
+        PresenterComun.onApplyOptions(options, cachedEvents, view);
     }
 
 

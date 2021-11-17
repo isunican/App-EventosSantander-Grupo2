@@ -2,15 +2,13 @@ package com.isunican.eventossantander.presenter.events;
 
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
-import com.isunican.eventossantander.presenter.Presenter;
+import com.isunican.eventossantander.presenter.PresenterComun;
 import com.isunican.eventossantander.view.Listener;
 import com.isunican.eventossantander.view.events.IEventsContract;
 import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -34,7 +32,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
                 // Orders events with default options:
                 //  Dates closer to further & events without dates last.
 
-                Presenter.onApplyOrder(data, Utilities.OrderType.DATE_ASC, false);
+                PresenterComun.onApplyOrder(data, Utilities.OrderType.DATE_ASC, false);
                 view.onEventsLoaded(data);
                 view.onLoadSuccess(data.size());
                 cachedEvents = data;
@@ -60,7 +58,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
     //Debe ser público debido a los tests
     public List<Event> onApplyFilter(Map<String, Boolean> categorias){
 
-        return Presenter.onApplyFilter(categorias, cachedEvents);
+        return PresenterComun.onApplyFilter(categorias, cachedEvents);
         /*
         List<Event> filteredEvents = new ArrayList<>();
 
@@ -86,7 +84,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
 
     @Override
     public void onEventClicked(int eventIndex) {
-        Presenter.onEventClicked(eventIndex, cachedEvents, view);
+        PresenterComun.onEventClicked(eventIndex, cachedEvents, view);
         /*if (cachedEvents != null && eventIndex < cachedEvents.size()) {
             Event event = cachedEvents.get(eventIndex);
             view.openEventDetails(event);
@@ -115,7 +113,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
         } else {
             view.openFilterMenuView();
         }*/
-        Presenter.onFilterMenuClicked(isFilterMenuVisible, view);
+        PresenterComun.onFilterMenuClicked(isFilterMenuVisible, view);
     }
 
     /**
@@ -142,7 +140,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
         // Reloads the events with the filters & order applied
         view.onEventsLoaded(eventList);
         view.onLoadSuccess(eventList.size());*/
-        Presenter.onApplyOptions(options, cachedEvents, view);
+        PresenterComun.onApplyOptions(options, cachedEvents, view);
     }
 
     /**
@@ -152,7 +150,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
      * @param isDateFirst == true -> Show events without dates first in the list.
      *                    == false-> Show events without dates last in the list.
      */
-      private void onApplyOrder(List<Event> eventList, Utilities.OrderType type, boolean isDateFirst) {
+      private void onApplyOrder() {
          /*Collections.sort(eventList, (e1, e2) -> {
             int result;
             boolean fecha1IsNull = nullOrEmpty(e1.getFecha());

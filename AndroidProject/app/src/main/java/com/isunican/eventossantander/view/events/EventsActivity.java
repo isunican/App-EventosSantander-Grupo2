@@ -268,6 +268,6 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
 
     @Override
     public void showEmptyListMessage() {
-
+        //No se ha realizado esta implementacion todavia
     }
 }

@@ -189,7 +189,7 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IEvents
 
     @Override
     public void openFavouritesView() {
-
+        //No se ha realizado esta implementacion todavia
     }
 
     @Override
