@@ -1,4 +1,4 @@
-    package com.isunican.eventossantander.view.events;
+    package com.isunican.eventossantander.view.favourites;
 
     import static org.mockito.Mockito.verify;
 
@@ -22,7 +22,7 @@
 
     @RunWith(RobolectricTestRunner.class)
     @Config(sdk = {Build.VERSION_CODES.O_MR1})
-    public class GestionarListasITest {
+    public class GestionarListasUsuarioITest {
 
         private GestionarListasUsuario gestionarListas;
         private String nombreLista;
