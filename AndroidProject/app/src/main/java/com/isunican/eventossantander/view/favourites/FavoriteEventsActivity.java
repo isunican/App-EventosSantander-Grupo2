@@ -25,15 +25,17 @@ import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.presenter.events.Utilities;
 import com.isunican.eventossantander.presenter.favourites.FavoriteEventsPresenter;
 import com.isunican.eventossantander.view.events.EventsActivity;
+import com.isunican.eventossantander.view.events.IEventsContract;
 import com.isunican.eventossantander.view.events.OnSwipeTouchListener;
 import com.isunican.eventossantander.view.eventsdetail.EventsDetailActivity;
 import com.isunican.eventossantander.view.info.InfoActivity;
+
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FavoriteEventsActivity extends AppCompatActivity implements IFavoriteEventsContract.View {
+public class FavoriteEventsActivity extends AppCompatActivity implements IEventsContract.View {
 
     private IFavoriteEventsContract.Presenter presenter;
     private IGestionarListasUsuario sharedPref;
@@ -45,7 +47,7 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
         setContentView(R.layout.activity_main);
 
         sharedPref = new GestionarListasUsuario(this);
-        presenter = new FavoriteEventsPresenter(this);
+        presenter = new FavoriteEventsPresenter( this);
 
         NavigationView menuFiltros = findViewById(R.id.menu_filtros);
         ListView listaEventos = findViewById(R.id.eventsListView);
@@ -143,6 +145,8 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
                     Intent intent2 = new Intent(this, FavoriteEventsActivity.class);
                     startActivity(intent2);
                     break;
+                default:
+                    break;
             }
 
             return false;
@@ -182,6 +186,11 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
     public void openInfoView() {
         Intent intent = new Intent(this, InfoActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void openFavouritesView() {
+
     }
 
     @Override
@@ -254,6 +263,17 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
     @Override
     public void showEmptyListMessage() {
         Utilities.createPopUp(this, Utilities.EMPTY_FAVOURITE_MESSAGE, 1).show();
+    }
+
+    @Override
+    public void errorEventAlreadyExists() {
+        Utilities.createPopUp(this, Utilities.ERROR_EVENT_ALREADY_EXISTS, 1).show();
+
+    }
+
+    @Override
+    public void errorEventIndexOutOfBounds() {
+        Utilities.createPopUp(this, Utilities.ERROR_EVENT_INDEX_OUT_OF_BOUNDS, 1).show();
     }
 
 

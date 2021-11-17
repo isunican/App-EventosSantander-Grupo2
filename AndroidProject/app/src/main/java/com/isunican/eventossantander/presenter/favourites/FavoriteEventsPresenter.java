@@ -2,9 +2,11 @@ package com.isunican.eventossantander.presenter.favourites;
 
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
+import com.isunican.eventossantander.presenter.Presenter;
 import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.presenter.events.Utilities;
 import com.isunican.eventossantander.view.Listener;
+import com.isunican.eventossantander.view.events.IEventsContract;
 import com.isunican.eventossantander.view.favourites.IFavoriteEventsContract;
 
 import java.text.ParsePosition;
@@ -20,10 +22,10 @@ import java.util.Set;
 
 public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presenter {
 
-    private final IFavoriteEventsContract.View view;
+    private final IEventsContract.View view;
     private List<Event> cachedEvents;
 
-    public FavoriteEventsPresenter(IFavoriteEventsContract.View view) {
+    public FavoriteEventsPresenter(IEventsContract.View view) {
         this.view = view;
         loadData();
     }
@@ -35,7 +37,7 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
                 // Orders events with default options:
                 //   Dates closer to further & events without dates last.
 
-                onApplyOrder(data, Utilities.OrderType.DATE_ASC, false);
+                Presenter.onApplyOrder(data, Utilities.OrderType.DATE_ASC, false);
 
                 // Los eventos cacheados los filtro con los ids que vengan
                 String ids = view.getSharedPref().getFavourites();
@@ -85,6 +87,8 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
      */
     public List<Event> onApplyFilter(Map<String, Boolean> categorias){
 
+        return Presenter.onApplyFilter(categorias, cachedEvents);
+        /*
         List<Event> filteredEvents = new ArrayList<>();
 
         List<Event> listaEntera = cachedEvents;
@@ -103,15 +107,16 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
         } else {
             filteredEvents = listaEntera;
         }
-        return filteredEvents;
+        return filteredEvents;*/
     }
 
     @Override
     public void onEventClicked(int eventIndex) {
-        if (cachedEvents != null && eventIndex < cachedEvents.size()) {
+        Presenter.onEventClicked(eventIndex, cachedEvents, view);
+        /*if (cachedEvents != null && eventIndex < cachedEvents.size()) {
             Event event = cachedEvents.get(eventIndex);
             view.openEventDetails(event);
-        }
+        }*/
     }
 
     @Override
@@ -126,11 +131,12 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
 
     @Override
     public void onFilterMenuClicked(boolean isFilterMenuVisible) {
-        if (isFilterMenuVisible) {
+        /*if (isFilterMenuVisible) {
             view.closeFilterMenuView();
         } else {
             view.openFilterMenuView();
-        }
+        }*/
+        Presenter.onFilterMenuClicked(isFilterMenuVisible, view);
     }
 
     /**
@@ -140,6 +146,7 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
      */
     @Override
     public void onApplyOptions(Options options) {
+        /*
         // Works with cachedEvents unless there are filters applies
         List<Event> eventList = cachedEvents;
 
@@ -155,7 +162,8 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
 
         // Reloads the events with the filters & order applied
         view.onEventsLoaded(eventList);
-        view.onLoadSuccess(eventList.size());
+        view.onLoadSuccess(eventList.size());*/
+        Presenter.onApplyOptions(options, cachedEvents, view);
     }
 
 
@@ -166,6 +174,7 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
      * @param isDateFirst == true -> Show events without dates first in the list.
      *                    == false-> Show events without dates last in the list.
      */
+    /*
     private void onApplyOrder(List<Event> eventList, Utilities.OrderType type, boolean isDateFirst) {
         Collections.sort(eventList, (e1, e2) -> {
             int result;
@@ -186,7 +195,8 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
             }
             return result;
         });
-    }
+        //Presenter.onApplyOrder();
+    }*/
 
     /**
      * Sets a sorting behaviour for ordering events when one or more of them
@@ -200,6 +210,7 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
      * @return 1 if Event1 has to be shown last, -1 if Event1 has to be shown first and 0 if
      * both events are equal.
      */
+    /*
     private int onApplyOrderWithoutDate(boolean fecha1IsNull, boolean fecha2IsNull, boolean isDateFirst) {
         int result = 0;
 
@@ -216,13 +227,14 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
         }
 
         return result;
-    }
+    }*/
 
     /**
      * Takes the string date from an Event and converts it to data type Date.
      * @param strDate An Events date in data type String.
      * @return the Events date in data type Date.
      */
+    /*
     private Date stringToDate(String strDate) {
         SimpleDateFormat simpledateformat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         String[] aux;
@@ -230,16 +242,17 @@ public class FavoriteEventsPresenter implements IFavoriteEventsContract.Presente
         aux = strDate.split(" ");   // Splits raw date string in different words
         // Cleans the date from the string (2nd word) and converts it to Date
         return simpledateformat.parse(aux[1].substring(0, aux[1].length() - 1), new ParsePosition(0));
-    }
+    }*/
 
     /**
      * Aux method that checks if a string is null or empty.
      * @param text Text that has to be checked.
      * @return true if null or empty, false otherwise.
      */
+    /*
     private boolean nullOrEmpty(String text) {
         return (text == null || text.equals("") || text.trim().equals(""));
-    }
+    }*/
 
     /**
      * FOR TESTING PURPOSES ONLY: Sets this presenter's list to the one passed as argument

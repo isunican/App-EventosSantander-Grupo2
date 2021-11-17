@@ -1,11 +1,9 @@
-    package com.isunican.eventossantander.view.events;
+    package com.isunican.eventossantander.view.favourites;
 
     import android.content.Context;
     import android.os.Build;
 
     import androidx.test.core.app.ApplicationProvider;
-
-    import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 
     import org.junit.After;
     import org.junit.Assert;
@@ -20,9 +18,9 @@
 
     @RunWith(RobolectricTestRunner.class)
     @Config(sdk = {Build.VERSION_CODES.O_MR1})
-    public class GestionarListasITest {
+    public class GestionarListasUsuarioITest {
 
-        private GestionarListas gestionarListas;
+        private GestionarListasUsuario gestionarListas;
         private String nombreLista;
 
         private Context context = ApplicationProvider.getApplicationContext();
@@ -33,32 +31,32 @@
         @Before
         public void setUp() {
             // Creacion de la clase a probar
-            gestionarListas = new GestionarListas(context);
+            gestionarListas = new GestionarListasUsuario(context);
 
-            GestionarListasUsuario.cleanSetPreferences(context);
+            gestionarListas.cleanSetPreferences(context);
         }
 
         @After
         public void clean() {
-            GestionarListasUsuario.cleanSetPreferences(context);
+            gestionarListas.cleanSetPreferences(context);
         }
 
         /**
          * Historia de Usuario: Crear lista.
-         * Identificador: "UT.2".
+         * Identificador: "IT.2".
          * Autora: Marta Obregon Ruiz.
          */
         @Test
         public void testCreateList() {
-            // Identificador: "UT.2a"
+            // Identificador: "IT.2a"
             nombreLista = gestionarListas.createList("Conciertos");
             Assert.assertEquals("Conciertos", nombreLista);
 
-            // Identificador: "UT.2b"
+            // Identificador: "IT.2b"
             nombreLista = gestionarListas.createList("Conciertos");
             Assert.assertEquals("Conciertos(1)", nombreLista);
 
-            // Identificador: "UT.2c"
+            // Identificador: "IT.2c"
             nombreLista = gestionarListas.createList("");
             Assert.assertEquals("", nombreLista);
         }

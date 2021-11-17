@@ -276,4 +276,9 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     public void errorEventIndexOutOfBounds() {
         Utilities.createPopUp(this, Utilities.ERROR_EVENT_INDEX_OUT_OF_BOUNDS, 1).show();
     }
+
+    public void showEmptyListMessage() {
+
+    }
+
 }

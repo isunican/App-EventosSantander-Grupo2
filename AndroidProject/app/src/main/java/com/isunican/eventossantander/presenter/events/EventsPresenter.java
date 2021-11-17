@@ -2,6 +2,7 @@ package com.isunican.eventossantander.presenter.events;
 
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
+import com.isunican.eventossantander.presenter.Presenter;
 import com.isunican.eventossantander.view.Listener;
 import com.isunican.eventossantander.view.events.IEventsContract;
 import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
@@ -33,7 +34,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
                 // Orders events with default options:
                 //  Dates closer to further & events without dates last.
 
-                onApplyOrder(data, Utilities.OrderType.DATE_ASC, false);
+                Presenter.onApplyOrder(data, Utilities.OrderType.DATE_ASC, false);
                 view.onEventsLoaded(data);
                 view.onLoadSuccess(data.size());
                 cachedEvents = data;
@@ -59,34 +60,37 @@ public class EventsPresenter implements IEventsContract.Presenter {
     //Debe ser público debido a los tests
     public List<Event> onApplyFilter(Map<String, Boolean> categorias){
 
-                List<Event> filteredEvents = new ArrayList<>();
+        return Presenter.onApplyFilter(categorias, cachedEvents);
+        /*
+        List<Event> filteredEvents = new ArrayList<>();
 
-                List<Event> listaEntera = cachedEvents;
-                //If no filter is selected it finishes
-                if (categorias.containsValue(true)) {
-                    //For every events registered
-                    for (Event e: listaEntera) {
-                        //If the category of the current event exists and is selected by the user,
-                        // the vents is added to the list of filtered events
+        List<Event> listaEntera = cachedEvents;
+        //If no filter is selected it finishes
+        if (categorias.containsValue(true)) {
+            //For every events registered
+            for (Event e: listaEntera) {
+                //If the category of the current event exists and is selected by the user,
+                // the vents is added to the list of filtered events
 
-                        if (categorias.containsKey(e.getCategoria()) && Boolean.TRUE.equals(categorias.get(e.getCategoria()))) { //Unboxed conversion. See: https://docs.oracle.com/javase/specs/jls/se8/html/jls-5.html#jls-5.1.8
+                if (categorias.containsKey(e.getCategoria()) && Boolean.TRUE.equals(categorias.get(e.getCategoria()))) { //Unboxed conversion. See: https://docs.oracle.com/javase/specs/jls/se8/html/jls-5.html#jls-5.1.8
 
-                            filteredEvents.add(e);
-                        }
-                    }
-                } else {
-                    filteredEvents = listaEntera;
+                    filteredEvents.add(e);
                 }
-                return filteredEvents;
+            }
+        } else {
+            filteredEvents = listaEntera;
+        }
+        return filteredEvents;*/
     }
 
 
     @Override
     public void onEventClicked(int eventIndex) {
-        if (cachedEvents != null && eventIndex < cachedEvents.size()) {
+        Presenter.onEventClicked(eventIndex, cachedEvents, view);
+        /*if (cachedEvents != null && eventIndex < cachedEvents.size()) {
             Event event = cachedEvents.get(eventIndex);
             view.openEventDetails(event);
-        }
+        }*/
     }
 
     @Override
@@ -106,11 +110,12 @@ public class EventsPresenter implements IEventsContract.Presenter {
 
     @Override
     public void onFilterMenuClicked(boolean isFilterMenuVisible) {
-        if (isFilterMenuVisible) {
+        /*if (isFilterMenuVisible) {
             view.closeFilterMenuView();
         } else {
             view.openFilterMenuView();
-        }
+        }*/
+        Presenter.onFilterMenuClicked(isFilterMenuVisible, view);
     }
 
     /**
@@ -120,6 +125,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
      */
     @Override
     public void onApplyOptions(Options options) {
+        /*
         // Works with cachedEvents unless there are filters applies
         List<Event> eventList = cachedEvents;
 
@@ -135,7 +141,8 @@ public class EventsPresenter implements IEventsContract.Presenter {
 
         // Reloads the events with the filters & order applied
         view.onEventsLoaded(eventList);
-        view.onLoadSuccess(eventList.size());
+        view.onLoadSuccess(eventList.size());*/
+        Presenter.onApplyOptions(options, cachedEvents, view);
     }
 
     /**
@@ -146,13 +153,13 @@ public class EventsPresenter implements IEventsContract.Presenter {
      *                    == false-> Show events without dates last in the list.
      */
       private void onApplyOrder(List<Event> eventList, Utilities.OrderType type, boolean isDateFirst) {
-        Collections.sort(eventList, (e1, e2) -> {
+         /*Collections.sort(eventList, (e1, e2) -> {
             int result;
             boolean fecha1IsNull = nullOrEmpty(e1.getFecha());
             boolean fecha2IsNull = nullOrEmpty(e2.getFecha());
 
             if (fecha1IsNull || fecha2IsNull) {         // One of the events does not have a date
-                  result = onApplyOrderWithoutDate(fecha1IsNull, fecha2IsNull, isDateFirst);
+                result = onApplyOrderWithoutDate(fecha1IsNull, fecha2IsNull, isDateFirst);
 
             } else {                                    // Both events have dates
                 Date date1 = stringToDate(e1.getFecha());
@@ -164,7 +171,8 @@ public class EventsPresenter implements IEventsContract.Presenter {
                 }
             }
             return result;
-        });
+        });*/
+          //Presenter.onApplyOrder();
     }
 
     /**

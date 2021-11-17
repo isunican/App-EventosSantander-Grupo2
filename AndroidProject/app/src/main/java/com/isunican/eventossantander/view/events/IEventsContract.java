@@ -55,5 +55,8 @@ public interface IEventsContract {
         void errorEventAlreadyExists();
 
         void errorEventIndexOutOfBounds();
+
+        void showEmptyListMessage();
+
     }
 }
