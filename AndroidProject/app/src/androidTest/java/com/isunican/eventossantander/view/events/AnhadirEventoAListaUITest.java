@@ -5,6 +5,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -18,6 +19,8 @@ import android.content.Context;
 import android.view.View;
 
 import androidx.test.espresso.IdlingRegistry;
+import androidx.test.espresso.NoMatchingViewException;
+import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -29,6 +32,7 @@ import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -76,13 +80,23 @@ public class AnhadirEventoAListaUITest {
     /**
      * Historia de Usuario: Anhadir Evento a Lista.
      * Identificador: "UIT1".
-     * Autor: Sara Grela Carrera.
+     * Autor: Sara Grela Carrera ("UIT1.a" y "UIT1.b") e Iván Gonzalez del Pozo ("UIT1.c").
      */
     @Test
-    public void anhadirEventoAListaTest () throws InterruptedException {
+    public void anhadirEventoAListaTest () {
         GestionarListasUsuario.cleanSetPreferences(context);
 
-        // Identificador: "UIT.1a"
+        // Identificador: "UIT1.c"
+        // Borrar las listas creadas
+        GestionarListasUsuario.cleanSetPreferences(context);
+        // Intentar anhadir el primer evento a una lista
+        onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.btn_add_list_event)).perform(click());
+        // Comprobar que ya no aparece la lista para seleccionar
+        onView(withText("Lista1")).check(doesNotExist());
+        // Cerrar el mensaje abierto
+        onView(withText("Cancelar")).perform(click());
+
+        // Identificador: "UIT1.a"
         // Se crea una lista
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getContext());
         onView(withText(R.string.crear_lista)).perform(click());
@@ -93,16 +107,24 @@ public class AnhadirEventoAListaUITest {
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.btn_add_list_event)).perform(click());
         // Seleccionar la primera lista que exista
         onView(withText("Lista1")).perform(click());
-        sleep(1000);
+        try {
+            sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // Comprobar que se muestra el mensaje al usuario
         onView(withText("Se ha añadido un evento a la lista Lista1")).inRoot(RootMatchers.withDecorView(CoreMatchers.not(decorView))).check(matches(isDisplayed()));
 
-        // Identificador: "UIT.1b"
+        // Identificador: "UIT1.b"
         // Anhadir el primer evento a la Lista 1
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.btn_add_list_event)).perform(click());
         // Seleccionar la primera lista que exista
         onView(withText("Lista1")).perform(click());
-        sleep(1000);
+        try {
+            sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // Comprobar que se muestra el mensaje al usuario
         onView(withText("El evento seleccionado ya está en la lista")).inRoot(RootMatchers.withDecorView(CoreMatchers.not(decorView))).check(matches(isDisplayed()));
     }
