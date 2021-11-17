@@ -164,7 +164,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     @Override
     public void onLoadError() {
         //Todavia no existe una gestion de errores planificada
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
     }
 
     @Override
