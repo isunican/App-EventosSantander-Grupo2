@@ -59,32 +59,30 @@ public class CrearListaUITest {
     private View decorView;
     private String mensaje;
 
+
+    @BeforeClass
+    public void setUp2() {
+        EventsRepository.setLocalSource();
+        IdlingRegistry.getInstance().register(EventsRepository.getIdlingResource());
+    }
     /**
      * Load known events json
      * https://personales.unican.es/rivasjm/resources/agenda_cultural.json
      */
     @Before
     public void setUp() {
-        EventsRepository.setLocalSource();
-        IdlingRegistry.getInstance().register(EventsRepository.getIdlingResource());
         activityRule.getScenario().onActivity(
                 activity -> {
                     decorView = activity.getWindow().getDecorView();
                     context = activity;
                 });
+        GestionarListasUsuario.cleanSetPreferences(context);
     }
 
     @AfterClass
     public static void clean() {
         EventsRepository.setOnlineSource();
         IdlingRegistry.getInstance().unregister(EventsRepository.getIdlingResource());
-    }
-
-    @After
-    public void cleanBasic() {
-        EventsRepository.setOnlineSource();
-        IdlingRegistry.getInstance().unregister(EventsRepository.getIdlingResource());
-        GestionarListasUsuario.cleanSetPreferences(context);
     }
 
     /**
