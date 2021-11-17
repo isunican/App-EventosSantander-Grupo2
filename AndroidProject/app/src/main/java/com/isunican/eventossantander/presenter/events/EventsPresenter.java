@@ -59,36 +59,12 @@ public class EventsPresenter implements IEventsContract.Presenter {
     public List<Event> onApplyFilter(Map<String, Boolean> categorias){
 
         return PresenterComun.onApplyFilter(categorias, cachedEvents);
-        /*
-        List<Event> filteredEvents = new ArrayList<>();
-
-        List<Event> listaEntera = cachedEvents;
-        //If no filter is selected it finishes
-        if (categorias.containsValue(true)) {
-            //For every events registered
-            for (Event e: listaEntera) {
-                //If the category of the current event exists and is selected by the user,
-                // the vents is added to the list of filtered events
-
-                if (categorias.containsKey(e.getCategoria()) && Boolean.TRUE.equals(categorias.get(e.getCategoria()))) { //Unboxed conversion. See: https://docs.oracle.com/javase/specs/jls/se8/html/jls-5.html#jls-5.1.8
-
-                    filteredEvents.add(e);
-                }
-            }
-        } else {
-            filteredEvents = listaEntera;
-        }
-        return filteredEvents;*/
     }
 
 
     @Override
     public void onEventClicked(int eventIndex) {
         PresenterComun.onEventClicked(eventIndex, cachedEvents, view);
-        /*if (cachedEvents != null && eventIndex < cachedEvents.size()) {
-            Event event = cachedEvents.get(eventIndex);
-            view.openEventDetails(event);
-        }*/
     }
 
     @Override
@@ -108,11 +84,6 @@ public class EventsPresenter implements IEventsContract.Presenter {
 
     @Override
     public void onFilterMenuClicked(boolean isFilterMenuVisible) {
-        /*if (isFilterMenuVisible) {
-            view.closeFilterMenuView();
-        } else {
-            view.openFilterMenuView();
-        }*/
         PresenterComun.onFilterMenuClicked(isFilterMenuVisible, view);
     }
 
@@ -123,23 +94,6 @@ public class EventsPresenter implements IEventsContract.Presenter {
      */
     @Override
     public void onApplyOptions(Options options) {
-        /*
-        // Works with cachedEvents unless there are filters applies
-        List<Event> eventList = cachedEvents;
-
-        // Creates a filtered list if filters were selected
-        if (options.isFilterChecked()) {
-            eventList = onApplyFilter(options.getFilterOptions());
-        }
-
-        // Orders the list if an order type was selected
-        if (options.isOrderChecked()) {
-            onApplyOrder(eventList, options.getOrderTypeOptions(), options.isDateFirst());
-        }
-
-        // Reloads the events with the filters & order applied
-        view.onEventsLoaded(eventList);
-        view.onLoadSuccess(eventList.size());*/
         PresenterComun.onApplyOptions(options, cachedEvents, view);
     }
 
@@ -151,26 +105,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
      *                    == false-> Show events without dates last in the list.
      */
       private void onApplyOrder() {
-         /*Collections.sort(eventList, (e1, e2) -> {
-            int result;
-            boolean fecha1IsNull = nullOrEmpty(e1.getFecha());
-            boolean fecha2IsNull = nullOrEmpty(e2.getFecha());
 
-            if (fecha1IsNull || fecha2IsNull) {         // One of the events does not have a date
-                result = onApplyOrderWithoutDate(fecha1IsNull, fecha2IsNull, isDateFirst);
-
-            } else {                                    // Both events have dates
-                Date date1 = stringToDate(e1.getFecha());
-                Date date2 = stringToDate(e2.getFecha());
-                if (type == Utilities.OrderType.DATE_ASC) {   // Show events closer to current date first
-                    result = date1.compareTo(date2);
-                } else {                            // Show further away from current date first
-                    result = date2.compareTo(date1);
-                }
-            }
-            return result;
-        });*/
-          //Presenter.onApplyOrder();
     }
 
     /**
@@ -206,11 +141,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
     @Override
     public void onFavouriteClicked(int eventIndex, Boolean isClicked, IGestionarListasUsuario sharedPref) {
          if(eventIndex > 0 && eventIndex <= cachedEvents.size()) {
-             // isClicked = true -> Quitar evento de favoritos
-             // isClicked = false -> Anhadir evento a favoritos
-             if (isClicked) {
-                 // TODO
-             } else {
+             if (!isClicked) {
                  sharedPref.setFavourite(eventIndex, cachedEvents);
              }
          }

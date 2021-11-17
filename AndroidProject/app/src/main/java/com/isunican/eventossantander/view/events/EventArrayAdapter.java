@@ -97,8 +97,6 @@
                     btnEventFav.setImageResource(R.drawable.ic_baseline_star_24);
                     btnEventFav.setTag(R.drawable.ic_baseline_star_24);
 
-                } else {
-                    // TODO
                 }
             });
 

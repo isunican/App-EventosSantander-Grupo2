@@ -134,17 +134,12 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener((item) -> {
-            switch (item.getItemId()) {
-
-                case R.id.inicioActivity:
-                    Intent intent1 = new Intent(this, EventsActivity.class);
-                    startActivity(intent1);
-                    break;
-
-                case R.id.favoritosActivity:
-                    Intent intent2 = new Intent(this, FavoriteEventsActivity.class);
-                    startActivity(intent2);
-                    break;
+            if(item.getItemId() == R.id.inicioActivity){
+                Intent intent1 = new Intent(this, EventsActivity.class);
+                startActivity(intent1);
+            }else if (item.getItemId() == R.id.favoritosActivity){
+                Intent intent2 = new Intent(this, FavoriteEventsActivity.class);
+                startActivity(intent2);
             }
             return false;
 
