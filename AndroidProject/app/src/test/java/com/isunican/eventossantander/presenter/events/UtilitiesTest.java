@@ -55,7 +55,7 @@
                 Assert.fail();
             }
             // Compruebo que no es nulo
-            Assert.assertTrue(dialog != null);
+            Assert.assertNotNull(dialog);
 
             // Identificador: "UT.1b"
             try {
@@ -64,8 +64,7 @@
             } catch (Exception e) {
                 Assert.fail();
             }
-            Assert.assertTrue(dialog != null);
-
+            Assert.assertNotNull(dialog);
             // Identificador: "UT.1c"
             try {
                 dialog = utilities.createListPopUp(context, "Introduzca el título de la lista a crear", 2);
@@ -73,8 +72,7 @@
             } catch (Exception e) {
                 Assert.fail();
             }
-            Assert.assertTrue(dialog != null);
-
+            Assert.assertNotNull(dialog);
             // Identificador: "UT.1d"
             try {
                 dialog = utilities.createListPopUp(context, "Introduzca el título de la lista a crear", 3);
@@ -82,6 +80,6 @@
             } catch (Exception e) {
                 Assert.fail();
             }
-            Assert.assertTrue(dialog != null);
+            Assert.assertNotNull(dialog);
         }
     }
