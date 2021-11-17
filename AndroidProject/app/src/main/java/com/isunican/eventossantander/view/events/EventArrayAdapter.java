@@ -95,13 +95,13 @@ public class EventArrayAdapter extends ArrayAdapter<Event> {
             Picasso.get().load(event.getImagen()).into(imageTxt);
         }
 
-        //Handler to control the addList button
-        btnAddList.setOnClickListener(new View.OnClickListener() {
-            private android.os.Bundle savedInstanceState;
 
-            @Override
-            public void onClick(View view) {
-                int eventId = position;
+            //Handler to control the addList button
+            btnAddList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int eventId = position;
+
 
                 //Obtengo listas de favoritos creadas
                 CharSequence[] listas = sharedPref.getLists().toArray(new CharSequence[0]);

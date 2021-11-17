@@ -97,45 +97,45 @@ public class EventsPresenterITest {
         List<Event> eventos = presenter.getList();
 
         // Identificador: "UT.1a"
-        assertEquals(presenter.onAddEventClicked(1, gestionarListasUsuario, NOMBRE_LISTA_EXISTE), true);
+        assertEquals(true, presenter.onAddEventClicked(1, gestionarListasUsuario, NOMBRE_LISTA_EXISTE));
         String id1 = String.valueOf(eventos.get(1).getIdentificador()) + ",";
         assertEquals(gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE), id1);
 
         // Identificador: "UT.1b"
-        assertEquals(presenter.onAddEventClicked(1, gestionarListasUsuario, NOMBRE_LISTA_EXISTE), false);
+        assertEquals(false,presenter.onAddEventClicked(1, gestionarListasUsuario, NOMBRE_LISTA_EXISTE));
         assertEquals(gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE), id1);
 
         // Identificador: "UT.1c"
-        assertEquals(presenter.onAddEventClicked(2, gestionarListasUsuario, NOMBRE_LISTA_EXISTE), true);
+        assertEquals(true, presenter.onAddEventClicked(2, gestionarListasUsuario, NOMBRE_LISTA_EXISTE));
         String id2 = id1.concat(String.valueOf(eventos.get(2).getIdentificador()) + ",");
-        assertEquals(gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE), id2);
+        assertEquals(id2, gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE));
 
         // Identificador: "UT.1d"
         presenter.onAddEventClicked(1, gestionarListasUsuario, nombreListaNoExiste);
-        assertEquals(gestionarListasUsuario.checkListExists(nombreListaNoExiste), false);
-        assertEquals(gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE), id2);
+        assertEquals(false, gestionarListasUsuario.checkListExists(nombreListaNoExiste));
+        assertEquals(id2, gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE));
 
         // Identificador: "UT.1e"
-        assertEquals(presenter.onAddEventClicked(999999, gestionarListasUsuario, NOMBRE_LISTA_EXISTE), false);
-        assertEquals(gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE), id2);
+        assertEquals(false,presenter.onAddEventClicked(999999, gestionarListasUsuario, NOMBRE_LISTA_EXISTE));
+        assertEquals(id2, gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE));
 
         // Identificador: "UT.1f"
-        assertEquals(presenter.onAddEventClicked(-1, gestionarListasUsuario, NOMBRE_LISTA_EXISTE), false);
-        assertEquals(gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE), id2);
+        assertEquals(false, presenter.onAddEventClicked(-1, gestionarListasUsuario, NOMBRE_LISTA_EXISTE));
+        assertEquals(id2, gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE));
 
         // Identificador: "UT.1g"
-        assertEquals(presenter.onAddEventClicked(0, gestionarListasUsuario, NOMBRE_LISTA_EXISTE), true);
+        assertEquals(true, presenter.onAddEventClicked(0, gestionarListasUsuario, NOMBRE_LISTA_EXISTE));
         String id3 = id2.concat(String.valueOf(eventos.get(0).getIdentificador()) + ",");
-        assertEquals(gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE), id3);
+        assertEquals(id3, gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE));
 
         // Identificador: "UT.1h"
-        assertEquals(presenter.onAddEventClicked(eventos.size()-1, gestionarListasUsuario, NOMBRE_LISTA_EXISTE), true);
+        assertEquals(true, presenter.onAddEventClicked(eventos.size()-1, gestionarListasUsuario, NOMBRE_LISTA_EXISTE));
         String id4 = id3.concat(String.valueOf(eventos.get(eventos.size()-1).getIdentificador()) + ",");
-        assertEquals(gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE), id4);
+        assertEquals(id4, gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE));
 
         // Identificador: "UT.1i"
-        assertEquals(presenter.onAddEventClicked(eventos.size(), gestionarListasUsuario, NOMBRE_LISTA_EXISTE), false);
-        assertEquals(gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE), id4);
+        assertEquals(false, presenter.onAddEventClicked(eventos.size(), gestionarListasUsuario, NOMBRE_LISTA_EXISTE));
+        assertEquals(id4, gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE));
 
     }
 }
