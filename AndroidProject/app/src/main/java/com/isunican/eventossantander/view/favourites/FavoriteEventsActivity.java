@@ -11,6 +11,7 @@ import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.presenter.events.Utilities;
 import com.isunican.eventossantander.presenter.favourites.FavoriteEventsPresenter;
 import com.isunican.eventossantander.view.events.EventsActivity;
+import com.isunican.eventossantander.view.events.IEventsContract;
 import com.isunican.eventossantander.view.events.OnSwipeTouchListener;
 import com.isunican.eventossantander.view.eventsdetail.EventsDetailActivity;
 import com.isunican.eventossantander.view.info.InfoActivity;
@@ -34,7 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FavoriteEventsActivity extends AppCompatActivity implements IFavoriteEventsContract.View {
+public class FavoriteEventsActivity extends AppCompatActivity implements IEventsContract.View {
 
     private IFavoriteEventsContract.Presenter presenter;
     private IGestionarListasUsuario sharedPref;
@@ -46,7 +47,7 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
         setContentView(R.layout.activity_main);
 
         sharedPref = new GestionarListasUsuario(this);
-        presenter = new FavoriteEventsPresenter(this);
+        presenter = new FavoriteEventsPresenter( this);
 
         NavigationView menuFiltros = findViewById(R.id.menu_filtros);
         ListView listaEventos = findViewById(R.id.eventsListView);
@@ -183,6 +184,11 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
     public void openInfoView() {
         Intent intent = new Intent(this, InfoActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void openFavouritesView() {
+
     }
 
     @Override

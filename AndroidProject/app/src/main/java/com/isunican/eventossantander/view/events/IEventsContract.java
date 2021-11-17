@@ -49,5 +49,7 @@ public interface IEventsContract {
 
         void onConnectionError();
 
+        void showEmptyListMessage();
+
     }
 }
