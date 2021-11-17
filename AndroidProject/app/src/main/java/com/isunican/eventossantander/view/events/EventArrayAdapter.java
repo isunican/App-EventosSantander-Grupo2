@@ -101,8 +101,6 @@
 
             //Handler to control the addList button
             btnAddList.setOnClickListener(new View.OnClickListener() {
-                private android.os.Bundle savedInstanceState;
-
                 @Override
                 public void onClick(View view) {
                     int eventId = position;
