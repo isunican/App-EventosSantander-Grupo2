@@ -130,6 +130,8 @@
 
             verify(editor).putString("Conciertos(1)", "");
             verify(editor).putInt("Conciertos(1)", -1);
+            verify(editor).putInt("Conciertos", 1);
+            verify(editor, times(4)).apply();
 
             // Identificador: "UT.2c"
             nombreLista = gestionarListas.createList("");
