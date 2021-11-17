@@ -1,8 +1,4 @@
-<<<<<<< HEAD:AndroidProject/app/src/androidTest/java/com/isunican/eventossantander/eventsdetail/EventsDetailUITest.java
-package com.isunican.eventossantander.eventsdetail;
-=======
 package com.isunican.eventossantander.view.eventsdetail;
->>>>>>> feature/435463-OrdenarPorFecha:AndroidProject/app/src/androidTest/java/com/isunican/eventossantander/view/eventsdetail/EventsDetailUITest.java
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
@@ -13,13 +9,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.containsString;
 
-<<<<<<< HEAD:AndroidProject/app/src/androidTest/java/com/isunican/eventossantander/eventsdetail/EventsDetailUITest.java
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-
-=======
->>>>>>> feature/435463-OrdenarPorFecha:AndroidProject/app/src/androidTest/java/com/isunican/eventossantander/view/eventsdetail/EventsDetailUITest.java
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.view.events.EventsActivity;
@@ -29,21 +21,6 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
-<<<<<<< HEAD:AndroidProject/app/src/androidTest/java/com/isunican/eventossantander/eventsdetail/EventsDetailUITest.java
-=======
-import androidx.test.espresso.IdlingRegistry;
-import androidx.test.espresso.matcher.ViewMatchers;
-import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.rule.ActivityTestRule;
-
-import static androidx.test.espresso.Espresso.*;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.assertion.ViewAssertions.*;
-import static androidx.test.espresso.matcher.ViewMatchers.*;
-import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.Matchers.containsString;
-
->>>>>>> feature/435463-OrdenarPorFecha:AndroidProject/app/src/androidTest/java/com/isunican/eventossantander/view/eventsdetail/EventsDetailUITest.java
 public class EventsDetailUITest {
 
     private static final String TITLE = "Abierto el plazo de inscripción para el Concurso Internacional de Piano de Santander Paloma O'Shea";
