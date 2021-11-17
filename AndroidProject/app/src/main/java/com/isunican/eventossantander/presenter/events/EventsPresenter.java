@@ -202,7 +202,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
          if(eventIndex > 0 && eventIndex <= cachedEvents.size()) {
              // isClicked = true -> Quitar evento de favoritos
              // isClicked = false -> Anhadir evento a favoritos
-             if (isClicked) {
+             if (isClicked == true) {
                  // TODO
              } else {
                  sharedPref.setFavourite(eventIndex, cachedEvents);
@@ -210,7 +210,19 @@ public class EventsPresenter implements IEventsContract.Presenter {
          }
     }
 
-
+    @Override
+    public boolean onAddEventClicked(int eventIndex, IGestionarListasUsuario sharedPref, String listaEscogida) {
+        if(eventIndex >= 0 && eventIndex< cachedEvents.size()){
+            boolean result = sharedPref.addEvent(eventIndex,cachedEvents,listaEscogida);
+            if(!result){
+                view.errorEventAlreadyExists();
+            }
+            return result;
+        } else {
+            view.errorEventIndexOutOfBounds();
+            return false;
+        }
+    }
 
     /**
      * Takes the string date from an Event and converts it to data type Date.

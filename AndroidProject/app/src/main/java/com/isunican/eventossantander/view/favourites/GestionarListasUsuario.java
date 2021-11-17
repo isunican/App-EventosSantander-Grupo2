@@ -16,9 +16,8 @@ public class GestionarListasUsuario implements IGestionarListasUsuario {
 
     private SharedPreferences sharedPref;
     private Context context;
-    private Map<String, String> nombresListas;
     private String idFavouriteEvents;
-    private final String FAVORITOS = "favourites";
+    private static final String FAVORITOS = "favourites";
     private static final String LISTAS = "LISTS";
 
 
@@ -26,7 +25,6 @@ public class GestionarListasUsuario implements IGestionarListasUsuario {
     public GestionarListasUsuario(Context context) {
         sharedPref = context.getSharedPreferences(LISTAS, Context.MODE_PRIVATE);
         this.context = context;
-        nombresListas = new HashMap<>();
     }
 
     // Devuelve un string con el id de los eventos favoritos, sino devuelve nulo
@@ -36,7 +34,7 @@ public class GestionarListasUsuario implements IGestionarListasUsuario {
         String name = listName;
         sharedPref = context.getSharedPreferences(LISTAS, Context.MODE_PRIVATE);
         if(sharedPref.contains(listName)) {
-            name = nombresListas.get(listName);
+            name = sharedPref.getString(listName, "");
             //Si el nombre cumple el patrón, se le suma uno al número de dentro
         }
         sharedPref = context.getSharedPreferences(name, Context.MODE_PRIVATE);
@@ -46,7 +44,6 @@ public class GestionarListasUsuario implements IGestionarListasUsuario {
         editor = context.getSharedPreferences(LISTAS, Context.MODE_PRIVATE).edit();
         editor.putString(name, name);
         editor.apply();
-        nombresListas.put(listName, name);
         return name;
     }
 
@@ -90,6 +87,7 @@ public class GestionarListasUsuario implements IGestionarListasUsuario {
 
     @Override
     public ArrayList<String> getLists() {
+        sharedPref = context.getSharedPreferences(LISTAS, Context.MODE_PRIVATE);
         ArrayList<String> listas = new ArrayList<>();
 
         for (Map.Entry<String, ?> pair : sharedPref.getAll().entrySet()) {
@@ -102,13 +100,22 @@ public class GestionarListasUsuario implements IGestionarListasUsuario {
     }
 
     @Override
+    public String getEventsList(String listName){
+        if (!checkListExists(listName)) {
+            return null;
+        }
+        sharedPref = context.getSharedPreferences(listName, Context.MODE_PRIVATE);
+        String defaultValue = "";
+        idFavouriteEvents = sharedPref.getString(listName, defaultValue);
+        return idFavouriteEvents;
+    }
+
+    @Override
     public boolean addEvent(int eventIndex, List<Event> cachedEvents, String listaEscogida) {
         boolean estaEnLista;
         String defaultValue = "";
         sharedPref = context.getSharedPreferences(listaEscogida, Context.MODE_PRIVATE);
         String eventosLista = sharedPref.getString(listaEscogida, defaultValue);
-
-
         estaEnLista = eventosLista.contains(String.valueOf(cachedEvents.get(eventIndex).getIdentificador()));
         if(!estaEnLista || StringUtils.isBlank(eventosLista)){
             SharedPreferences.Editor editor = sharedPref.edit();

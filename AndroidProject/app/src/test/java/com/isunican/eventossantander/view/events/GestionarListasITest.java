@@ -1,27 +1,18 @@
     package com.isunican.eventossantander.view.events;
 
-    import static org.mockito.Mockito.times;
-    import static org.mockito.Mockito.verify;
-    import static org.mockito.Mockito.when;
-
     import android.content.Context;
-    import android.content.SharedPreferences;
     import android.os.Build;
 
     import androidx.test.core.app.ApplicationProvider;
-    import androidx.test.espresso.IdlingRegistry;
 
-    import com.isunican.eventossantander.model.EventsRepository;
     import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 
     import org.junit.After;
-    import org.junit.AfterClass;
     import org.junit.Assert;
     import org.junit.Before;
     import org.junit.Rule;
     import org.junit.Test;
     import org.junit.runner.RunWith;
-    import org.mockito.Mock;
     import org.mockito.junit.MockitoJUnit;
     import org.mockito.junit.MockitoRule;
     import org.robolectric.RobolectricTestRunner;

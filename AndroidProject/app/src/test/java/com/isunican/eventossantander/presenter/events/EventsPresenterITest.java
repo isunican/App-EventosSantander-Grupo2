@@ -2,18 +2,20 @@ package com.isunican.eventossantander.presenter.events;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
-
-import static java.lang.Thread.sleep;
 import static org.mockito.Mockito.when;
 
+import android.content.Context;
 import android.os.Build;
 
+import androidx.test.core.app.ApplicationProvider;
 
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
-import com.isunican.eventossantander.presenter.events.EventsPresenter;
 import com.isunican.eventossantander.view.events.IEventsContract;
+import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,9 +38,27 @@ public class EventsPresenterITest {
 
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
-    private IEventsContract.Presenter presenter;
+    private EventsPresenter presenter;
 
     public static Phaser lock = EventsRepository.getPhaser();
+    Context context = ApplicationProvider.getApplicationContext();
+
+    // Necesario para tener una lista creada para probar
+    private GestionarListasUsuario gestionarListasUsuario;
+    private final String NOMBRE_LISTA_EXISTE = "Lista1";
+
+    @Before
+    public void setUp() {
+        presenter = new EventsPresenter(view);
+        gestionarListasUsuario = new GestionarListasUsuario(context);
+        GestionarListasUsuario.cleanSetPreferences(context);
+        gestionarListasUsuario.createList(NOMBRE_LISTA_EXISTE);
+    }
+
+    @After
+    public void clean() {
+        GestionarListasUsuario.cleanSetPreferences(context);
+    }
 
     @Test
     public void loadEventsCorrect() throws InterruptedException {
@@ -59,5 +79,63 @@ public class EventsPresenterITest {
         presenter = new EventsPresenter(view);
         lock.arriveAndAwaitAdvance();
         verify(view).onLoadError();
+    }
+
+    /**
+     * Historia de usuario: Anhadir evento a lista
+     * Identificador: "IT.1"
+     * Autor: Sara Grela Carrera
+     */
+    @Test
+    public void onAddEventClickedTest() {
+
+        String nombreListaNoExiste = "Lista2";
+
+        EventsRepository.setLocalSource();
+        presenter = new EventsPresenter(view);
+        lock.arriveAndAwaitAdvance();
+        List<Event> eventos = presenter.getList();
+
+        // Identificador: "UT.1a"
+        assertEquals(presenter.onAddEventClicked(1, gestionarListasUsuario, NOMBRE_LISTA_EXISTE), true);
+        String id1 = String.valueOf(eventos.get(1).getIdentificador()) + ",";
+        assertEquals(gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE), id1);
+
+        // Identificador: "UT.1b"
+        assertEquals(presenter.onAddEventClicked(1, gestionarListasUsuario, NOMBRE_LISTA_EXISTE), false);
+        assertEquals(gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE), id1);
+
+        // Identificador: "UT.1c"
+        assertEquals(presenter.onAddEventClicked(2, gestionarListasUsuario, NOMBRE_LISTA_EXISTE), true);
+        String id2 = id1.concat(String.valueOf(eventos.get(2).getIdentificador()) + ",");
+        assertEquals(gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE), id2);
+
+        // Identificador: "UT.1d"
+        presenter.onAddEventClicked(1, gestionarListasUsuario, nombreListaNoExiste);
+        assertEquals(gestionarListasUsuario.checkListExists(nombreListaNoExiste), false);
+        assertEquals(gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE), id2);
+
+        // Identificador: "UT.1e"
+        assertEquals(presenter.onAddEventClicked(999999, gestionarListasUsuario, NOMBRE_LISTA_EXISTE), false);
+        assertEquals(gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE), id2);
+
+        // Identificador: "UT.1f"
+        assertEquals(presenter.onAddEventClicked(-1, gestionarListasUsuario, NOMBRE_LISTA_EXISTE), false);
+        assertEquals(gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE), id2);
+
+        // Identificador: "UT.1g"
+        assertEquals(presenter.onAddEventClicked(0, gestionarListasUsuario, NOMBRE_LISTA_EXISTE), true);
+        String id3 = id2.concat(String.valueOf(eventos.get(0).getIdentificador()) + ",");
+        assertEquals(gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE), id3);
+
+        // Identificador: "UT.1h"
+        assertEquals(presenter.onAddEventClicked(eventos.size()-1, gestionarListasUsuario, NOMBRE_LISTA_EXISTE), true);
+        String id4 = id3.concat(String.valueOf(eventos.get(eventos.size()-1).getIdentificador()) + ",");
+        assertEquals(gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE), id4);
+
+        // Identificador: "UT.1i"
+        assertEquals(presenter.onAddEventClicked(eventos.size(), gestionarListasUsuario, NOMBRE_LISTA_EXISTE), false);
+        assertEquals(gestionarListasUsuario.getEventsList(NOMBRE_LISTA_EXISTE), id4);
+
     }
 }

@@ -2,24 +2,28 @@ package com.isunican.eventossantander.presenter.events;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import android.os.Build;
 
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.view.events.IEventsContract;
-
-import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -31,14 +35,17 @@ import java.util.Map;
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = {Build.VERSION_CODES.O_MR1})
 public class EventsPresenterTest {
-
     private List<Event> events;
-    private List<Event> eventsExpectedCulturaCientifica, eventsExpectedNoCategory,eventsExpectedEmpty;
+    private List<Event> eventsExpectedCulturaCientifica, eventsExpectedNoCategory, eventsExpectedEmpty;
     private Options options, options2, options3;
-    private Map<String, Boolean> categories1, categories2,categories3;
+    private Map<String, Boolean> categories1, categories2, categories3;
+    private final String NOMBRE_LISTA_EXISTE = "Lista1";
 
     @Mock
     private IEventsContract.View view;
+
+    @Mock
+    private IGestionarListasUsuario sharedPref;
 
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
@@ -48,19 +55,18 @@ public class EventsPresenterTest {
     @Before
     public void setup() {
         presenter = new EventsPresenter(view);
-        events = new ArrayList<Event>();
-        List<Event> emptyEvents = new ArrayList<Event>();
-        List<Event> eventsCulturaCientifica = new ArrayList<Event>();
-        List<Event> eventsNoCategory = new ArrayList<Event>();
+        events = new ArrayList<>();
+        List<Event> emptyEvents = new ArrayList<>();
+        List<Event> eventsCulturaCientifica = new ArrayList<>();
+        List<Event> eventsNoCategory = new ArrayList<>();
 
-        eventsExpectedCulturaCientifica = new ArrayList<Event>();
-        eventsExpectedEmpty = new ArrayList<Event>();
-        eventsExpectedNoCategory = new ArrayList<Event>();
+        eventsExpectedCulturaCientifica = new ArrayList<>();
+        eventsExpectedEmpty = new ArrayList<>();
+        eventsExpectedNoCategory = new ArrayList<>();
 
-        categories1 = new HashMap<String, Boolean>();
-        categories2 = new HashMap<String, Boolean>();
-        categories3 = new HashMap<String, Boolean>();
-
+        categories1 = new HashMap<>();
+        categories2 = new HashMap<>();
+        categories3 = new HashMap<>();
 
         Event e1 = new Event();
         e1.setCategoria("Cultura científica");
@@ -82,7 +88,6 @@ public class EventsPresenterTest {
         eventsNoCategory.add(e2);
         eventsNoCategory.add(e4);
 
-
         eventsExpectedCulturaCientifica.add(e1);
         eventsExpectedCulturaCientifica.add(e3);
         eventsExpectedNoCategory.add(e1);
@@ -90,18 +95,18 @@ public class EventsPresenterTest {
         eventsExpectedNoCategory.add(e3);
         eventsExpectedNoCategory.add(e4);
 
-        categories1.put("Cultura científica",true);
-        categories1.put("Música",false);
-        categories2.put("Cultura científica",false);
-        categories2.put("Música",true);
-        categories3.put("Cultura científica",false);
-        categories3.put("Música",false);
-
-
+        categories1.put("Cultura científica", true);
+        categories1.put("Música", false);
+        categories2.put("Cultura científica", false);
+        categories2.put("Música", true);
+        categories3.put("Cultura científica", false);
+        categories3.put("Música", false);
 
         options = new Options(categories1, null, true);
         options2 = new Options(categories2, null, true);
         options3 = new Options(categories3, null, true);
+
+
     }
 
     @After
@@ -115,7 +120,7 @@ public class EventsPresenterTest {
         List<Event> events, eventsExpectedAsc, eventsFilteredOrdered;
         Options options, options2;
         Event e1, e2, e3;
-        Map<String,Boolean> categories, categoriesOnline;
+        Map<String, Boolean> categories, categoriesOnline;
 
 
         presenter = new EventsPresenter(view);
@@ -167,7 +172,7 @@ public class EventsPresenterTest {
         List<Event> events, eventsExpectedAsc, eventsFilteredOrdered;
         Options options, options2;
         Event e1, e2, e3;
-        Map<String,Boolean> categories, categoriesOnline;
+        Map<String, Boolean> categories, categoriesOnline;
 
 
         presenter = new EventsPresenter(view);
@@ -220,7 +225,7 @@ public class EventsPresenterTest {
         List<Event> eventsExpectedAsc, eventsExpectedDesc, eventsExpectedEmpty, eventsExpectedOne, eventsExpectedNoDateF, eventsExpectedNoDateT;
         Options options, options2, options3;
         Event e1, e2, e3, e4;
-        Map<String,Boolean> categories;
+        Map<String, Boolean> categories;
 
         presenter = new EventsPresenter(view);
         events = new ArrayList<>();
@@ -290,7 +295,7 @@ public class EventsPresenterTest {
         List<Event> eventsExpectedAsc, eventsExpectedDesc, eventsExpectedEmpty, eventsExpectedOne, eventsExpectedNoDateF, eventsExpectedNoDateT;
         Options options, options2, options3;
         Event e1, e2, e3, e4;
-        Map<String,Boolean> categories;
+        Map<String, Boolean> categories;
 
         presenter = new EventsPresenter(view);
         events = new ArrayList<>();
@@ -360,7 +365,7 @@ public class EventsPresenterTest {
         List<Event> eventsExpectedAsc, eventsExpectedDesc, eventsExpectedEmpty, eventsExpectedOne, eventsExpectedNoDateF, eventsExpectedNoDateT;
         Options options, options2, options3;
         Event e1, e2, e3, e4;
-        Map<String,Boolean> categories;
+        Map<String, Boolean> categories;
 
         presenter = new EventsPresenter(view);
         events = new ArrayList<>();
@@ -430,7 +435,7 @@ public class EventsPresenterTest {
         List<Event> eventsExpectedAsc, eventsExpectedDesc, eventsExpectedEmpty, eventsExpectedOne, eventsExpectedNoDateF, eventsExpectedNoDateT;
         Options options, options2, options3;
         Event e1, e2, e3, e4;
-        Map<String,Boolean> categories;
+        Map<String, Boolean> categories;
 
         presenter = new EventsPresenter(view);
         events = new ArrayList<>();
@@ -500,7 +505,7 @@ public class EventsPresenterTest {
         List<Event> eventsExpectedAsc, eventsExpectedDesc, eventsExpectedEmpty, eventsExpectedOne, eventsExpectedNoDateF, eventsExpectedNoDateT;
         Options options, options2, options3;
         Event e1, e2, e3, e4;
-        Map<String,Boolean> categories;
+        Map<String, Boolean> categories;
 
         presenter = new EventsPresenter(view);
         events = new ArrayList<>();
@@ -570,7 +575,7 @@ public class EventsPresenterTest {
         List<Event> eventsExpectedAsc, eventsExpectedDesc, eventsExpectedEmpty, eventsExpectedOne, eventsExpectedNoDateF, eventsExpectedNoDateT;
         Options options, options2, options3;
         Event e1, e2, e3, e4;
-        Map<String,Boolean> categories;
+        Map<String, Boolean> categories;
 
         presenter = new EventsPresenter(view);
         events = new ArrayList<>();
@@ -636,7 +641,7 @@ public class EventsPresenterTest {
     @Test
     public void getOrderCategoriesTest() {
         Options options, options2;
-        Map<String,Boolean> categories = new HashMap<>();
+        Map<String, Boolean> categories = new HashMap<>();
 
         options = new Options(categories, Utilities.OrderType.DATE_ASC, false);
         options2 = new Options(categories, null, false);
@@ -647,17 +652,18 @@ public class EventsPresenterTest {
     @Test
     public void getNullOrderCategoriesTest() {
         Options options, options2;
-        Map<String,Boolean> categories = new HashMap<>();
+        Map<String, Boolean> categories = new HashMap<>();
 
         options = new Options(categories, Utilities.OrderType.DATE_ASC, false);
         options2 = new Options(categories, null, false);
 
         assertNull(options2.getOrderTypeOptions());
+
     }
 
     @Test
     public void applyOptionsFound() {
-        ArgumentCaptor<List<Event>> eventos = ArgumentCaptor.forClass(List.class) ;
+        ArgumentCaptor<List<Event>> eventos = ArgumentCaptor.forClass(List.class);
         presenter.setList(events);
         presenter.onApplyOptions(options);
         verify(view).onEventsLoaded(eventos.capture());
@@ -666,7 +672,7 @@ public class EventsPresenterTest {
 
     @Test
     public void applyOptionsNotFound() {
-        ArgumentCaptor<List<Event>> eventos = ArgumentCaptor.forClass(List.class) ;
+        ArgumentCaptor<List<Event>> eventos = ArgumentCaptor.forClass(List.class);
         presenter.setList(events);
         presenter.onApplyOptions(options2);
         verify(view).onEventsLoaded(eventos.capture());
@@ -684,7 +690,6 @@ public class EventsPresenterTest {
     public void applyFilterFound() {
         presenter.setList(events);
         assertEquals(eventsExpectedCulturaCientifica, presenter.onApplyFilter(categories1));
-
     }
 
     @Test
@@ -697,5 +702,87 @@ public class EventsPresenterTest {
     public void applyFilterNoFilter() {
         presenter.setList(events);
         assertEquals(eventsExpectedNoCategory, presenter.onApplyFilter(categories3));
+    }
+
+    /**
+     * Historia de Usuario: Marcar Evento.
+     * Identificador: "UT.1".
+     * Autor: Ivan Gonzalez del Pozo.
+     */
+    @Test
+    public void testOnFavouriteClicked() {
+        // Identificador: "UT.1a"
+        presenter.setList(events);
+        presenter.onFavouriteClicked(1, false, sharedPref);
+        verify(sharedPref).setFavourite(eq(1), any());
+
+        // Identificador: "UT.1b"
+        presenter.onFavouriteClicked(2, false, sharedPref);
+        verify(sharedPref).setFavourite(eq(2), any());
+
+        // Identificador: "UT.1d"
+        presenter.onFavouriteClicked(0, false, sharedPref);
+        verify(sharedPref, never()).setFavourite(eq(0), any());
+
+        // Identificador: "UT.1e"
+        presenter.onFavouriteClicked(-1, false, sharedPref);
+        verify(sharedPref, never()).setFavourite(eq(-1), any());
+
+        // Identificador: "UT.1f"
+        presenter.onFavouriteClicked(999999, false, sharedPref);
+        verify(sharedPref, never()).setFavourite(eq(999999), any());
+    }
+
+    /**
+     * Historia de Usuario: Anhadir evento a lista.
+     * Identificador: "UT.1".
+     * Autor: Sara Grela Carrera.
+     */
+    @Test
+    public void testOnAddEventClicked() {
+
+        String nombreListaNoExiste = "Lista2";
+
+        // Identificador: "UT.1a"
+        presenter.setList(events);
+        when(sharedPref.addEvent(eq(1), any(), eq(NOMBRE_LISTA_EXISTE))).thenReturn(true);
+        assertEquals(presenter.onAddEventClicked(1, sharedPref, NOMBRE_LISTA_EXISTE), true);
+        verify(sharedPref).addEvent(eq(1), any(), eq(NOMBRE_LISTA_EXISTE));
+
+        // Identificador: "UT.1b"
+        when(sharedPref.addEvent(eq(1), any(), eq(NOMBRE_LISTA_EXISTE))).thenReturn(false);
+        assertEquals(presenter.onAddEventClicked(1, sharedPref, NOMBRE_LISTA_EXISTE), false);
+        verify(sharedPref, times(2)).addEvent(eq(1), any(), eq(NOMBRE_LISTA_EXISTE));
+
+        // Identificador: "UT.1c"
+        when(sharedPref.addEvent(eq(2), any(), eq(NOMBRE_LISTA_EXISTE))).thenReturn(true);
+        assertEquals(presenter.onAddEventClicked(2, sharedPref, NOMBRE_LISTA_EXISTE), true);
+        verify(sharedPref).addEvent(eq(2), any(), eq(NOMBRE_LISTA_EXISTE));
+
+        // Identificador: "UT.1d"
+        assertEquals(presenter.onAddEventClicked(1, sharedPref, nombreListaNoExiste), false);
+        verify(sharedPref, times(2)).addEvent(eq(1), any(), eq(NOMBRE_LISTA_EXISTE));
+
+        // Identificador: "UT.1e"
+        assertEquals(presenter.onAddEventClicked(999999, sharedPref, NOMBRE_LISTA_EXISTE), false);
+        verify(sharedPref, never()).addEvent(eq(999999), any(), eq(NOMBRE_LISTA_EXISTE));
+
+        // Identificador: "UT.1f"
+        assertEquals(presenter.onAddEventClicked(-1, sharedPref, NOMBRE_LISTA_EXISTE), false);
+        verify(sharedPref, never()).addEvent(eq(-1), any(), eq(NOMBRE_LISTA_EXISTE));
+
+        // Identificador: "UT.1g"
+        when(sharedPref.addEvent(eq(0), any(), eq(NOMBRE_LISTA_EXISTE))).thenReturn(true);
+        assertEquals(presenter.onAddEventClicked(0, sharedPref, NOMBRE_LISTA_EXISTE), true);
+        verify(sharedPref).addEvent(eq(0), any(), eq(NOMBRE_LISTA_EXISTE));
+
+        // Identificador: "UT.1h"
+        when(sharedPref.addEvent(eq(events.size() - 1), any(), eq(NOMBRE_LISTA_EXISTE))).thenReturn(true);
+        assertEquals(presenter.onAddEventClicked(events.size() - 1, sharedPref, NOMBRE_LISTA_EXISTE), true);
+        verify(sharedPref).addEvent(eq(events.size() - 1), any(), eq(NOMBRE_LISTA_EXISTE));
+
+        // Identificador: "UT.1i"
+        assertEquals(presenter.onAddEventClicked(events.size(), sharedPref, NOMBRE_LISTA_EXISTE), false);
+        verify(sharedPref, never()).addEvent(eq(events.size()), any(), eq(NOMBRE_LISTA_EXISTE));
     }
 }

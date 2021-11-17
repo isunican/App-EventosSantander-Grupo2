@@ -133,7 +133,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         });
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener((item) -> {
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
 
                 case R.id.inicioActivity:
@@ -264,5 +264,16 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
     @Override
     public void onConnectionError() {
          Utilities.createPopUp(this, Utilities.CONNECTION_ERROR_MESSAGE, 1).show();
+    }
+
+    @Override
+    public void errorEventAlreadyExists() {
+        Utilities.createPopUp(this, Utilities.ERROR_EVENT_ALREADY_EXISTS, 1).show();
+
+    }
+
+    @Override
+    public void errorEventIndexOutOfBounds() {
+        Utilities.createPopUp(this, Utilities.ERROR_EVENT_INDEX_OUT_OF_BOUNDS, 1).show();
     }
 }

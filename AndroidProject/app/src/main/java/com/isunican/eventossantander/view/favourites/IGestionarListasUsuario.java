@@ -18,6 +18,8 @@ public interface IGestionarListasUsuario {
 
     ArrayList<String> getLists();
 
+    String getEventsList(String listName);
+
     boolean addEvent(int eventIndex, List<Event> cachedEvents, String listaEscogida);
 
     String createList(String listName);
