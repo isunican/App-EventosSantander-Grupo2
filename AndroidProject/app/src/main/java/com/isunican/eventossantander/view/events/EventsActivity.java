@@ -27,7 +27,7 @@ import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.presenter.events.Utilities;
 import com.isunican.eventossantander.view.eventsdetail.EventsDetailActivity;
 import com.isunican.eventossantander.view.favourites.FavoriteEventsActivity;
-import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
+import com.isunican.eventossantander.view.favourites.GestionarListasUsuario2;
 import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
 import com.isunican.eventossantander.view.info.InfoActivity;
 
@@ -46,7 +46,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPref = new GestionarListasUsuario(this);
+        sharedPref = new GestionarListasUsuario2(this);
         presenter = new EventsPresenter(this);
 
         NavigationView menuFiltros = findViewById(R.id.menu_filtros);

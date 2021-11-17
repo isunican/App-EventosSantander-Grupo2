@@ -27,7 +27,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -45,7 +44,7 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPref = new GestionarListasUsuario(this);
+        sharedPref = new GestionarListasUsuario2(this);
         presenter = new FavoriteEventsPresenter(this);
 
         NavigationView menuFiltros = findViewById(R.id.menu_filtros);

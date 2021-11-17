@@ -1,7 +1,6 @@
     package com.isunican.eventossantander.view.events;
 
     import static org.mockito.ArgumentMatchers.anyInt;
-    import static org.mockito.ArgumentMatchers.anyObject;
     import static org.mockito.ArgumentMatchers.anyString;
     import static org.mockito.Mockito.times;
     import static org.mockito.Mockito.verify;
@@ -11,9 +10,9 @@
     import android.content.SharedPreferences;
 
     import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
+    import com.isunican.eventossantander.view.favourites.GestionarListasUsuario2;
 
     import org.junit.After;
-    import org.junit.AfterClass;
     import org.junit.Assert;
     import org.junit.Before;
     import org.junit.Rule;
@@ -25,7 +24,7 @@
 
     public class GestionarListasTest {
 
-        private GestionarListas gestionarListas;
+        private GestionarListasUsuario gestionarListas;
         private String nombreLista;
 
         @Mock
@@ -51,15 +50,9 @@
             when(context.getSharedPreferences("Conciertos(1)", Context.MODE_PRIVATE)).thenReturn(sharedPref);
 
             // Creacion de la clase a probar
-            gestionarListas = new GestionarListas(context);
-
-            GestionarListasUsuario.cleanSetPreferences(context);
+            gestionarListas = new GestionarListasUsuario(context);
         }
 
-        @After
-        public void clean() {
-            GestionarListasUsuario.cleanSetPreferences(context);
-        }
 
         /**
          * Historia de Usuario: Crear lista.
@@ -83,7 +76,6 @@
 
             verify(editor).putString("Conciertos(1)", "");
             verify(editor).putInt("Conciertos(1)", -1);
-            //verify(editor).putInt("Conciertos(1)", 1);
 
             // Identificador: "UT.2c"
             nombreLista = gestionarListas.createList("");
