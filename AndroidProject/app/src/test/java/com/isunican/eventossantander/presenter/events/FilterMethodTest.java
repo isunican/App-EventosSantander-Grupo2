@@ -1,8 +1,5 @@
 package com.isunican.eventossantander.presenter.events;
 
-
-import static org.junit.Assert.assertTrue;
-
 import android.os.Build;
 
 import com.isunican.eventossantander.presenter.events.Options;
@@ -14,7 +11,9 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = {Build.VERSION_CODES.O_MR1})
@@ -35,13 +34,11 @@ public class FilterMethodTest {
 
     @Test
     public void getFilterCategoriesTest() {
-        assertTrue(options.getFilterOptions().get("Infantil"));
-
+        assert(options.getFilterOptions().get("Infantil"));
     }
 
     @Test
     public void getEmptyFilterCategoriesTest() {
-        assertTrue(options2.getFilterOptions().isEmpty());
-
+        assert(options2.getFilterOptions().isEmpty());
     }
 }
