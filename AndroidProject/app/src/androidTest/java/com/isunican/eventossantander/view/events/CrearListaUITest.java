@@ -27,7 +27,6 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
-import com.isunican.eventossantander.view.favourites.GestionarListasUsuario2;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.AfterClass;

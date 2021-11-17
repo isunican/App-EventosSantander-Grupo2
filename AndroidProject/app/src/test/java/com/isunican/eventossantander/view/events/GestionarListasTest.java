@@ -10,9 +10,7 @@
     import android.content.SharedPreferences;
 
     import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
-    import com.isunican.eventossantander.view.favourites.GestionarListasUsuario2;
 
-    import org.junit.After;
     import org.junit.Assert;
     import org.junit.Before;
     import org.junit.Rule;

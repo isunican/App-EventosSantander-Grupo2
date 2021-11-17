@@ -8,7 +8,6 @@
     import androidx.test.core.app.ApplicationProvider;
 
     import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
-    import com.isunican.eventossantander.view.favourites.GestionarListasUsuario2;
 
     import org.junit.After;
     import org.junit.Assert;

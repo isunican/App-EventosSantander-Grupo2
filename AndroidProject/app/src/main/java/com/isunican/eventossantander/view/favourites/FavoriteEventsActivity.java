@@ -44,7 +44,7 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPref = new GestionarListasUsuario2(this);
+        sharedPref = new GestionarListasUsuario(this);
         presenter = new FavoriteEventsPresenter(this);
 
         NavigationView menuFiltros = findViewById(R.id.menu_filtros);
