@@ -12,14 +12,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.text.HtmlCompat;
 
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.view.EventsArrayAdapterComun;
-import com.squareup.picasso.Picasso;
 
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 

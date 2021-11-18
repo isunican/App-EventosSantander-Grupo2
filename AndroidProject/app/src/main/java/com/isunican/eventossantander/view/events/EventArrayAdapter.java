@@ -4,7 +4,6 @@ package com.isunican.eventossantander.view.events;
     import android.app.AlertDialog;
     import android.app.Dialog;
     import android.content.Context;
-    import android.content.DialogInterface;
     import android.view.LayoutInflater;
     import android.view.View;
     import android.view.ViewGroup;
@@ -17,16 +16,11 @@ package com.isunican.eventossantander.view.events;
 
     import androidx.annotation.NonNull;
     import androidx.annotation.Nullable;
-    import androidx.core.text.HtmlCompat;
 
     import com.isunican.eventossantander.R;
     import com.isunican.eventossantander.model.Event;
     import com.isunican.eventossantander.view.EventsArrayAdapterComun;
     import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
-    import com.squareup.picasso.Picasso;
-
-    import org.apache.commons.lang3.StringUtils;
-
     import java.util.List;
 
     public class EventArrayAdapter extends ArrayAdapter<Event> {
@@ -75,10 +69,9 @@ package com.isunican.eventossantander.view.events;
 
 
             //Handler to control the addList button
-
-
             btnAddList.setOnClickListener(view1 -> {
                 int eventId = position;
+
                 //Obtengo listas de favoritos creadas
                 CharSequence[] listas = sharedPref.getLists().toArray(new CharSequence[0]);
 
