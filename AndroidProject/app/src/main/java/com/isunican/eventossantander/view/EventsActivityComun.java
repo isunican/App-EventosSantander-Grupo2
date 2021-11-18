@@ -10,8 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
 import com.google.android.material.navigation.NavigationView;
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
@@ -71,11 +69,7 @@ public interface EventsActivityComun {
         for (int i = 0; i < posi; i++) {
             View viewAux = layoutFiltroCategoria.getChildAt(i);
             if (viewAux instanceof CheckBox) {
-                if (((CheckBox) viewAux).isChecked()) {
-                    categorias.put(((CheckBox) viewAux).getText().toString(), true);
-                } else {
-                    categorias.put(((CheckBox) viewAux).getText().toString(), false);
-                }
+                categorias.put(((CheckBox) viewAux).getText().toString(), ((CheckBox) viewAux).isChecked());
             }
         }
 

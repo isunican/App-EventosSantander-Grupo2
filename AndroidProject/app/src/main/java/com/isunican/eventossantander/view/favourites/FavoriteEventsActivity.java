@@ -1,6 +1,5 @@
 package com.isunican.eventossantander.view.favourites;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,25 +11,16 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
-import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.presenter.events.Utilities;
 import com.isunican.eventossantander.presenter.favourites.FavoriteEventsPresenter;
 import com.isunican.eventossantander.view.EventsActivityComun;
-import com.isunican.eventossantander.view.events.EventsActivity;
 import com.isunican.eventossantander.view.events.OnSwipeTouchListener;
-import com.isunican.eventossantander.view.eventsdetail.EventsDetailActivity;
-import com.isunican.eventossantander.view.info.InfoActivity;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,14 +60,12 @@ public class FavoriteEventsActivity extends AppCompatActivity implements IFavori
 
 
         // Handler to show the filters for categories
-        btnFiltroCategoriaDown.setOnClickListener(view -> {
-            EventsActivityComun.filtroDown(btnFiltroCategoriaDown,btnFiltroCategoriaUp,layoutFiltroCategoria);
-        });
+        btnFiltroCategoriaDown.setOnClickListener(view ->
+            EventsActivityComun.filtroDown(btnFiltroCategoriaDown,btnFiltroCategoriaUp,layoutFiltroCategoria));
 
         // Handler to hide the filters for categories
-        btnFiltroCategoriaUp.setOnClickListener(view -> {
-            EventsActivityComun.filtroUp(btnFiltroCategoriaDown,btnFiltroCategoriaUp,layoutFiltroCategoria);
-        });
+        btnFiltroCategoriaUp.setOnClickListener(view ->
+            EventsActivityComun.filtroUp(btnFiltroCategoriaDown,btnFiltroCategoriaUp,layoutFiltroCategoria));
 
         // Handler to control the events of sliding the finger (up, down, right, left)
         listaEventos.setOnTouchListener(new OnSwipeTouchListener(FavoriteEventsActivity.this) {
