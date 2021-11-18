@@ -93,12 +93,9 @@ public class EventArrayAdapter extends ArrayAdapter<Event> {
 
 
             //Handler to control the addList button
-            btnAddList.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int eventId = position;
 
-
+            btnAddList.setOnClickListener(view1 -> {
+                int eventId = position;
                 //Obtengo listas de favoritos creadas
                 CharSequence[] listas = sharedPref.getLists().toArray(new CharSequence[0]);
 
@@ -106,39 +103,39 @@ public class EventArrayAdapter extends ArrayAdapter<Event> {
                 //Creo popup con las listas obtenidas
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Escoge una lista para añadir el evento");
-                builder.setItems(listas, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        String listaEscogida = listas[i].toString();
-                        if(presenter.onAddEventClicked(eventId,sharedPref,listaEscogida)){
-                            Toast.makeText(getContext(),"Se ha añadido un evento a la lista " + listaEscogida,Toast.LENGTH_LONG).show();
-                        }
+
+                builder.setItems(listas, (dialogInterface, i) -> {
+                    String listaEscogida = listas[i].toString();
+                    if(presenter.onAddEventClicked(eventId,sharedPref,listaEscogida)){
+                        Toast.makeText(getContext(),"Se ha añadido un evento a la lista " + listaEscogida,Toast.LENGTH_LONG).show();
                     }
                 });
-                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                });
+                builder.setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.cancel());
                 Dialog dialog = builder.create();
                 dialog.show();
-            }
-        });
+            });
 
+            // Handler to control the favourite button
+            btnEventFav.setOnClickListener(view12 -> {
+                int eventId = position;
 
-        // Handler to control the favourite button
-        btnEventFav.setOnClickListener(view1 -> {
+                if (!favorito) {
+                    presenter.onFavouriteClicked(eventId, favorito, sharedPref);
+                    btnEventFav.setImageResource(R.drawable.ic_baseline_star_24);
+                    btnEventFav.setTag(R.drawable.ic_baseline_star_24);
+
+                } else {
+                    // No implementado
+                }
+            });
 
             if (!favorito) {
                 presenter.onFavouriteClicked(position, favorito, sharedPref);
                 btnEventFav.setImageResource(R.drawable.ic_baseline_star_24);
                 btnEventFav.setTag(R.drawable.ic_baseline_star_24);
 
-            } else {
-                // TODO
             }
-        });
+
         return view;
     }
 
