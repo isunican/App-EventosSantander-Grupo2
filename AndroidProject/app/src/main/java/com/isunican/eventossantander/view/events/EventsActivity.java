@@ -23,15 +23,14 @@ import com.google.android.material.navigation.NavigationView;
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.presenter.events.EventsPresenter;
-import com.isunican.eventossantander.presenter.events.Options;
 import com.isunican.eventossantander.presenter.events.Utilities;
+import com.isunican.eventossantander.view.EventsActivityComun;
 import com.isunican.eventossantander.view.eventsdetail.EventsDetailActivity;
 import com.isunican.eventossantander.view.favourites.FavoriteEventsActivity;
 import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
 import com.isunican.eventossantander.view.info.InfoActivity;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,27 +61,18 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         isFilterMenuVisible = false;
 
         //Map to store the categories filtered
-        Map<String, Boolean> categorias = new HashMap<>();
-        int pos = layoutFiltroCategoria.getChildCount();
-        for (int i = 0; i < pos; i++) {
-            View viewAux = layoutFiltroCategoria.getChildAt(i);
+        Map<String, Boolean> categorias = EventsActivityComun.categorias(layoutFiltroCategoria);
 
-            categorias.put(((CheckBox) viewAux).getText().toString(), false);
-        }
 
 
         // Handler to show the filters for categories
         btnFiltroCategoriaDown.setOnClickListener(view -> {
-            btnFiltroCategoriaDown.setVisibility(View.GONE);
-            btnFiltroCategoriaUp.setVisibility(View.VISIBLE);
-            layoutFiltroCategoria.setVisibility(View.VISIBLE);
+            EventsActivityComun.filtroDown(btnFiltroCategoriaDown,btnFiltroCategoriaUp,layoutFiltroCategoria);
         });
 
         // Handler to hide the filters for categories
         btnFiltroCategoriaUp.setOnClickListener(view -> {
-            btnFiltroCategoriaDown.setVisibility(View.VISIBLE);
-            btnFiltroCategoriaUp.setVisibility(View.GONE);
-            layoutFiltroCategoria.setVisibility(View.GONE);
+            EventsActivityComun.filtroUp(btnFiltroCategoriaDown,btnFiltroCategoriaUp,layoutFiltroCategoria);
         });
 
         // Handler to control the events of sliding the finger (up, down, right, left)
@@ -103,40 +93,14 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         btnAplicarFiltroOrden.setOnClickListener(view -> {
             RadioButton rbOrdenarLejana = findViewById(R.id.rbOrdenarLejana);
             CheckBox checkBoxSinFecha = findViewById(R.id.checkBoxSinFecha);
-
-            int posi = layoutFiltroCategoria.getChildCount();
-            for (int i = 0; i < posi; i++) {
-                View viewAux = layoutFiltroCategoria.getChildAt(i);
-                if (viewAux instanceof CheckBox) {
-                    categorias.put(((CheckBox) viewAux).getText().toString(), ((CheckBox) viewAux).isChecked());
-                }
-            }
-
-            // Check order type selected
-             Utilities.OrderType orderType = Utilities.OrderType.DATE_ASC;   // 'Show events closer to current date' selected by default
-            if (rbOrdenarLejana.isChecked()) {
-                 orderType = Utilities.OrderType.DATE_DESC;    // Further away from current date
-            }
-            boolean isDateFirst = false;    // Events without a date are shown last by default
-            if (!checkBoxSinFecha.isChecked()) {
-                isDateFirst = true;                                 // Events without date first
-            }
-
-            // Apply the filters & order selected
-             presenter.onApplyOptions(new Options(categorias, orderType, isDateFirst));
-            menuFiltros.setVisibility(View.GONE);   // Closes the menu
+            EventsActivityComun.manageFiltrosOrder(layoutFiltroCategoria,categorias,rbOrdenarLejana,checkBoxSinFecha,
+                    presenter,null,menuFiltros);
 
         });
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            if(item.getItemId() == R.id.inicioActivity){
-                Intent intent1 = new Intent(this, EventsActivity.class);
-                startActivity(intent1);
-            }else if (item.getItemId() == R.id.favoritosActivity){
-                Intent intent2 = new Intent(this, FavoriteEventsActivity.class);
-                startActivity(intent2);
-            }
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            EventsActivityComun.nuevaActivity(item, this);
             return false;
 
         });
@@ -160,21 +124,17 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
 
     @Override
     public void onLoadSuccess(int elementsLoaded) {
-        String text = String.format("Loaded %d events", elementsLoaded);
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        EventsActivityComun.onLoadSucces(this, elementsLoaded);
     }
 
     @Override
     public void openEventDetails(Event event) {
-        Intent intent = new Intent(this, EventsDetailActivity.class);
-        intent.putExtra(EventsDetailActivity.INTENT_EVENT, event);
-        startActivity(intent);
+        EventsActivityComun.openEventDetails(event,this);
     }
 
     @Override
     public void openInfoView() {
-        Intent intent = new Intent(this, InfoActivity.class);
-        startActivity(intent);
+        EventsActivityComun.openInfoView(this);
     }
 
     @Override
