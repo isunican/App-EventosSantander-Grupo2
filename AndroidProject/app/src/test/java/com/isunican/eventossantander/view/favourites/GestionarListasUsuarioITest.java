@@ -1,13 +1,9 @@
     package com.isunican.eventossantander.view.favourites;
 
-    import static org.mockito.Mockito.verify;
-
     import android.content.Context;
     import android.os.Build;
 
     import androidx.test.core.app.ApplicationProvider;
-
-    import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 
     import org.junit.After;
     import org.junit.Assert;

@@ -4,8 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import android.os.Build;
 
-import com.isunican.eventossantander.presenter.events.Options;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;

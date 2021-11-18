@@ -2,12 +2,9 @@ package com.isunican.eventossantander;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
-
-import static java.lang.Thread.sleep;
 import static org.mockito.Mockito.when;
 
 import android.os.Build;
-
 
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;

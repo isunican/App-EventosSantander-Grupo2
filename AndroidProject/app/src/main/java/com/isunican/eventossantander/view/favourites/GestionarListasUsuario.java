@@ -87,8 +87,8 @@ public class GestionarListasUsuario implements IGestionarListasUsuario {
 
     @Override
     public boolean isFavourite(int eventId) {
-        sharedPref = context.getSharedPreferences(FAVORITOS, Context.MODE_PRIVATE);
         boolean result = false;
+        idFavouriteEvents = getFavourites();
         if (idFavouriteEvents != null) {
             result = idFavouriteEvents.contains(String.valueOf(eventId));
         }

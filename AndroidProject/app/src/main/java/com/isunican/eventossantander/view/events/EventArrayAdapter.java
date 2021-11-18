@@ -1,28 +1,28 @@
     package com.isunican.eventossantander.view.events;
 
     import android.annotation.SuppressLint;
-        import android.content.Context;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.ArrayAdapter;
-        import android.widget.ImageButton;
-        import android.widget.ImageView;
-        import android.widget.LinearLayout;
-        import android.widget.TextView;
+    import android.content.Context;
+    import android.view.LayoutInflater;
+    import android.view.View;
+    import android.view.ViewGroup;
+    import android.widget.ArrayAdapter;
+    import android.widget.ImageButton;
+    import android.widget.ImageView;
+    import android.widget.LinearLayout;
+    import android.widget.TextView;
 
-        import androidx.annotation.NonNull;
-        import androidx.annotation.Nullable;
-        import androidx.core.text.HtmlCompat;
+    import androidx.annotation.NonNull;
+    import androidx.annotation.Nullable;
+    import androidx.core.text.HtmlCompat;
 
-        import com.isunican.eventossantander.R;
-        import com.isunican.eventossantander.model.Event;
-        import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
-        import com.squareup.picasso.Picasso;
+    import com.isunican.eventossantander.R;
+    import com.isunican.eventossantander.model.Event;
+    import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
+    import com.squareup.picasso.Picasso;
 
-        import org.apache.commons.lang3.StringUtils;
+    import org.apache.commons.lang3.StringUtils;
 
-        import java.util.List;
+    import java.util.List;
 
     public class EventArrayAdapter extends ArrayAdapter<Event> {
 

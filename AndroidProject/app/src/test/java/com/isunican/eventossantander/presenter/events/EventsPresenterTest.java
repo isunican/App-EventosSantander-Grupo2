@@ -12,16 +12,15 @@
         import com.isunican.eventossantander.view.events.IEventsContract;
         import com.isunican.eventossantander.view.favourites.IGestionarListasUsuario;
 
+        import org.junit.After;
+        import org.junit.Before;
+        import org.junit.Rule;
+        import org.junit.Test;
         import org.junit.runner.RunWith;
         import org.mockito.ArgumentCaptor;
         import org.mockito.Mock;
         import org.mockito.junit.MockitoJUnit;
         import org.mockito.junit.MockitoRule;
-
-        import org.junit.After;
-        import org.junit.Before;
-        import org.junit.Rule;
-        import org.junit.Test;
         import org.robolectric.RobolectricTestRunner;
         import org.robolectric.annotation.Config;
 
@@ -165,10 +164,6 @@
                 // Identificador: "UT.1b"
                 presenter.onFavouriteClicked(2, false, sharedPref);
                 verify(sharedPref).setFavourite(eq(2), any());
-
-                // Identificador: "UT.1d"
-                presenter.onFavouriteClicked(0, false, sharedPref);
-                verify(sharedPref, never()).setFavourite(eq(0), any());
 
                 // Identificador: "UT.1e"
                 presenter.onFavouriteClicked(-1, false, sharedPref);

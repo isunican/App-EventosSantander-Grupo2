@@ -1,18 +1,13 @@
 package com.isunican.eventossantander.view.events;
 
-import static java.lang.Thread.sleep;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withTagValue;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
-
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.equalTo;
 
 import android.content.Context;
@@ -22,7 +17,6 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-
 
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.EventsRepository;
