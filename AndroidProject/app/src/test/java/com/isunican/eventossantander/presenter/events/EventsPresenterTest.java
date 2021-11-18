@@ -720,10 +720,6 @@ public class EventsPresenterTest {
         presenter.onFavouriteClicked(2, false, sharedPref);
         verify(sharedPref).setFavourite(eq(2), any());
 
-        // Identificador: "UT.1d"
-        presenter.onFavouriteClicked(0, false, sharedPref);
-        verify(sharedPref, never()).setFavourite(eq(0), any());
-
         // Identificador: "UT.1e"
         presenter.onFavouriteClicked(-1, false, sharedPref);
         verify(sharedPref, never()).setFavourite(eq(-1), any());

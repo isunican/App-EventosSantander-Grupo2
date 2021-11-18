@@ -18,12 +18,10 @@ import static java.lang.Thread.sleep;
 import android.content.Context;
 import android.view.View;
 
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.IdlingRegistry;
-import androidx.test.espresso.NoMatchingViewException;
-import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.EventsRepository;
@@ -32,7 +30,6 @@ import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -98,7 +95,7 @@ public class AnhadirEventoAListaUITest {
 
         // Identificador: "UIT1.a"
         // Se crea una lista
-        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getContext());
+        openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         onView(withText(R.string.crear_lista)).perform(click());
         onView(withTagValue(equalTo("InputDialog"))).perform(typeText("Lista1"));
         onView(withText("Aceptar")).perform(click());

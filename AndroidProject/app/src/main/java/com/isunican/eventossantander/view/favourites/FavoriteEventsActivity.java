@@ -30,7 +30,6 @@ import com.isunican.eventossantander.view.events.OnSwipeTouchListener;
 import com.isunican.eventossantander.view.eventsdetail.EventsDetailActivity;
 import com.isunican.eventossantander.view.info.InfoActivity;
 
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

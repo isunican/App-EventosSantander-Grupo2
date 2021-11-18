@@ -140,7 +140,7 @@ public class EventsPresenter implements IEventsContract.Presenter {
 
     @Override
     public void onFavouriteClicked(int eventIndex, Boolean isClicked, IGestionarListasUsuario sharedPref) {
-         if(eventIndex > 0 && eventIndex <= cachedEvents.size() && !isClicked) {
+         if(eventIndex >= 0 && eventIndex < cachedEvents.size() && !isClicked) {
                  sharedPref.setFavourite(eventIndex, cachedEvents);
          }
     }
