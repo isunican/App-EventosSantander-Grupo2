@@ -16,6 +16,7 @@ import androidx.core.text.HtmlCompat;
 
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
+import com.isunican.eventossantander.view.EventsArrayAdapterComun;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringUtils;
@@ -64,61 +65,13 @@ public class FavoriteEventsArrayAdapter extends ArrayAdapter<Event> {
         });
 
         // Coloco la imagen correspondiente dependiendo de si el evento estaba marcado como favorito o no
-        boolean favorito = sharedPref.isFavourite(id);
+        EventsArrayAdapterComun.setImageFav(btnEventFav,sharedPref.isFavourite(id));
 
-        if (favorito) {
-            btnEventFav.setImageResource(R.drawable.ic_baseline_star_24);
-            btnEventFav.setTag(R.drawable.ic_baseline_star_24);
-        } else {
-            btnEventFav.setImageResource(R.drawable.ic_baseline_star_border_24);
-            btnEventFav.setTag(R.drawable.ic_baseline_star_border_24);
-        }
 
-        // Assign values to TextViews
-        titleTxt.setText(event.getNombre());
-        categoriaTxt.setText(event.getCategoria());
-        dateTxt.setText(event.getFecha());
+        EventsArrayAdapterComun.assingData(titleTxt,categoriaTxt,dateTxt,iconTxt,imageTxt,event,getContext());
 
-        // Assign values to TextViews
-        titleTxt.setText(event.getNombre());
-        dateTxt.setText(event.getFecha());
-
-        // Assign image
-        if (HtmlCompat.fromHtml(event.getNombre(), HtmlCompat.FROM_HTML_MODE_LEGACY).toString().isEmpty()) {
-            imageTxt.setVisibility(View.GONE);
-            iconTxt.setImageResource(getImageIdForEvent(event));
-        }
-        else{
-            iconTxt.setVisibility(View.GONE);
-            Picasso.get().load(event.getImagen()).into(imageTxt);
-        }
         return view;
     }
 
-    /**
-     * Determines the image resource id that must be used as the icon for a given event.
-     * @param event The event the image must be used for
-     * @return the image resource id for the event
-     */
-    private int getImageIdForEvent(Event event) {
-        int id = getContext().getResources().getIdentifier(
-                getNormalizedCategory(event),
-                "drawable",
-                getContext().getPackageName());
 
-        // fallback image in case of unrecognized category
-        if (id == 0) {
-            id = getContext().getResources().getIdentifier(
-                    "otros",
-                    "drawable",
-                    getContext().getPackageName());
-        }
-        return id;
-    }
-
-    private static String getNormalizedCategory(Event event) {
-        return StringUtils.deleteWhitespace(
-                StringUtils.stripAccents(event.getCategoria()))
-                .toLowerCase();
-    }
 }
