@@ -9,6 +9,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.IsAnything.anything;
 
+import android.content.Context;
+import android.view.View;
+
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -32,10 +35,16 @@ public class FavEventsUITest {
 
     private static final String TITLE = "Museo virtual \"Luis Quintanilla, arte y memoria\"";
     private static final String DATE = "Sábado 31/07/2021, todo el día. ";
-    private  final String CATEGORY = "Online";
+    private final String CATEGORY = "Online";
 
     private List<Event> favEvents;
     private Event e1;
+
+    @Rule
+    public ActivityScenarioRule<EventsActivity> activityRule = new ActivityScenarioRule(EventsActivity.class);
+
+    private Context context;
+    private View decorView;
 
     @BeforeClass
     public static void setUp() {
@@ -45,6 +54,13 @@ public class FavEventsUITest {
 
     @Before
     public void setup() {
+        activityRule.getScenario().onActivity(
+                activity -> {
+                    decorView = activity.getWindow().getDecorView();
+                    context = activity;
+                });
+        GestionarListasUsuario.cleanSetPreferences(context); //Limpio las setPreferences antes del test
+
         favEvents = new ArrayList<>();
         e1 = new Event();
         e1.setNombre("En busca de vida en Marte: nuevas misiones y nuevos retos ");
@@ -59,9 +75,6 @@ public class FavEventsUITest {
         EventsRepository.setOnlineSource();
         IdlingRegistry.getInstance().unregister(EventsRepository.getIdlingResource());
     }
-
-    @Rule
-    public ActivityScenarioRule<EventsActivity> activityRule = new ActivityScenarioRule(EventsActivity.class);
 
 
     /**
