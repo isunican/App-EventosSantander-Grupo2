@@ -21,7 +21,6 @@ import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.view.events.EventsActivity;
-import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 
 import org.junit.AfterClass;
 import org.junit.Before;
