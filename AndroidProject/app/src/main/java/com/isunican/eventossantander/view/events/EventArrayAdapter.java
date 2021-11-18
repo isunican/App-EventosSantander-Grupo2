@@ -129,13 +129,6 @@ public class EventArrayAdapter extends ArrayAdapter<Event> {
                 }
             });
 
-            if (!favorito) {
-                presenter.onFavouriteClicked(position, favorito, sharedPref);
-                btnEventFav.setImageResource(R.drawable.ic_baseline_star_24);
-                btnEventFav.setTag(R.drawable.ic_baseline_star_24);
-
-            }
-
         return view;
     }
 
