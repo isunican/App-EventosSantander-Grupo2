@@ -27,8 +27,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class FavEventsUITest {
@@ -47,7 +45,7 @@ public class FavEventsUITest {
     private View decorView;
 
     @BeforeClass
-    public static void setUp() {
+    public static void setUp2() {
         EventsRepository.setLocalSource();
         IdlingRegistry.getInstance().register(EventsRepository.getIdlingResource());
     }
@@ -60,15 +58,6 @@ public class FavEventsUITest {
                     context = activity;
                 });
         GestionarListasUsuario.cleanSetPreferences(context); //Limpio las setPreferences antes del test
-
-        favEvents = new ArrayList<>();
-        e1 = new Event();
-        e1.setNombre("En busca de vida en Marte: nuevas misiones y nuevos retos ");
-        e1.setFecha("Miércoles 08/09/2021, a las 19:00h. ");
-        e1.setCategoria("Online");
-
-        favEvents.add(e1);
-
     }
 
     @AfterClass
@@ -95,6 +84,7 @@ public class FavEventsUITest {
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.item_event_date)).check(matches(withText(DATE)));
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.item_event_categoria)).check(matches(withText(CATEGORY)));
 
+        GestionarListasUsuario.cleanSetPreferences(context); //Limpio las setPreferences
     }
 
 
