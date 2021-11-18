@@ -24,8 +24,8 @@
 
     public class GestionarListasUsuarioTest {
 
-        private List<Event> events;
         private GestionarListasUsuario gestionarListas;
+        private List<Event> events;
         private String nombreLista;
 
         @Mock
