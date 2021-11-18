@@ -10,6 +10,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.IsAnything.anything;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.espresso.IdlingRegistry;
@@ -33,10 +34,15 @@ import java.util.List;
 
 public class FavEventsUITest {
 
+    @Rule
+    public ActivityScenarioRule<EventsActivity> activityRule = new ActivityScenarioRule(EventsActivity.class);
+
     private static final String TITLE = "Museo virtual \"Luis Quintanilla, arte y memoria\"";
     private static final String DATE = "Sábado 31/07/2021, todo el día. ";
     private  final String CATEGORY = "Online";
+    private final String FAVORITOS = "favourites";
 
+    private Context context;
     private List<Event> favEvents;
     private Event e1;
 
@@ -48,6 +54,11 @@ public class FavEventsUITest {
 
     @Before
     public void setup() {
+        activityRule.getScenario().onActivity(
+                activity -> {
+                    context = activity;
+                });
+
         favEvents = new ArrayList<>();
         e1 = new Event();
         e1.setNombre("En busca de vida en Marte: nuevas misiones y nuevos retos ");
@@ -56,6 +67,10 @@ public class FavEventsUITest {
 
         favEvents.add(e1);
 
+        SharedPreferences sharedPref = context.getSharedPreferences(FAVORITOS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPref.edit();
+        edit.clear();
+        edit.commit();
     }
 
     @AfterClass
@@ -63,10 +78,6 @@ public class FavEventsUITest {
         EventsRepository.setOnlineSource();
         IdlingRegistry.getInstance().unregister(EventsRepository.getIdlingResource());
     }
-
-    @Rule
-    public ActivityScenarioRule<EventsActivity> activityRule = new ActivityScenarioRule(EventsActivity.class);
-
 
     /**
      * Historia de usuario: Añadir boton menu.
