@@ -14,12 +14,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public abstract class PresenterComun implements IEventsContract.Presenter{
-
-
-    private PresenterComun(){
-        throw new IllegalStateException("Utility class");
-    }
+public interface PresenterComun extends IEventsContract.Presenter {
 
     /**
      * Filter the events by the selected categories

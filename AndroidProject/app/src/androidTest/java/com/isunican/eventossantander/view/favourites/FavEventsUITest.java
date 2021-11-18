@@ -1,4 +1,4 @@
-package com.isunican.eventossantander.favourites;
+package com.isunican.eventossantander.view.favourites;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;

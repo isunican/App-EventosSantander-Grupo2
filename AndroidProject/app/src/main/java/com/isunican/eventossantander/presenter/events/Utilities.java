@@ -4,7 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -109,10 +110,14 @@ public class Utilities {
      * @return the dialog created
      */
     public static boolean isConnected(Context context) {
+        Boolean connected = false;
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-
-        return (networkInfo != null && networkInfo.isConnected());
+        Network nw = connectivityManager.getActiveNetwork();
+        NetworkCapabilities actNw = connectivityManager.getNetworkCapabilities(nw);
+        if (nw != null && (actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI))) {
+            connected = true;
+        }
+        return connected;
     }
 
     public static Dialog getDialog() {
