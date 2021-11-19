@@ -10,11 +10,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.IsAnything.anything;
 
 import android.content.Context;
-<<<<<<< HEAD
 import android.content.SharedPreferences;
-=======
-import android.view.View;
->>>>>>> b52fe58fca3be746d617c64799f3c85ea52fd9ac
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.espresso.IdlingRegistry;
@@ -25,7 +21,6 @@ import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.Event;
 import com.isunican.eventossantander.model.EventsRepository;
 import com.isunican.eventossantander.view.events.EventsActivity;
-import com.isunican.eventossantander.view.favourites.GestionarListasUsuario;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -49,11 +44,9 @@ public class FavEventsUITest {
     private Context context;
     private List<Event> favEvents;
     private Event e1;
-    private Context context;
-    private View decorView;
 
     @BeforeClass
-    public static void setUp2() {
+    public static void setUp() {
         EventsRepository.setLocalSource();
         IdlingRegistry.getInstance().register(EventsRepository.getIdlingResource());
     }
@@ -62,7 +55,6 @@ public class FavEventsUITest {
     public void setup() {
         activityRule.getScenario().onActivity(
                 activity -> {
-<<<<<<< HEAD
                     context = activity;
                 });
 
@@ -73,12 +65,6 @@ public class FavEventsUITest {
         e1.setCategoria("Online");
 
         favEvents.add(e1);
-=======
-                    decorView = activity.getWindow().getDecorView();
-                    context = activity;
-                });
-        GestionarListasUsuario.cleanSetPreferences(context);
->>>>>>> b52fe58fca3be746d617c64799f3c85ea52fd9ac
 
         SharedPreferences sharedPref = context.getSharedPreferences(FAVORITOS, Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = sharedPref.edit();
@@ -92,11 +78,6 @@ public class FavEventsUITest {
         IdlingRegistry.getInstance().unregister(EventsRepository.getIdlingResource());
     }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> b52fe58fca3be746d617c64799f3c85ea52fd9ac
     /**
      * Historia de usuario: Añadir boton menu.
      * Identificador: "UIT.1"

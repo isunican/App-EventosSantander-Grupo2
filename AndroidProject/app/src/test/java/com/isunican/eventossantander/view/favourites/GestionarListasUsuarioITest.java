@@ -59,5 +59,9 @@
             // Identificador: "IT.2c"
             nombreLista = gestionarListas.createList("");
             Assert.assertEquals("", nombreLista);
+
+            // Identificador: "IT.2d"
+            nombreLista = gestionarListas.createList(null);
+            Assert.assertEquals(null, nombreLista);
         }
     }
