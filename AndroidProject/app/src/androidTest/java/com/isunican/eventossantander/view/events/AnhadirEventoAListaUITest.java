@@ -104,11 +104,7 @@ public class AnhadirEventoAListaUITest {
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.btn_add_list_event)).perform(click());
         // Seleccionar la primera lista que exista
         onView(withText("Lista1")).perform(click());
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         // Comprobar que se muestra el mensaje al usuario
         onView(withText("Se ha añadido un evento a la lista Lista1")).inRoot(RootMatchers.withDecorView(CoreMatchers.not(decorView))).check(matches(isDisplayed()));
 
@@ -117,11 +113,7 @@ public class AnhadirEventoAListaUITest {
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.btn_add_list_event)).perform(click());
         // Seleccionar la primera lista que exista
         onView(withText("Lista1")).perform(click());
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         // Comprobar que se muestra el mensaje al usuario
         onView(withText("El evento seleccionado ya está en la lista")).inRoot(RootMatchers.withDecorView(CoreMatchers.not(decorView))).check(matches(isDisplayed()));
     }

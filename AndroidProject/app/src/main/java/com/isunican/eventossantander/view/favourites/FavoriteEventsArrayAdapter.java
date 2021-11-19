@@ -54,12 +54,7 @@ public class FavoriteEventsArrayAdapter extends ArrayAdapter<Event> {
         LinearLayout container = view.findViewById(R.id.list_item_container);
         container.setOnClickListener(view1 -> presenter.onEventClicked(position));
         btnAddEventList.setVisibility(View.GONE);
-        container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.onEventClicked(position);
-            }
-        });
+        container.setOnClickListener(view12 -> presenter.onEventClicked(position));
 
         // Coloco la imagen correspondiente dependiendo de si el evento estaba marcado como favorito o no
         EventsArrayAdapterComun.setImageFav(btnEventFav,sharedPref.isFavourite(id));

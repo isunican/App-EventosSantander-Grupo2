@@ -27,9 +27,6 @@ import java.util.Map;
 
 public interface EventsActivityComun {
 
-
-
-
     public static void openInfoView( Context c) {
         Intent intent = new Intent(c, InfoActivity.class);
         c.startActivity(intent);
@@ -47,18 +44,13 @@ public interface EventsActivityComun {
     }
 
     public static void nuevaActivity(MenuItem item, Context c){
-        switch (item.getItemId()) {
-            case R.id.inicioActivity:
-                Intent intent1 = new Intent(c, EventsActivity.class);
-                c.startActivity(intent1);
-                break;
-
-            case R.id.favoritosActivity:
+        if (item.getItemId() == R.id.inicioActivity) {
+            Intent intent1 = new Intent(c, EventsActivity.class);
+            c.startActivity(intent1);
+        }
+        else if (item.getItemId() == R.id.favoritosActivity) {
                 Intent intent2 = new Intent(c, FavoriteEventsActivity.class);
                 c.startActivity(intent2);
-
-
-                break;
         }
     }
 
