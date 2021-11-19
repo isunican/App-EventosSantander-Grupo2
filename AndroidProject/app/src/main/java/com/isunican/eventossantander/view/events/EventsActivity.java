@@ -95,7 +95,7 @@ public class EventsActivity extends AppCompatActivity implements IEventsContract
         });
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+        bottomNavigationView.setOnItemSelectedListener(item -> {
             EventsActivityComun.nuevaActivity(item, this);
             return false;
 
