@@ -136,5 +136,9 @@ public class GestionarListasUsuarioTest {
         // Identificador: "UT.2c"
         nombreLista = gestionarListas.createList("");
         Assert.assertEquals("", nombreLista);
+
+        // Identificador: "UT.2d"
+        nombreLista = gestionarListas.createList(null);
+        Assert.assertEquals(null, nombreLista);
     }
 }
