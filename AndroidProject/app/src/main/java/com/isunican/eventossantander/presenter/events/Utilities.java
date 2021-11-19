@@ -51,6 +51,7 @@ public class Utilities {
                     //Not implemented
                 });
         }
+        
         // Create the AlertDialog object and return it
         dialogo = builder.create();
         return builder.create();
