@@ -13,6 +13,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class Event implements Parcelable {
 
     @SerializedName(value = "dc:identifier") private int identificador;
@@ -189,5 +191,35 @@ public class Event implements Parcelable {
             return new Event[size];
         }
     };
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        Event e = (Event) o;
+        return Objects.equals(this.identificador, e.identificador) &&
+                Objects.equals(this.nombre, e.nombre) &&
+                Objects.equals(this.nombreAlternativo, e.nombreAlternativo) &&
+                Objects.equals(this.categoria, e.categoria) &&
+                Objects.equals(this.descripcion, e.descripcion) &&
+                Objects.equals(this.descripcionAlternativa, e.descripcionAlternativa) &&
+                Objects.equals(this.fecha, e.fecha) &&
+                Objects.equals(this.longitud, e.longitud) &&
+                Objects.equals(this.latitud, e.latitud) &&
+                Objects.equals(this.enlace, e.enlace) &&
+                Objects.equals(this.enlaceAlternativo, e.enlaceAlternativo) &&
+                Objects.equals(this.imagen, e.imagen);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(identificador, nombre, nombreAlternativo, categoria, descripcion,
+                descripcionAlternativa, fecha, longitud, latitud, enlace, enlaceAlternativo, imagen);
+    }
 
 }

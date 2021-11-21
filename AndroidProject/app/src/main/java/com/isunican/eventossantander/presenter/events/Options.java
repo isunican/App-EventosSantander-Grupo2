@@ -2,8 +2,6 @@ package com.isunican.eventossantander.presenter.events;
 
 import java.util.Map;
 
-import okhttp3.internal.Util;
-
 public class Options {
     private boolean orderChecked = false;
     private boolean filtersChecked = false;

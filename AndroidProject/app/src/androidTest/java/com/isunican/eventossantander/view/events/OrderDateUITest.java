@@ -3,20 +3,16 @@ package com.isunican.eventossantander.view.events;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.swipeRight;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.anything;
-import static java.lang.Thread.sleep;
 
 import androidx.test.espresso.IdlingRegistry;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import com.isunican.eventossantander.R;
 import com.isunican.eventossantander.model.EventsRepository;
-import com.isunican.eventossantander.view.events.EventsActivity;
 
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -43,12 +39,9 @@ public class OrderDateUITest {
     @Test
     public void orderAscTest() throws InterruptedException {
         onView(withId(R.id.filter_menu)).perform(click());
-        //onView(ViewMatchers.withId(R.id.eventsListView)).perform(swipeRight());
-        onView(withId(R.id.rbOrdenarProxima)).perform(click()); //Checked by default in this version, so not really needed but this might change in the future
-        sleep(2000);
+        onView(withId(R.id.rbOrdenarProxima)).perform(click()); //Checked by default in this version, so not really needed but this might change in the futur
 		onView(withId(R.id.btnAplicarFiltroOrden)).perform(click());
         //Check the order was applied by checking the first three events in the list
-		sleep(2000);
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.item_event_title)).check(matches(withText(TITLE)));
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(0).onChildView(withId(R.id.item_event_date)).check(matches(withText(DATE)));
         onData(anything()).inAdapterView(withId(R.id.eventsListView)).atPosition(1).onChildView(withId(R.id.item_event_title)).check(matches(withText(TITLE_2)));

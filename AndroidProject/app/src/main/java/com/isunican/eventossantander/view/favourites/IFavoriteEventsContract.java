@@ -46,7 +46,7 @@ public interface IFavoriteEventsContract {
 
         void onConnectionError();
 
-        IGestionarFavoritos getSharedPref();
+        IGestionarListasUsuario getSharedPref();
 
         void showEmptyListMessage();
     }
